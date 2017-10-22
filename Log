@@ -1,0 +1,10 @@
+10/22/2017 12:23 : Created Patient Homescreen
+  Process:
+    Used 'reactive-native-elements' to create buttons and header
+    documentation can be viewed at https://react-native-training.github.io/react-native-elements/
+  Need to fix:
+    Buttons should include pictures detailing each button's functionality
+    Buttons should look nicer
+    Did not follow specific header detailed in Balsamiq, can change if needed
+    Currently Patient homescreen is hosted in the front of the app, will need to destructure and place screen in own file
+  
