@@ -7,4 +7,14 @@
     Buttons should look nicer
     Did not follow specific header detailed in Balsamiq, can change if needed
     Currently Patient homescreen is hosted in the front of the app, will need to destructure and place screen in own file
-  
+
+11/3/2017 0936: Deprecated Patient Home Screen and Implemented Stack Navigation
+  Process:
+    Used 'react-navigation' to create Stack
+    documentation can be viewed at 'https://reactnavigation.org'
+    Moved Patient Homescreen to separate file
+  Need to fix:
+    Clean code in App.js
+    Redo the headers, currently there are two headers in the patient homescreen
+    Need to create button component to put in Header for navigation
+    

@@ -16,17 +16,22 @@ import {
   Header,
   Button
 } from 'react-native-elements';
+import { StackNavigator } from 'react-navigation';
 import vhlHome from './src/components/vhlHome';
+import patientHome from './src/components/patientHome';
+
 //import { Header } from './src/components/Header'
-
-
+const App = StackNavigator({
+    patientHome: { screen: patientHome },
+});
+/*
 export default class App extends Component<{}> {
   render() {
     return (
       /*<WebView
         source={{ uri: 'https://www.vhl.org' }}
         style={{ marginTop: 20 }}
-      />*/
+      />
       <View style={{ flex: 1 }}>
         <View style={{ flex: 1 }} >
           <Header
@@ -82,7 +87,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5FCFF',
   },
   welcome: {
-    fontSize: 22,
+    fontSize: 20,
     textAlign: 'center',
     margin: 10,
   },
@@ -98,3 +103,5 @@ const styles = StyleSheet.create({
 
   }
 });
+*/
+export default App;
