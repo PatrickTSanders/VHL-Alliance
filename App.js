@@ -24,7 +24,12 @@ import patientHome from './src/components/PatientScreen/patientHome';
 
 
 const App = TabNavigator({
-  VHL: { screen: vhlHome },
+  VHL: {
+    screen: vhlHome,
+    navigationOptions: ({ navigation }) => ({
+      title: 'VHL',
+    }),
+   },
   Patient: { screen: patientHome }
 });
 

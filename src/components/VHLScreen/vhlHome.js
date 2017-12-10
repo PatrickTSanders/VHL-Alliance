@@ -12,24 +12,16 @@ import {
 } from 'react-native-elements';
 import { StackNavigator } from 'react-navigation';
 import Databank from './Databank';
-
+import CareCenter from './CareCenter';
+import NewsEvents from './NewsEvents';
+import Research from './Research'
 
 const MainVHL= ({ navigation }) => (
-  <VHLHome navigation={navigation} />
+  <VHLHome navigation={navigation} title={'VHL'} />
 );
 
 const VHLHome = ({ navigation }) => (
   <View style={{ flex: 1 }}>
-    <View style={{ flex: 1 }} >
-      <Header
-          statusBarProps={{ barStyle: 'light-content' }}
-          leftComponent={{ icon: 'menu', color: '#0B92D1' }}
-          centerComponent={{ text: 'VHL Homepage', style: { color: '#fff' } }}
-          rightComponent={{ icon: 'home', color: '#fff' }}
-          outerContainerStyles={{ backgroundColor: '#3D6DCC' }}
-
-      />
-    </View>
 
     <View style={{ flex: 8 }} >
       <View style={{ flexDirection: 'row' }}>
@@ -37,7 +29,7 @@ const VHLHome = ({ navigation }) => (
           title='Care Center'
           containerViewStyle={styles.button}
           iconRight={{ type: 'font-awesome' }}
-          //onPress ={()=> navigate('patientHome')}
+          onPress={() => navigation.navigate('CareCenter')}
         />
         <Button
           title='Databank'
@@ -59,86 +51,63 @@ const VHLHome = ({ navigation }) => (
           title='News/Events'
           containerViewStyle={styles.button}
           iconRight={{ type: 'font-awesome' }}
+          onPress={() => navigation.navigate('NewsEvents')}
         />
-        <Button title='Research' containerViewStyle={styles.button} />
+        <Button
+          title='Research'
+          containerViewStyle={styles.button}
+          onPress={() => navigation.navigate('Research')}
+        />
       </View>
 
     </View>
 
   </View>
 );
-/*
-class vhlHome extends Component {
-  static navigationOptions = {
-    headerTitle: 'VHL Homepage'
-  }
-  render() {
-    const { navigate } = this.props.navigation;
 
-      return (
-        /*<WebView
-          source={{ uri: 'https://www.vhl.org' }}
-          style={{ marginTop: 20 }}
-        />
-        <View style={{ flex: 1 }}>
-          <View style={{ flex: 1 }} >
-            <Header
-                statusBarProps={{ barStyle: 'light-content' }}
-                leftComponent={{ icon: 'menu', color: '#0B92D1' }}
-                centerComponent={{ text: 'VHL Homepage', style: { color: '#fff' } }}
-                rightComponent={{ icon: 'home', color: '#fff' }}
-                outerContainerStyles={{ backgroundColor: '#3D6DCC' }}
-
-            />
-          </View>
-
-          <View style={{ flex: 8 }} >
-            <View style={{ flexDirection: 'row' }}>
-              <Button
-                title='Care Center'
-                containerViewStyle={styles.button}
-                iconRight={{ type: 'font-awesome' }}
-                //onPress ={()=> navigate('patientHome')}
-              />
-              <Button
-                title='Databank'
-                containerViewStyle={styles.button}
-                onPress={() => navigate('Databank')}
-              />
-            </View>
-
-            <View style={{ flexDirection: 'row' }}>
-              <Button
-                title='Handbook'
-                containerViewStyle={styles.button}
-                iconRight={{ type: 'font-awesome' }}
-              />
-              <Button title='Connect' containerViewStyle={styles.button} />
-            </View>
-            <View style={{ flexDirection: 'row' }}>
-              <Button
-                title='News/Events'
-                containerViewStyle={styles.button}
-                iconRight={{ type: 'font-awesome' }}
-              />
-              <Button title='Research' containerViewStyle={styles.button} />
-            </View>
-
-          </View>
-
-        </View>
-      );
-    }
-}
-*/
-const stackNav = StackNavigator({
+const stackNavVHL = StackNavigator({
   Home: {
-    screen: MainVHL
+    screen: MainVHL,
+    navigationOptions: ({ navigation, defaultHeader }) => ({
+      ...defaultHeader,
+      backgroundColor: '#3D6DCC',
+      title: 'VHL HomePage',
+      headerTintColor: '#3D6DCC',
+  }),
+
   },
     Databank: {
       screen: Databank,
-      path: '/'
-     }
+      path: '/',
+      headerTitle: 'Databank',
+      navigationOptions: ({ navigation }) => ({
+        title: 'Databank',
+    }),
+  },
+  CareCenter: {
+    screen: CareCenter,
+    path: '/',
+    headerTitle: 'Care Centers',
+    navigationOptions: ({ navigation }) => ({
+      title: 'Care Centers',
+    }),
+  },
+  NewsEvents: {
+    screen: NewsEvents,
+    path: '/',
+    headerTitle: 'News & Events',
+    navigationOptions: ({ navigation }) => ({
+      title: 'News & Events',
+    }),
+  },
+  Research: {
+    screen: Research,
+    path: '/',
+    headerTitle: 'Research',
+    navigationOptions: ({ navigation }) => ({
+      title: 'Research',
+    }),
+  },
 });
 
 const styles = StyleSheet.create({
@@ -167,4 +136,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default stackNav;
+export default stackNavVHL;

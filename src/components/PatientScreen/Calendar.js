@@ -11,12 +11,10 @@ import {
   Button
 } from 'react-native-elements';
 import { StackNavigator } from 'react-navigation';
+import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
 
-const Databank = ({ navigation }) => (
-  <WebView
-    source={{ uri: 'https://databank.vhl.org/' }}
-    style={{ marginTop: 0 }}
-  />
+const ViewCalendar = ({ navigation }) => (
+    <Agenda />
 );
 
 const styles = StyleSheet.create({
@@ -45,4 +43,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Databank;
+export default ViewCalendar;
