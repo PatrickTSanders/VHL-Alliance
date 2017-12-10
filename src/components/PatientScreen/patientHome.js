@@ -11,6 +11,7 @@ import {
   Button
 } from 'react-native-elements';
 import { StackNavigator } from 'react-navigation';
+import Calendar from './Calendar'
 
 /*
 Old Header that shows Time and Cell Service in Header Area
@@ -38,6 +39,7 @@ const PatientHome = ( {navigation} ) => (
             title='Calendar'
             containerViewStyle={styles.button}
             iconRight={{ type: 'font-awesome' }}
+            onPress={() => navigation.navigate('ViewCalendar')}
           />
           <Button title='Medication List' containerViewStyle={styles.button} />
         </View>
@@ -73,6 +75,14 @@ const stackNavPatient = StackNavigator({
       title: 'Patient HomePage',
       headerTintColor: '#3D6DCC',
     })
+  },
+  ViewCalendar: {
+    screen: Calendar,
+    path: '/',
+    headerTitle: 'Calendar',
+    navigationOptions: ({ navigation }) => ({
+      title: 'Calendar',
+  }),
   }
 });
 
