@@ -12,63 +12,69 @@ import {
 } from 'react-native-elements';
 import { StackNavigator } from 'react-navigation';
 
+/*
+Old Header that shows Time and Cell Service in Header Area
+<View style={{ flex: 1 }} >
+  <Header
+      statusBarProps={{ barStyle: 'light-content' }}
+      leftComponent={{ icon: 'menu', color: '#0B92D1' }}
+      centerComponent={{ text: 'Patient Homepage', style: { color: '#fff' } }}
+      rightComponent={{ icon: 'home', color: '#fff' }}
+      outerContainerStyles={{ backgroundColor: '#3D6DCC' }}
 
-class patientHome extends Component {
-  static navigationOptions = {
-    headerTitle: 'Patient Homepage'
-  }
-  render() {
-      const { navigate } = this.props.navigation
-      return (
-        /*<WebView
-          source={{ uri: 'https://www.vhl.org' }}
-          style={{ marginTop: 20 }}
-        />*/
-        <View style={{ flex: 1 }}>
-          <View style={{ flex: 1 }} >
-            <Header
-                statusBarProps={{ barStyle: 'light-content' }}
-                leftComponent={{ icon: 'menu', color: '#0B92D1' }}
-                centerComponent={{ text: 'Patient Homepage', style: { color: '#fff' } }}
-                rightComponent={{ icon: 'home', color: '#fff' }}
-                outerContainerStyles={{ backgroundColor: '#3D6DCC' }}
+  />
+</View>
+*/
+const MainPatient= ({ navigation }) => (
+  <PatientHome navigation={navigation} title={'VHL'} />
+);
 
-            />
-          </View>
+const PatientHome = ( {navigation} ) => (
+    <View style={{ flex: 1 }}>
 
-          <View style={{ flex: 8 }} >
-            <View style={{ flexDirection: 'row' }}>
-              <Button
-                title='Calendar'
-                containerViewStyle={styles.button}
-                iconRight={{ type: 'font-awesome' }}
-              />
-              <Button title='Medication List' containerViewStyle={styles.button} />
-            </View>
-
-            <View style={{ flexDirection: 'row' }}>
-              <Button
-                title='Doctor Info'
-                containerViewStyle={styles.button}
-                iconRight={{ type: 'font-awesome' }}
-              />
-              <Button title='Personal Info' containerViewStyle={styles.button} />
-            </View>
-            <View style={{ flexDirection: 'row' }}>
-              <Button
-                title='Button'
-                containerViewStyle={styles.button}
-                iconRight={{ type: 'font-awesome' }}
-              />
-              <Button title='Emergency Card' containerViewStyle={styles.button} />
-            </View>
-
-          </View>
-
+      <View style={{ flex: 8 }} >
+        <View style={{ flexDirection: 'row' }}>
+          <Button
+            title='Calendar'
+            containerViewStyle={styles.button}
+            iconRight={{ type: 'font-awesome' }}
+          />
+          <Button title='Medication List' containerViewStyle={styles.button} />
         </View>
-      );
-    }
-}
+
+        <View style={{ flexDirection: 'row' }}>
+          <Button
+            title='Doctor Info'
+            containerViewStyle={styles.button}
+            iconRight={{ type: 'font-awesome' }}
+          />
+          <Button title='Personal Info' containerViewStyle={styles.button} />
+        </View>
+        <View style={{ flexDirection: 'row' }}>
+          <Button
+            title='Button'
+            containerViewStyle={styles.button}
+            iconRight={{ type: 'font-awesome' }}
+          />
+          <Button title='Emergency Card' containerViewStyle={styles.button} />
+        </View>
+
+      </View>
+
+    </View>
+);
+
+const stackNavPatient = StackNavigator({
+  PatientHome: {
+    screen: MainPatient,
+    navigationOptions: ({ navigation, defaultHeader }) => ({
+      ...defaultHeader,
+      backgroundColor: '#3D6DCC',
+      title: 'Patient HomePage',
+      headerTintColor: '#3D6DCC',
+    })
+  }
+});
 
 const styles = StyleSheet.create({
 
@@ -96,4 +102,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default patientHome;
+export default stackNavPatient;

@@ -12,9 +12,10 @@ import {
 } from 'react-native-elements';
 import { StackNavigator } from 'react-navigation';
 
-const Databank = ({ navigation }) => (
+
+const Research = ({ navigation }) => (
   <WebView
-    source={{ uri: 'https://databank.vhl.org/' }}
+    source={{ uri: 'https://www.vhl.org/researchers/genetic-research-and-vhl/' }}
     style={{ marginTop: 0 }}
   />
 );
@@ -45,4 +46,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Databank;
+export default Research;
