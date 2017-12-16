@@ -15,6 +15,7 @@ import Databank from './Databank';
 import CareCenter from './CareCenter';
 import NewsEvents from './NewsEvents';
 import Research from './Research'
+import Connect from './Connect'
 
 const MainVHL= ({ navigation }) => (
   <VHLHome navigation={navigation} title={'VHL'} />
@@ -44,7 +45,13 @@ const VHLHome = ({ navigation }) => (
           containerViewStyle={styles.button}
           iconRight={{ type: 'font-awesome' }}
         />
-        <Button title='Connect' containerViewStyle={styles.button} />
+
+        <Button
+          title='Connect'
+          containerViewStyle={styles.button}
+          onPress={() => navigation.navigate('Connect')}
+        />
+
       </View>
       <View style={{ flexDirection: 'row' }}>
         <Button
@@ -90,6 +97,14 @@ const stackNavVHL = StackNavigator({
     headerTitle: 'Care Centers',
     navigationOptions: ({ navigation }) => ({
       title: 'Care Centers',
+    }),
+  },
+  Connect: {
+    screen: Connect,
+    path: '/',
+    headerTitle: 'Connect',
+    navigationOptions: ({ navigation }) => ({
+      title: 'Connect',
     }),
   },
   NewsEvents: {
