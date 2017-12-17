@@ -4,7 +4,8 @@ import {
   StyleSheet,
   Text,
   View,
-  WebView
+  WebView,
+  TouchableOpacity
 } from 'react-native';
 import {
   Header,
@@ -12,7 +13,7 @@ import {
 } from 'react-native-elements';
 import { StackNavigator } from 'react-navigation';
 import Calendar from './Calendar'
-import MedicationListHandling from './MedicationListHandling'
+import MedicationList from './MedicationList'
 
 /*
 Old Header that shows Time and Cell Service in Header Area
@@ -90,11 +91,17 @@ const stackNavPatient = StackNavigator({
   }),
   },
   MedicationList: {
-    screen: MedicationListHandling,
+    screen: MedicationList,
     path: '/',
     headerTitle: 'Medication List',
+    headerRight: <rnButton title="Info" />,
     navigationOptions: ({ navigation }) => ({
       title: 'Medication List',
+      headerRight: <TouchableOpacity title="Info" style={{ flex: 1 }} >
+        <Text style={{ flex: 1, fontSize: 20, justifyContent: 'center', color: 'blue' }}>
+          Info
+        </Text>
+      </TouchableOpacity>
   }),
 }
 });

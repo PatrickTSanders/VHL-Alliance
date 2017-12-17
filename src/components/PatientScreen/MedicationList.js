@@ -5,7 +5,8 @@ import {
   Text,
   View,
   WebView,
-  AsyncStorage
+  AsyncStorage,
+  TextInput
 } from 'react-native';
 import {
   Header,
@@ -14,12 +15,10 @@ import {
 import { StackNavigator } from 'react-navigation';
 import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
 import storage from 'react-native-storage-wrapper';
-
-
-
+import MedicationListHandling from './MedicationListHandling'
 
 const MedicationList = ({ value }) => (
-
+  /*
     <View style={styles.container}>
       <Text style={styles.welcome}>
         Hello
@@ -44,8 +43,9 @@ const MedicationList = ({ value }) => (
         onPress={
           async function() {
           try {
-            const value = await AsyncStorage.getItem('test');
-            console.log(value)
+            const keyed = await AsyncStorage.getItem('test');
+            console.log(keyed);
+            this.props.value(keyed)
         } catch(error){
           console.log(error)
         }
@@ -53,6 +53,9 @@ const MedicationList = ({ value }) => (
     }
     />
     </View>
+    */
+    <MedicationListHandling />
+
 );
 
 const styles = StyleSheet.create({
@@ -78,6 +81,12 @@ const styles = StyleSheet.create({
     marginTop: 10,
     justifyContent: 'space-between'
 
+  },
+  textInput: {
+    borderColor: 'black',
+    backgroundColor: 'green',
+    height: 20,
+    width: 100
   }
 });
 
