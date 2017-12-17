@@ -18,7 +18,9 @@ import { StackNavigator } from 'react-navigation';
 import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
 import storage from 'react-native-storage-wrapper';
 import Grid from 'react-native-grid-component';
-import { settingItem, gettingItem } from '../StorageWrapper'
+
+//import { settingItem, gettingItem } from '../StorageWrapper'
+import { AppStorage } from '../StorageWrapper'
 
 class MedicationListHandling extends Component {
   constructor() {
@@ -33,6 +35,8 @@ class MedicationListHandling extends Component {
   }
 
   render() {
+    var appStorage = new AppStorage();
+
     return (
       <ListView
         dataSource={this.state.dataSource}
@@ -72,18 +76,21 @@ class MedicationListHandling extends Component {
               <Button
                 title='Set Key'
                 onPress={() => {
-                  const setting = settingItem('StorageWrapper', 'Storage Works');
+                  //const setting = settingItem('StorageWrapper', 'Storage Works');
+                  let setting =  appStorage.SetItem('TestKey', 'Storage Works!!');
                   console.log(setting);
-                  console.log('sending StorageWrapper key to class');
+                  console.log('called AppStorage.SetItem');
                 }
               }
               />
               <Button
                 title='Get Key'
                 onPress={() => {
-                  const getting = gettingItem('testing');
-                  console.log('sending StorageWrapper key to get value ');
-                  console.log(getting);
+
+                  //const getting = gettingItem('testing');
+                  let getting =  appStorage.GetItem('TestKey');
+                  console.log('called AppStorage.GetItem result = ', {getting});
+
                 }
               }
               />
