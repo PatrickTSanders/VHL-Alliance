@@ -85,14 +85,16 @@ class MedicationListHandling extends Component {
               />
               <Button
                 title='Get Key'
-                onPress={() => {
+                onPress={
+                  async function() {
 
                   //const getting = gettingItem('testing');
-                  let getting =  appStorage.GetItem('TestKey');
+                  let getting =  await appStorage.GetItem('TestKey');
                   console.log('called AppStorage.GetItem result = ', {getting});
 
                 }
               }
+
               />
             </View>
           </View>
