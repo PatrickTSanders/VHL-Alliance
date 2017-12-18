@@ -13,7 +13,7 @@ import {
 import { StackNavigator } from 'react-navigation';
 import Calendar from './Calendar'
 import MedicationListHandling from './MedicationListHandling'
-import TestNotify from './TestNotify'
+import PushNotifications from '../PushNotifications'
 
 /*
 Old Header that shows Time and Cell Service in Header Area
@@ -46,7 +46,7 @@ const PatientHome = ( {navigation} ) => (
           <Button
             title='Medication List'
             containerViewStyle={styles.button}
-            onPress={() => navigation.navigate('TestNotify')}
+            onPress={() => navigation.navigate('PushNotifications')}
           />
         </View>
 
@@ -98,9 +98,9 @@ const stackNavPatient = StackNavigator({
       title: 'Medication List',
     }),
   },
-  
-  TestNotify: {
-    screen: TestNotify,
+
+  PushNotifications: {
+    screen: PushNotifications,
     path: '/',
     headerTitle: 'Medication List',
     navigationOptions: ({ navigation }) => ({

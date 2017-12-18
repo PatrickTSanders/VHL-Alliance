@@ -4,7 +4,8 @@ import {
   StyleSheet,
   Text,
   View,
-  WebView
+  WebView,
+  AppState
 }
   from 'react-native';
 import {
@@ -13,12 +14,92 @@ import {
   }
   from 'react-native-elements';
 
-//import PushNotification from 'react-native-push-notification'
+import PushNotification from 'react-native-push-notification'
 
 
 export default class PushNotificationsController extends Component {
 
-/*  const sixteenPlus = ["Physical examination by physician informed about VHL" ,
+  constructor (props) {
+    super(props);
+
+    this.handleAppStateChange = this.handleAppStateChange.bind(this);
+
+
+  this.state = {
+    appState: AppState.currentState,
+    age: 15,
+    fiveToFifteen: ["Physical examination and neurological assessment by pediatrician informed about VHL, with particular attention to blood pressure (taken while lying down and standing), hearing impairment, neurological disturbance, nystagmus, strabismus, white pupil, and other signs indicating retinal problems", "Dilated eye/retinal examination with indirect ophthalmoscope by ophthalmologist informed about VHL", "Test for fractionated metanephrines, especially normetanephrine in a “plasma free metanephrine” blood test or in a 24-hour urine test. Abdominal ultrasonography annually from 8 years or earlier if indicated. Abdominal MRI or MIBG scan only if biochemical abnormalities found"],
+    sixteenPlus: ["Have you scheduled your annual physical examination by physician informed about VHL?","Dilated eye/retinal examination with indirect ophthalmoscope by ophthalmologist informed about VHL", "Test for fractionated metanephrines, especially normetanephrine in “plasma free metanephrines blood test or 24-hour urine test. Abdominal MRI or MIBG scan if biochemical abnormalities found"]
+                      //"Quality ultrasound and at least every other year when not pregnant, an MRI scan) of abdomen with
+                      // and without contrast to assess kidneys, pancreas, and adrenals",
+  };
+}
+
+  componentWillUnmount() {
+    AppState.removeEventListener('change', this.handleAppStateChange);
+  }
+
+  componentDidMount(sixteenPlus){
+    AppState.addEventListener('change', this.handleAppStateChange);
+
+    /*PushNotification.configure( {
+      onNotification: function(notification) {
+          console.log( 'NOTIFICATION:', notification );
+      },
+    })
+
+
+  }*/
+  }
+
+  /*handleAppStateChange(appState, sixteenPlus){
+
+    console.log(sixteenPlus);
+
+    console.log("asdflkj" , this.state.appState);
+
+    //if(appState === 'background'){
+    if(this.state.age === 1)
+        PushNotification.localNotificationSchedule({
+          message: this.state.sixteenPlus, // (required)
+          date: new Date(Date.now() + (1000)) // in 60 secs
+        });
+    //-}
+
+  }*/
+
+  handleAppStateChange(appState){
+
+    if(appState === 'background'){
+        if(this.state.age >= 16){
+            (this.state.sixteenPlus).map((x) =>
+
+              PushNotification.localNotificationSchedule({
+                message: x, // (required)
+                date: new Date(Date.now() + (1000)) // in 60 secs
+              }),
+          );
+        }
+
+        if(this.state.age >=5 && this.state.age <= 15){
+            (this.state.fiveToFifteen).map((x) =>
+
+              PushNotification.localNotificationSchedule({
+                message: x, // (required)
+                date: new Date(Date.now() + (1000)) // in 60 secs
+              }),
+          );
+        }
+    }
+  }
+
+  render() {
+    return <Text> Current State is {this.state.appState}</Text>;
+  }
+}
+
+
+ /*const sixteenPlus = ["Physical examination by physician informed about VHL" ,
                   "Dilated eye/retinal examination with indirect ophthalmoscope by ophthalmologist informed about VHL",
                   "Quality ultrasound and at least every other year when not pregnant, an MRI scan) of abdomen with
                    and without contrast to assess kidneys, pancreas, and adrenals",
@@ -27,58 +108,4 @@ export default class PushNotificationsController extends Component {
 
 
   const age = 16;
-
-  var PushNotification = require('react-native-push-notification');
-
-  componentDidMount(){
-    PushNotification.configure( {
-      onNotification: function(notification) {
-          console.log( 'NOTIFICATION:', notification );
-      },
-
-    })
-
-  }
-*/
-  render() {
-    return null;
-  }
-}
-
-
-
-/*
-
-PushNotification.configure({
-
-    // (optional) Called when Token is generated (iOS and Android)
-    onRegister: function(token) {
-        console.log( 'TOKEN:', token );
-    },
-
-    // (required) Called when a remote or local notification is opened or received
-    onNotification: function(notification) {
-        console.log( 'NOTIFICATION:', notification );
-    },
-
-    // ANDROID ONLY: GCM Sender ID (optional - not required for local notifications, but is need to receive remote push notifications)
-    //senderID: "YOUR GCM SENDER ID",
-
-    // IOS ONLY (optional): default: all - Permissions to register.
-    permissions: {
-        alert: true,
-        badge: true,
-        sound: true
-    },
-
-    // Should the initial notification be popped automatically
-    // default: true
-    popInitialNotification: true,
-
-    /**
-      * (optional) default: true
-      * - Specified if permissions (ios) and token (android and ios) will requested or not,
-      * - if not, you must call PushNotificationsHandler.requestPermissions() later
-
-    requestPermissions: true,
-});
+  */
