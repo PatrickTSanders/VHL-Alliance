@@ -66,6 +66,12 @@ class MedicationListHandling extends Component {
   //
   // }
 
+  componentDidMount() {
+     requestAnimationFrame(() => {
+        // HACK TO RELOAD DATA
+        this.refs._list.scrollTo({x: 1, y: 0, animated: false})
+      });
+  }
 
   render() {
     var appStorage = new AppStorage();
@@ -80,6 +86,8 @@ class MedicationListHandling extends Component {
       <View {...this.props }  style={{ flex: 1 }}>
         {/* //{...this.onAddMed.bind(this)} */}
         <ListView
+          ref="_list"
+          removeClippedSubViews={false}
           dataSource={this.state.dataSource}
           renderRow={(rowData) =>
             <View>
@@ -228,9 +236,9 @@ class MedicationListHandling extends Component {
                 //     if (this.state.text){
                 //       this.state.text
                 //     }
+                //     }
                 //     else{
                 //       'Place Holder'
-                //     }
                 //     console.log(value)
                 //   }
                 // )
