@@ -4,6 +4,39 @@ import {
   AsyncStorage
 } from 'react-native';
 
+class AppStorage {
+     async SetItem(key, value) {
+       var testSet;
+       try {
+          console.log('AppStorage.SetItem was attempted with key: ', {key});
+          testSet = await AsyncStorage.setItem( key, value );
+        } catch (error) {
+          console.log(error)
+        }
+
+        return testSet;
+
+     }
+
+     async GetItem(key) {
+       var testGet;
+       try {
+
+          console.log('AppStorage.GetItem was attempted with key: ', {key});
+          testGet = await AsyncStorage.getItem( key );
+          console.log('AppStorage.GetItem result = ', {testGet});
+
+       } catch (error) {
+          console.log(error)
+     }
+
+      return testGet;
+     }
+
+   }
+
+export {AppStorage}
+/*
 //const StorageWrapper = (key, value) => {
 
   const settingItem = (key, value) =>
@@ -30,3 +63,4 @@ import {
 export {settingItem, gettingItem}
 
   //}
+*/
