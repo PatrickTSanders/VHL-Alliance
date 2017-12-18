@@ -22,14 +22,17 @@ import { AppStorage } from '../StorageWrapper';
 
 
 class MedicationListHandling extends Component {
-  constructor(props) {
+    constructor(props) {
     super(props);
     var accessAppStorage = new AppStorage();
-    const AStotalMedList = () => ({
-      async function(){
-        await accessAppStorage.GetItem('MedicationList')
-      }
-    });
+    const getCurrent ={ async fetchMedList(){
+      var accessAppStorage2 = new AppStorage();
+      const curentList = await accessAppStorage2.GetItem('totalMedList')
+        .then(console.log('Get Item with key: totalMedList'  ))
+      console.log(currentList)
+      return currentList
+    }};
+    //console.log(AStotalMedList)
     const test1 = ['water', '150 mg', '1x per morning', 'Shams'];
     const test2 = ['soda', '200 mg', '2x per night', 'Puryear'];
     let totalMedList = [test1, test2];
@@ -37,7 +40,7 @@ class MedicationListHandling extends Component {
     this.state = {
       dataSource: ds.cloneWithRows([test1, test2]),
       value: '',
-      totalMedList: {AStotalMedList},
+      totalMedList: getCurrent,
       currentMed: '',
       medication: '',
       dosage: '',
@@ -46,13 +49,14 @@ class MedicationListHandling extends Component {
 
     };
   }
-  async onAddMedName(currentMed, totalMedList){
+
+  async onAddMed(totalMedList){
     var accessAppStorage2 = new AppStorage();
     const testArray = [1,2,3]
-    testArray.push(currentMed)
-    totalMedList.push(currentMed)
+    //testArray.push(currentMed)
+    //totalMedList.push(currentMed)
     this.setState(totalMedList)
-      await accessAppStorage2.SetItem('totalMedList', JSON.stringify(totalMedList))
+      await accessAppStorage2.SetItem('totalMedList', totalMedList)
       .then(console.log('Set Item with key: totalMedList and value: ', totalMedList ))
       .then(console.log( await accessAppStorage2.GetItem('totalMedList')))
 
@@ -73,7 +77,8 @@ class MedicationListHandling extends Component {
 
     console.log(this.state.value)
     return (
-      <View {...this.props } {...this.onAddMedName.bind(this)} style={{ flex: 1 }}>
+      <View {...this.props }  style={{ flex: 1 }}>
+        {/* //{...this.onAddMed.bind(this)} */}
         <ListView
           dataSource={this.state.dataSource}
           renderRow={(rowData) =>
@@ -131,8 +136,10 @@ class MedicationListHandling extends Component {
               <TextInput
                 style={styles.headerColumnText}
                 onChangeText={(medication) => {
-                this.setState({medication})
-                }}
+                  // this.state.medication
+                  this.setState({medication: medication});
+                  }
+                }
                 value={ this.state.medication
 
                 //   JSON.stringify(
@@ -147,7 +154,7 @@ class MedicationListHandling extends Component {
                 //   }
                 // )
                 }
-                placeholder='Enter Med'
+                placeholder= 'Med'
                 //blurOnSubmit= {true}
                 // onSubmitEditing = {() => {
                 //   let updatingMedList =  appStorage.SetItem('TestMedicationList', JSON.stringify([test1, test2]));
@@ -171,8 +178,9 @@ class MedicationListHandling extends Component {
               <TextInput
                 style={styles.headerColumnText}
                 onChangeText={(dosage) => {
-                this.setState({dosage})
-                }}
+                this.setState({dosage: dosage});
+                }
+                }
                 value={ this.state.dosage
 
                 //   JSON.stringify(
@@ -211,7 +219,7 @@ class MedicationListHandling extends Component {
               <TextInput
                 style={styles.headerColumnText}
                 onChangeText={(frequency) => {
-                this.setState({frequency})
+                this.setState({frequency: frequency})
                 }}
                 value={ this.state.frequency
 
@@ -251,7 +259,7 @@ class MedicationListHandling extends Component {
               <TextInput
                 style={styles.headerColumnText}
                 onChangeText={(rXBy) => {
-                this.setState({rXBy})
+                this.setState({rXBy: rXBy})
                 }}
                 value={ this.state.rXBy
 
@@ -272,19 +280,35 @@ class MedicationListHandling extends Component {
 
                 onSubmitEditing = {
 
-                  // () => {
-                  // console.log([ this.state.medication, JSON.stringify([this.state.medication, this.state.dosage, this.state.frequency, this.state.rXBy])]);
-                  // let updatingMedList =  appStorage.SetItem(this.state.medication, JSON.stringify([this.state.medication, this.state.dosage, this.state.frequency, this.state.rXBy]));
-                  // console.log(updatingMedList);
-                  // console.log('called AppStorage.SetItem to submit updated Meds');
-                  // }
-                  async function(){
-
-                    console.log('attempting to update parent state');
-                    var inChildStorage = new AppStorage;
-                    const currentTotalMedList = await inChildStorage.GetItem('MedicationList')
-                    this.onAddMedName(this.state.medication, currentTotalMedList)
+                  () => {
+                  console.log([ this.state.medication,
+                    JSON.stringify([
+                      this.state.medication,
+                      this.state.dosage,
+                      this.state.frequency,
+                      this.state.rXBy])]);
+                  const pushingCurrentMed = JSON.stringify([
+                    this.state.medication,
+                    this.state.dosage,
+                    this.state.frequency,
+                    this.state.rXBy]);
+                  const prevMedList = this.state.totalMedList
+                  console.log(prevMedList)
+                  prevMedList.push(pushingCurrentMed);
+                  console.log(prevMedList);
+                  const updatingMedList =  appStorage.SetItem('totalMedList', JSON.stringify(prevMedList));
+                  console.log(updatingMedList);
+                  console.log('called AppStorage.SetItem to submit updated Meds');
                   }
+                  // async function(){
+                  //
+                  //   console.log('attempting to update parent state');
+                  //   var inChildStorage = new AppStorage;
+                  //   const currentTotalMedList = await inChildStorage.GetItem('MedicationList')
+                  //   this.onAddMedName(this.state.medication, currentTotalMedList)
+                  // }
+
+
                 }
 
 
