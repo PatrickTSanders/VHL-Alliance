@@ -24,23 +24,22 @@ import { AppStorage } from '../StorageWrapper';
 class MedicationListHandling extends Component {
     constructor(props) {
     super(props);
-    var accessAppStorage = new AppStorage();
-    const getCurrent ={ async fetchMedList(){
-      var accessAppStorage2 = new AppStorage();
-      const curentList = await accessAppStorage2.GetItem('totalMedList')
-        .then(console.log('Get Item with key: totalMedList'  ))
-      console.log(currentList)
-      return currentList
-    }};
+    // var accessAppStorage = new AppStorage();
+    // const getCurrent = {async fetchMedList(){
+    //   var accessAppStorage2 = new AppStorage();
+    //   console.log('Get Item with key: totalMedList'  );
+    //   return await accessAppStorage2.GetItem('totalMedList')
+    // }};
     //console.log(AStotalMedList)
     const test1 = ['water', '150 mg', '1x per morning', 'Shams'];
     const test2 = ['soda', '200 mg', '2x per night', 'Puryear'];
     let totalMedList = [test1, test2];
-    const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
+    const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 })
+      //console.log(this.state.totalMedList);;
     this.state = {
-      dataSource: ds.cloneWithRows([test1, test2]),
+      dataSource: ds.cloneWithRows(this.props.beforeAppOpenMedList),
       value: '',
-      totalMedList: getCurrent,
+      totalMedList: ['test3', 'test4'],
       currentMed: '',
       medication: '',
       dosage: '',
@@ -61,6 +60,13 @@ class MedicationListHandling extends Component {
       .then(console.log( await accessAppStorage2.GetItem('totalMedList')))
 
     }
+  async getPrevMedList(){
+    var accessAppStorage2 = new AppStorage();
+    console.log('Get Item with key: totalMedList'  );
+    const prevList = await accessAppStorage2.GetItem('totalMedList')
+    this.setState({totalMedList: JSON.parse(prevList)});
+    //console.log(this.state.totalMedList);
+  }
 
   // onAddMedInfor = async function(){
   //
@@ -74,6 +80,7 @@ class MedicationListHandling extends Component {
     //   console.log(updatingMedList);
     //   console.log('called AppStorage.SetItem to submit updated Meds');
     // }
+
 
     console.log(this.state.value)
     return (
@@ -292,8 +299,10 @@ class MedicationListHandling extends Component {
                     this.state.dosage,
                     this.state.frequency,
                     this.state.rXBy]);
+                  console.log(pushingCurrentMed);
                   const prevMedList = this.state.totalMedList
                   console.log(prevMedList)
+                  console.log(Array.isArray(prevMedList))
                   prevMedList.push(pushingCurrentMed);
                   console.log(prevMedList);
                   const updatingMedList =  appStorage.SetItem('totalMedList', JSON.stringify(prevMedList));
@@ -328,14 +337,10 @@ class MedicationListHandling extends Component {
           </View>
 
           <Button
-            title='Set Key'
-            onPress={() => {
-              //const setting = settingItem('StorageWrapper', 'Storage Works');
-              let setting =  appStorage.SetItem('TestKey', 'Storage Works!!');
-              console.log(setting);
-              console.log('called AppStorage.SetItem');
-            }
-          }
+            title='Get Prev List'
+            onPress={()=>{ this.getPrevMedList()
+              console.log('Button was pressed')
+          }}
           />
           <Button
             title='Get Key'

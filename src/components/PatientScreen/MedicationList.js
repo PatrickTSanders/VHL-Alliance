@@ -16,8 +16,34 @@ import { StackNavigator } from 'react-navigation';
 import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
 import storage from 'react-native-storage-wrapper';
 import MedicationListHandling from './MedicationListHandling'
+import { AppStorage } from '../StorageWrapper';
 
-const MedicationList = ({ value }) => (
+
+class MedicationList extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      beforeAppOpenMedList: ''
+    };
+  }
+
+async componentWillMount() {
+  const accessAppStorage2 = new AppStorage();
+  console.log('Get Item with key: totalMedList');
+  const prevList = await accessAppStorage2.GetItem('totalMedList');
+  this.setState({ beforeAppOpenMedList: JSON.parse(prevList) });
+  console.log(this.state.beforeAppOpenMedList);
+}
+
+
+render() {
+  return (
+    <MedicationListHandling {...this.state.beforeAppOpenMedList} />
+  );
+}
+}
+
+const MedicationList2 = ({ value }) => (
   /*
     <View style={styles.container}>
       <Text style={styles.welcome}>
