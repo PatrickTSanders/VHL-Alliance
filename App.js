@@ -22,7 +22,6 @@ import { TabNavigator } from "react-navigation";
 import vhlHome from './src/components/VHLScreen/vhlHome';
 import patientHome from './src/components/PatientScreen/patientHome';
 
-
 const App = TabNavigator({
   VHL: {
     screen: vhlHome,
@@ -32,5 +31,6 @@ const App = TabNavigator({
    },
   Patient: { screen: patientHome }
 });
+
 
 export default App;
