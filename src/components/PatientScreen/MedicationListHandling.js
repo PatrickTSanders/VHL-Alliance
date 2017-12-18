@@ -39,7 +39,7 @@ class MedicationListHandling extends Component {
     this.state = {
       dataSource: ds.cloneWithRows(this.props.beforeAppOpenMedList),
       value: '',
-      totalMedList: ['test3', 'test4'],
+      totalMedList: this.props.beforeAppOpenMedList,
       currentMed: '',
       medication: '',
       dosage: '',
@@ -72,12 +72,12 @@ class MedicationListHandling extends Component {
   //
   // }
 
-  componentDidMount() {
-     requestAnimationFrame(() => {
-        // HACK TO RELOAD DATA
-        this.refs._list.scrollTo({x: 1, y: 0, animated: false})
-      });
-  }
+  // componentDidMount() {
+  //    requestAnimationFrame(() => {
+  //       // HACK TO RELOAD DATA
+  //       this.refs._list.scrollTo({x: 1, y: 0, animated: false})
+  //     });
+  // }
 
   render() {
     var appStorage = new AppStorage();
@@ -94,7 +94,7 @@ class MedicationListHandling extends Component {
         {/* //{...this.onAddMed.bind(this)} */}
         <ListView
           ref="_list"
-          removeClippedSubViews={false}
+          //removeClippedSubViews={false}
           dataSource={this.state.dataSource}
           renderRow={(rowData) =>
             <View>
@@ -302,18 +302,19 @@ class MedicationListHandling extends Component {
                       this.state.dosage,
                       this.state.frequency,
                       this.state.rXBy])]);
-                  const pushingCurrentMed = JSON.stringify([
+                  const pushingCurrentMed = [
                     this.state.medication,
                     this.state.dosage,
                     this.state.frequency,
-                    this.state.rXBy]);
+                    this.state.rXBy];
                   console.log(pushingCurrentMed);
-                  const prevMedList = this.state.totalMedList
-                  console.log(prevMedList)
-                  console.log(Array.isArray(prevMedList))
+                  const prevMedList = this.state.totalMedList;
+                  console.log(prevMedList);
+                  console.log(Array.isArray(prevMedList));
                   prevMedList.push(pushingCurrentMed);
                   console.log(prevMedList);
-                  const updatingMedList =  appStorage.SetItem('totalMedList', JSON.stringify(prevMedList));
+                  const updatingMedList = appStorage.SetItem('totalMedList',
+                                  JSON.stringify(prevMedList));
                   console.log(updatingMedList);
                   console.log('called AppStorage.SetItem to submit updated Meds');
                   }
@@ -344,7 +345,7 @@ class MedicationListHandling extends Component {
             </View>
           </View>
 
-          <Button
+          {/* <Button
             title='Get Prev List'
             onPress={()=>{ this.getPrevMedList()
               console.log('Button was pressed')
@@ -384,7 +385,7 @@ class MedicationListHandling extends Component {
               this.state.value = this.state.text
               //onAddMedName()
             }
-          />
+          /> */}
         </View>
       </View>
 

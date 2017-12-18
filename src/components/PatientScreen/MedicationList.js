@@ -23,66 +23,71 @@ class MedicationList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      beforeAppOpenMedList: ''
+      beforeAppOpenMedList: []
     };
   }
-
 async componentWillMount() {
   const accessAppStorage2 = new AppStorage();
   console.log('Get Item with key: totalMedList');
   const prevList = await accessAppStorage2.GetItem('totalMedList');
+  console.log('TEst for retrieving', prevList);
   this.setState({ beforeAppOpenMedList: JSON.parse(prevList) });
   console.log(this.state.beforeAppOpenMedList);
-}
+  }
 
 
 render() {
-  return (
-    <MedicationListHandling {...this.state.beforeAppOpenMedList} />
-  );
-}
-}
+  console.log('ABout to pass to child', this.state.beforeAppOpenMedList);
 
-const MedicationList2 = ({ value }) => (
-  /*
-    <View style={styles.container}>
-      <Text style={styles.welcome}>
-        Hello
-        {value}
-      </Text>
-      <Button
-        title='setKey'
-        onPress={
-          async function() {
-            try {
-            console.log('setKey was pressed');
-            await AsyncStorage.setItem('test', 'I hope this works');
-          } catch (error) {
-            console.log(error)
-          }
-          }
-        }
-      />
-
-      <Button
-        title='getKey'
-        onPress={
-          async function() {
-          try {
-            const keyed = await AsyncStorage.getItem('test');
-            console.log(keyed);
-            this.props.value(keyed)
-        } catch(error){
-          console.log(error)
-        }
-      }
+    if (this.state.beforeAppOpenMedList.length === 0) {
+      return false;
     }
-    />
-    </View>
-    */
-    <MedicationListHandling />
-
+    return (
+    <MedicationListHandling beforeAppOpenMedList={this.state.beforeAppOpenMedList} />
 );
+}
+}
+
+// const MedicationList2 = ({ value }) => (
+//   /*
+//     <View style={styles.container}>
+//       <Text style={styles.welcome}>
+//         Hello
+//         {value}
+//       </Text>
+//       <Button
+//         title='setKey'
+//         onPress={
+//           async function() {
+//             try {
+//             console.log('setKey was pressed');
+//             await AsyncStorage.setItem('test', 'I hope this works');
+//           } catch (error) {
+//             console.log(error)
+//           }
+//           }
+//         }
+//       />
+//
+//       <Button
+//         title='getKey'
+//         onPress={
+//           async function() {
+//           try {
+//             const keyed = await AsyncStorage.getItem('test');
+//             console.log(keyed);
+//             this.props.value(keyed)
+//         } catch(error){
+//           console.log(error)
+//         }
+//       }
+//     }
+//     />
+//     </View>
+//     */
+//     <MedicationListHandling />
+//
+// );
 
 const styles = StyleSheet.create({
 
