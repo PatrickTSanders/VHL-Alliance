@@ -97,11 +97,11 @@ const stackNavPatient = StackNavigator({
     headerRight: <rnButton title="Info" />,
     navigationOptions: ({ navigation }) => ({
       title: 'Medication List',
-      headerRight: <TouchableOpacity title="Info" style={{ flex: 1 }} >
-        <Text style={{ flex: 1, fontSize: 20, justifyContent: 'center', color: 'blue' }}>
-          Info
-        </Text>
-      </TouchableOpacity>
+      // headerRight: <TouchableOpacity title="Info" style={{ flex: 1 }} >
+      //   <Text style={{ flex: 1, fontSize: 20, justifyContent: 'center', color: 'blue' }}>
+      //     Info
+      //   </Text>
+      // </TouchableOpacity>
   }),
 }
 });
