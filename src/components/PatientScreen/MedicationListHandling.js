@@ -8,7 +8,8 @@ import {
   AsyncStorage,
   TextInput,
   ListView,
-  Button as rnButton
+  Button as rnButton,
+  TouchableHighlight
 } from 'react-native';
 import {
   Header,
@@ -19,11 +20,14 @@ import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
 import storage from 'react-native-storage-wrapper';
 import Grid from 'react-native-grid-component';
 import { AppStorage } from '../StorageWrapper';
+import Swipeout from 'react-native-swipeout';
+
 
 
 class MedicationListHandling extends Component {
     constructor(props) {
     super(props);
+    this.handleSwipeout = this.handleSwipeout.bind(this);
     // var accessAppStorage = new AppStorage();
     // const getCurrent = {async fetchMedList(){
     //   var accessAppStorage2 = new AppStorage();
@@ -31,6 +35,12 @@ class MedicationListHandling extends Component {
     //   return await accessAppStorage2.GetItem('totalMedList')
     // }};
     //console.log(AStotalMedList)
+    const swipeBtns = [{
+      text: 'Delete',
+      backgroundColor: 'red',
+      underlayColor: 'rgba(0, 0, 0, 1, 0.6)',
+      //onPress: () => { this.deleteNote(rowData) }
+    }];
     const test1 = ['water', '150 mg', '1x per morning', 'Shams'];
     const test2 = ['soda', '200 mg', '2x per night', 'Puryear'];
     let totalMedList = [test1, test2];
@@ -38,18 +48,31 @@ class MedicationListHandling extends Component {
       //console.log(this.state.totalMedList);;
     this.state = {
       dataSource: ds.cloneWithRows(this.props.beforeAppOpenMedList),
+      sectionID: null,
+      rowID: null,
       value: '',
       totalMedList: this.props.beforeAppOpenMedList,
       currentMed: '',
       medication: '',
       dosage: '',
       frequency: '',
-      rXBy: ''
+      rXBy: '',
+
 
     };
   }
+  getInitialState() {
+      //  datasource rerendered when change is made (used to set Swipeout to active)
+      var ds = new ListView.DataSource({rowHasChanged: (row1, row2) => true})
 
-  async onAddMed(totalMedList){
+      return {
+        dataSource: ds.cloneWithRows(rows)
+      }
+    }
+
+
+
+async onAddMed(totalMedList) {
     var accessAppStorage2 = new AppStorage();
     const testArray = [1,2,3]
     //testArray.push(currentMed)
@@ -60,14 +83,57 @@ class MedicationListHandling extends Component {
       .then(console.log( await accessAppStorage2.GetItem('totalMedList')))
 
     }
-  async getPrevMedList(){
+  async getPrevMedList() {
     var accessAppStorage2 = new AppStorage();
     console.log('Get Item with key: totalMedList'  );
     const prevList = await accessAppStorage2.GetItem('totalMedList')
     this.setState({totalMedList: JSON.parse(prevList)});
     //console.log(this.state.totalMedList);
   }
+handleSwipeout(sectionID, rowID) {
+  for (let i = 0; i < this.state.dataSource.length; i++) {
+    if (i !== rowID) {
+      this.state.dataSource[i].active = false;
+    } else {
+      this.state.dataSource[i].active = true;
+    }
+  }
+  this.updateDataSource(this.state.dataSource);
+}
 
+updateDataSource(data) {
+      this.setState({
+        dataSource: this.state.dataSource.cloneWithRows(data)
+  })
+}
+renderRow(rowData, sectionID, rowID) {
+  return (
+        <Swipeout
+          rowID={rowID}
+          close={!rowData.active}
+          onOpen={
+            this.handleSwipeout
+          }
+
+        >
+              <View style={styles.headerColumnView}>
+                  <Text style={styles.headerColumnText}>
+                      {rowData[0]}
+                      </Text>
+                  <Text style={styles.headerColumnText}>
+                        {rowData[1]}
+                    </Text>
+                     <Text style={styles.headerColumnText}>
+                        {rowData[2]}
+                     </Text>
+                      <Text style={styles.headerColumnText}>
+                       {rowData[3]}
+                      </Text>
+
+              </View>
+        </Swipeout>
+  );
+}
   // onAddMedInfor = async function(){
   //
   // }
@@ -88,42 +154,68 @@ class MedicationListHandling extends Component {
     // }
 
 
-    console.log(this.state.value)
+    console.log(this.state.value);
     return (
-      <View {...this.props }  style={{ flex: 1 }}>
+      <View {...this.props} style={{ flex: 1 }}>
         {/* //{...this.onAddMed.bind(this)} */}
         <ListView
           ref="_list"
           //removeClippedSubViews={false}
+          //dataSource={this.state.dataSource}
           dataSource={this.state.dataSource}
-          renderRow={(rowData) =>
-            <View>
-              <View style={styles.headerColumnView}>
-
-                { /* rowData.map((name, index) => ( {
-                  return {name};
-                }))
-                */
-                }
-
-                <Text style={styles.headerColumnText}>
-                  {rowData[0]}
-                </Text>
-                <Text style={styles.headerColumnText}>
-                  {rowData[1]}
-                </Text>
-                <Text style={styles.headerColumnText}>
-                  {rowData[2]}
-                </Text>
-                <Text style={styles.headerColumnText}>
-                  {rowData[3]}
-                </Text>
-
-              </View>
-
-            </View>
-
-          }
+          renderRow={this.renderRow}
+          // renderRow={(rowData) =>
+          //   <View>
+          //     <Swipeout
+          //       rowID={rowID}
+          //       right={[{
+          //       text: 'Delete',
+          //       backgroundColor: 'red',
+          //       //backgroundColor: '#fff',
+          //       onPress: (rowData) => {
+          //         console.log('the delete was actually pressed', rowData);
+          //       }
+          //       }]
+          //       }
+          //       // onPress={() =>
+          //       //   console.log('the delete was actually pressed')
+          //       // }
+          //       autoClose={true}
+          //       backgroundColor='transparent'
+          //     >
+          //       <TouchableHighlight
+          //         //underlayColor='rgba(192,192,192,1,0.6)'
+          //         onPress={
+          //           console.log('delete was pressed')
+          //         }
+          //       >
+          //         <View style={styles.headerColumnView}>
+          //
+          //           { /* rowData.map((name, index) => ( {
+          //             return {name};
+          //           }))
+          //           */
+          //           }
+          //
+          //           <Text style={styles.headerColumnText}>
+          //             {rowData[0]}
+          //           </Text>
+          //           <Text style={styles.headerColumnText}>
+          //             {rowData[1]}
+          //           </Text>
+          //           <Text style={styles.headerColumnText}>
+          //             {rowData[2]}
+          //           </Text>
+          //           <Text style={styles.headerColumnText}>
+          //             {rowData[3]}
+          //           </Text>
+          //
+          //         </View>
+          //       </TouchableHighlight>
+          //     </Swipeout>
+          //   </View>
+          //
+          // }
           renderSectionHeader={() =>
             <View style={{ flex: 1 }}>
               <View style={styles.headerColumnView}>
@@ -169,7 +261,7 @@ class MedicationListHandling extends Component {
                 //   }
                 // )
                 }
-                placeholder= 'Med'
+                placeholder='Med'
                 //blurOnSubmit= {true}
                 // onSubmitEditing = {() => {
                 //   let updatingMedList =  appStorage.SetItem('TestMedicationList', JSON.stringify([test1, test2]));
@@ -310,7 +402,7 @@ class MedicationListHandling extends Component {
                   console.log(pushingCurrentMed);
                   const prevMedList = this.state.totalMedList;
                   console.log(prevMedList);
-                  console.log(Array.isArray(prevMedList));
+                  console.log(Array.isArray(prevMedList))
                   prevMedList.push(pushingCurrentMed);
                   console.log(prevMedList);
                   const updatingMedList = appStorage.SetItem('totalMedList',
