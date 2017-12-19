@@ -40,8 +40,6 @@ async componentWillMount() {
 
   this.setState({ beforeAppOpenMedList: parsedList });
 
-  if (!this.state.beforeAppOpenMedList)
-    this.setState( {beforeAppOpenMedList: []} );
 
   console.log(this.state.beforeAppOpenMedList);
   }
