@@ -30,8 +30,19 @@ async componentWillMount() {
   const accessAppStorage2 = new AppStorage();
   console.log('Get Item with key: totalMedList');
   const prevList = await accessAppStorage2.GetItem('totalMedList');
-  console.log('TEst for retrieving', prevList);
-  this.setState({ beforeAppOpenMedList: JSON.parse(prevList) });
+
+  console.log('Test for retrieving', prevList);
+  var parsedList = JSON.parse(prevList);
+  if (!parsedList)
+    parsedList = [["", "", "", ""]];
+
+  console.log('Test for retrieving', prevList);
+
+  this.setState({ beforeAppOpenMedList: parsedList });
+
+  if (!this.state.beforeAppOpenMedList)
+    this.setState( {beforeAppOpenMedList: []} );
+
   console.log(this.state.beforeAppOpenMedList);
   }
 
@@ -39,7 +50,7 @@ async componentWillMount() {
 render() {
   console.log('ABout to pass to child', this.state.beforeAppOpenMedList);
 
-    if (this.state.beforeAppOpenMedList.length === 0) {
+    if ( this.state.beforeAppOpenMedList.length === 0 ) {
       return false;
     }
     return (
