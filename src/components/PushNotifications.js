@@ -75,6 +75,33 @@ export default class PushNotificationsController extends Component {
           console.log( 'Did they click', notification.userInteraction);
       },
     })
+
+
+
+    //if(appState === 'active'){
+        if(this.state.age >= 16){
+            (this.state.sixteenPlus).map((x) =>
+
+              PushNotification.localNotificationSchedule({
+                message: x, // (required)
+                date: new Date(Date.now() + (1000)),
+                repeatType: 'year'
+              }),
+          );
+          console.log("hello");
+        }
+
+        if(this.state.age >=5 && this.state.age <= 15){
+            (this.state.fiveToFifteen).map((x) =>
+
+              PushNotification.localNotificationSchedule({
+                message: x, // (required)
+                date: new Date(Date.now() + (1000)), // in 60 secs
+                repeatType: 'year'
+              }),
+          );
+        }
+    //}
   }
 
 
