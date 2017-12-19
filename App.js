@@ -29,7 +29,12 @@ const App = TabNavigator({
       title: 'VHL',
     }),
    },
-  Patient: { screen: patientHome }
+  Patient: {
+    screen: patientHome,
+    navigationOptions: ({navigation}) => ({
+      title: 'Patient',
+    }),
+  },
 });
 
 

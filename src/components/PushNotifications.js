@@ -117,6 +117,7 @@ export default class PushNotificationsController extends Component {
           );
         }
 
+        //if you have a criteria, you can change the notifications you wish to display
         if(this.state.age >=5 && this.state.age <= 15){
             (this.state.fiveToFifteen).map((x) =>
 
