@@ -15,8 +15,7 @@ import Connect from './Connect';
 import Databank from './Databank';
 import CareCenter from './CareCenter';
 import NewsEvents from './NewsEvents';
-import Research from './Research'
-import Connect from './Connect'
+import Research from './Research';
 
 const MainVHL= ({ navigation }) => (
   <VHLHome navigation={navigation} title={'VHL'} />
