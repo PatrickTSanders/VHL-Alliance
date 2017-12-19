@@ -16,11 +16,6 @@ import {
   from 'react-native-elements';
 
 import PushNotification from 'react-native-push-notification'
-//import NotificationActions from 'react-native-ios-notification-actions'
-
-//var NotificationActions = require('react-native-ios-notification-actions');
-
-import {updateCategories} from 'react-native-ios-notification-actions'
 
 export default class PushNotificationsController extends Component {
 
@@ -28,7 +23,6 @@ export default class PushNotificationsController extends Component {
     super(props);
 
     this.handleAppStateChange = this.handleAppStateChange.bind(this);
-    this.NotificationActions = require('react-native-ios-notification-actions');
 
 
   this.state = {
@@ -77,9 +71,10 @@ export default class PushNotificationsController extends Component {
     })
 
 
-
+    //this isn't doing anything rn, however, instead of notifying when they leave the app,
+    //it should notify once the user opens the app
     //if(appState === 'active'){
-        if(this.state.age >= 16){
+        /*if(this.state.age >= 16){
             (this.state.sixteenPlus).map((x) =>
 
               PushNotification.localNotificationSchedule({
@@ -88,7 +83,7 @@ export default class PushNotificationsController extends Component {
                 repeatType: 'year'
               }),
           );
-          console.log("hello");
+          //console.log("hello");
         }
 
         if(this.state.age >=5 && this.state.age <= 15){
@@ -100,7 +95,7 @@ export default class PushNotificationsController extends Component {
                 repeatType: 'year'
               }),
           );
-        }
+        }*/
     //}
   }
 
@@ -131,6 +126,6 @@ export default class PushNotificationsController extends Component {
   }
 
   render() {
-    return <Text> Current State is {this.state.appState}</Text>;
+    return null;
   }
 }
