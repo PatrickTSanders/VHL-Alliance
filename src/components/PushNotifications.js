@@ -5,7 +5,8 @@ import {
   Text,
   View,
   WebView,
-  AppState
+  AppState,
+  PushNotificationIOS
 }
   from 'react-native';
 import {
@@ -15,7 +16,11 @@ import {
   from 'react-native-elements';
 
 import PushNotification from 'react-native-push-notification'
+//import NotificationActions from 'react-native-ios-notification-actions'
 
+//var NotificationActions = require('react-native-ios-notification-actions');
+
+import {updateCategories} from 'react-native-ios-notification-actions'
 
 export default class PushNotificationsController extends Component {
 
@@ -23,60 +28,64 @@ export default class PushNotificationsController extends Component {
     super(props);
 
     this.handleAppStateChange = this.handleAppStateChange.bind(this);
+    this.NotificationActions = require('react-native-ios-notification-actions');
 
 
   this.state = {
     appState: AppState.currentState,
-    age: 15,
-    fiveToFifteen: ["Physical examination and neurological assessment by pediatrician informed about VHL, with particular attention to blood pressure (taken while lying down and standing), hearing impairment, neurological disturbance, nystagmus, strabismus, white pupil, and other signs indicating retinal problems", "Dilated eye/retinal examination with indirect ophthalmoscope by ophthalmologist informed about VHL", "Test for fractionated metanephrines, especially normetanephrine in a “plasma free metanephrine” blood test or in a 24-hour urine test. Abdominal ultrasonography annually from 8 years or earlier if indicated. Abdominal MRI or MIBG scan only if biochemical abnormalities found"],
-    sixteenPlus: ["Have you scheduled your annual physical examination by physician informed about VHL?","Dilated eye/retinal examination with indirect ophthalmoscope by ophthalmologist informed about VHL", "Test for fractionated metanephrines, especially normetanephrine in “plasma free metanephrines blood test or 24-hour urine test. Abdominal MRI or MIBG scan if biochemical abnormalities found"]
+    age: 16,
+    fiveToFifteen: ["Have you scheduled your annual physical examination and neurological assessment by pediatrician informed about VHL, with particular attention to blood pressure (taken while lying down and standing), hearing impairment, neurological disturbance, nystagmus, strabismus, white pupil, and other signs indicating retinal problems", "Dilated eye/retinal examination with indirect ophthalmoscope by ophthalmologist informed about VHL", "Test for fractionated metanephrines, especially normetanephrine in a “plasma free metanephrine” blood test or in a 24-hour urine test. Abdominal ultrasonography annually from 8 years or earlier if indicated. Abdominal MRI or MIBG scan only if biochemical abnormalities found"],
+    sixteenPlus: ["Have you scheduled your annual physical examination by physician informed about VHL?","Dilated eye/retinal examination with indirect ophthalmoscope by ophthalmologist informed about VHL", "Test for fractionated metanephrines, especially normetanephrine in “plasma free metanephrines blood test or 24-hour urine test. Abdominal MRI or MIBG scan if biochemical abnormalities found"],
                       //"Quality ultrasound and at least every other year when not pregnant, an MRI scan) of abdomen with
                       // and without contrast to assess kidneys, pancreas, and adrenals",
   };
+
+
 }
+
+
+/*PushNotification.localNotification( {
+
+  /* iOS only properties
+  alertAction: null, // (optional) default: view
+  category: null,// (optional) default: null
+  userInfo: null,  // (optional) default: null (object containing additional notification data)
+
+  /* iOS and Android properties
+  title: "My Notification Title", // (optional, for iOS this is only used in apple watch, the title will be the app name on other iOS devices)
+  message: "My Notification Message", // (required)
+  playSound: false, // (optional) default: true
+  soundName: 'default', // (optional) Sound to play when the notification is shown. Value of 'default' plays the default sound. It can be set to a custom sound such as 'android.resource://com.xyz/raw/my_sound'. It will look for the 'my_sound' audio file in 'res/raw' directory and play it. default: 'default' (default sound is played)
+  number: '10', // (optional) Valid 32 bit integer specified as string. default: none (Cannot be zero)
+  repeatType: 'day', // (Android only) Repeating interval. Could be one of `week`, `day`, `hour`, `minute, `time`. If specified as time, it should be accompanied by one more parameter 'repeatTime` which should the number of milliseconds between each interval
+  actions: '["Yes", "No"]',  // (Android only) See the doc for notification actions to know more
+  }
+);*/
 
   componentWillUnmount() {
     AppState.removeEventListener('change', this.handleAppStateChange);
   }
 
-  componentDidMount(sixteenPlus){
+  componentDidMount(){
     AppState.addEventListener('change', this.handleAppStateChange);
 
-    /*PushNotification.configure( {
+    PushNotification.configure( {
       onNotification: function(notification) {
           console.log( 'NOTIFICATION:', notification );
+          console.log( 'Did they click', notification.userInteraction);
       },
     })
-
-
-  }*/
   }
 
-  /*handleAppStateChange(appState, sixteenPlus){
-
-    console.log(sixteenPlus);
-
-    console.log("asdflkj" , this.state.appState);
-
-    //if(appState === 'background'){
-    if(this.state.age === 1)
-        PushNotification.localNotificationSchedule({
-          message: this.state.sixteenPlus, // (required)
-          date: new Date(Date.now() + (1000)) // in 60 secs
-        });
-    //-}
-
-  }*/
 
   handleAppStateChange(appState){
-
     if(appState === 'background'){
         if(this.state.age >= 16){
             (this.state.sixteenPlus).map((x) =>
 
               PushNotification.localNotificationSchedule({
                 message: x, // (required)
-                date: new Date(Date.now() + (1000)) // in 60 secs
+                date: new Date(Date.now() + (1000)),
               }),
           );
         }
@@ -97,15 +106,3 @@ export default class PushNotificationsController extends Component {
     return <Text> Current State is {this.state.appState}</Text>;
   }
 }
-
-
- /*const sixteenPlus = ["Physical examination by physician informed about VHL" ,
-                  "Dilated eye/retinal examination with indirect ophthalmoscope by ophthalmologist informed about VHL",
-                  "Quality ultrasound and at least every other year when not pregnant, an MRI scan) of abdomen with
-                   and without contrast to assess kidneys, pancreas, and adrenals",
-                   "Test for fractionated metanephrines, especially normetanephrine in “plasma free metanephrines blood test
-                    or 24-hour urine test. Abdominal MRI or MIBG scan if biochemical abnormalities found" ];
-
-
-  const age = 16;
-  */
