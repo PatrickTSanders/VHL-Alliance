@@ -3,7 +3,7 @@ import {
   Platform,
   StyleSheet,
   // Text,
-  // View,
+  View,
   WebView
 } from 'react-native';
 // import {
@@ -14,11 +14,18 @@ import { StackNavigator } from 'react-navigation';
 
 
 const Facebook = ({ navigation }) => (
-  <WebView
-    //source={{ uri: 'https://databank.vhl.org/' }}
-    source={{ uri: 'http://m.facebook.com/VHLAlliance/' }}
-    style={{ marginTop: 0 }}
-  />
+  // <View style={{ width: 300 }} >
+
+    <WebView
+      //source={{ uri: 'https://databank.vhl.org/' }}
+      source={{ uri: 'http://m.facebook.com/VHLAlliance/' }}
+      //style={{flex:1, marginTop: 0}}
+      style={{flex:1}}
+      scalesPageToFit={true}
+      automaticallyAdjustContentInsets={false}
+    />
+
+  // </View>
 );
 
 const styles = StyleSheet.create({

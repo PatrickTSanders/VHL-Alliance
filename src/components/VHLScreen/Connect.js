@@ -27,8 +27,8 @@ const MainConnect = ({ navigation }) => (
 const ConnectHome = ({ navigation }) => (
   //<View style={{ flex: 1 }}>
 
-    <View style={{ flex: 8 }} >
-      <View style={{ flexDirection: 'row' }}>
+    <View style={{ flex: 1 }} >
+      <View style={{ flex: 1, flexDirection: 'row' }}>
         <Button
           title='Blog'
           containerViewStyle={styles.button}
