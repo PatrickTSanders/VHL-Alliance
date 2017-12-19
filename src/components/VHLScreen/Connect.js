@@ -25,7 +25,7 @@ const MainConnect = ({ navigation }) => (
 );
 
 const ConnectHome = ({ navigation }) => (
-  <View style={{ flex: 1 }}>
+  //<View style={{ flex: 1 }}>
 
     <View style={{ flex: 8 }} >
       <View style={{ flexDirection: 'row' }}>
@@ -46,7 +46,7 @@ const ConnectHome = ({ navigation }) => (
 
     </View>
 
-  </View>
+  //</View>
 );
 
 const stackNavConnect = StackNavigator({

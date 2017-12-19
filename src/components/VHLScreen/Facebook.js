@@ -15,7 +15,8 @@ import { StackNavigator } from 'react-navigation';
 
 const Facebook = ({ navigation }) => (
   <WebView
-    source={{ uri: 'http://www.facebook.com/VHLAlliance/' }}
+    source={{ uri: 'https://databank.vhl.org/' }}
+    //source={{ uri: 'http://www.facebook.com/VHLAlliance/' }}
     style={{ marginTop: 0 }}
   />
 );
