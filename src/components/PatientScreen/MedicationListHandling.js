@@ -28,6 +28,9 @@ class MedicationListHandling extends Component {
     constructor(props) {
     super(props);
     this.handleSwipeout = this.handleSwipeout.bind(this);
+    this.getInitialState = this.getInitialState.bind(this);
+    this.updateDataSource = this.updateDataSource.bind(this);
+    this.renderRow = this.renderRow.bind(this);
     // var accessAppStorage = new AppStorage();
     // const getCurrent = {async fetchMedList(){
     //   var accessAppStorage2 = new AppStorage();
@@ -66,7 +69,7 @@ class MedicationListHandling extends Component {
       var ds = new ListView.DataSource({rowHasChanged: (row1, row2) => true})
 
       return {
-        dataSource: ds.cloneWithRows(rows)
+        dataSource: ds.cloneWithRows(this.props.beforeAppOpenMedList)
       }
     }
 
@@ -90,7 +93,14 @@ async onAddMed(totalMedList) {
     this.setState({totalMedList: JSON.parse(prevList)});
     //console.log(this.state.totalMedList);
   }
+
+updateDataSource(data) {
+      this.setState({
+        dataSource: this.state.dataSource.cloneWithRows(data)
+  });
+}
 handleSwipeout(sectionID, rowID) {
+  console.log('sectionID: ', sectionID, ' rowID: ', rowID);
   for (let i = 0; i < this.state.dataSource.length; i++) {
     if (i !== rowID) {
       this.state.dataSource[i].active = false;
@@ -100,20 +110,15 @@ handleSwipeout(sectionID, rowID) {
   }
   this.updateDataSource(this.state.dataSource);
 }
-
-updateDataSource(data) {
-      this.setState({
-        dataSource: this.state.dataSource.cloneWithRows(data)
-  })
-}
 renderRow(rowData, sectionID, rowID) {
   return (
         <Swipeout
           rowID={rowID}
           close={!rowData.active}
           onOpen={
-            this.handleSwipeout
-          }
+            this.handleSwipeout.bind(sectionID, rowID)
+
+        }
 
         >
               <View style={styles.headerColumnView}>
@@ -163,59 +168,65 @@ renderRow(rowData, sectionID, rowID) {
           //removeClippedSubViews={false}
           //dataSource={this.state.dataSource}
           dataSource={this.state.dataSource}
-          renderRow={this.renderRow}
-          // renderRow={(rowData) =>
-          //   <View>
-          //     <Swipeout
-          //       rowID={rowID}
-          //       right={[{
-          //       text: 'Delete',
-          //       backgroundColor: 'red',
-          //       //backgroundColor: '#fff',
-          //       onPress: (rowData) => {
-          //         console.log('the delete was actually pressed', rowData);
-          //       }
-          //       }]
-          //       }
-          //       // onPress={() =>
-          //       //   console.log('the delete was actually pressed')
-          //       // }
-          //       autoClose={true}
-          //       backgroundColor='transparent'
-          //     >
-          //       <TouchableHighlight
-          //         //underlayColor='rgba(192,192,192,1,0.6)'
-          //         onPress={
-          //           console.log('delete was pressed')
-          //         }
-          //       >
-          //         <View style={styles.headerColumnView}>
-          //
-          //           { /* rowData.map((name, index) => ( {
-          //             return {name};
-          //           }))
-          //           */
-          //           }
-          //
-          //           <Text style={styles.headerColumnText}>
-          //             {rowData[0]}
-          //           </Text>
-          //           <Text style={styles.headerColumnText}>
-          //             {rowData[1]}
-          //           </Text>
-          //           <Text style={styles.headerColumnText}>
-          //             {rowData[2]}
-          //           </Text>
-          //           <Text style={styles.headerColumnText}>
-          //             {rowData[3]}
-          //           </Text>
-          //
-          //         </View>
-          //       </TouchableHighlight>
-          //     </Swipeout>
-          //   </View>
-          //
-          // }
+          //renderRow={this.renderRow.bind(this)}
+          renderRow={(rowData, sectionID, rowID) =>
+            <View>
+              <Swipeout
+                rowID={rowID}
+                right={[{
+                text: 'Delete',
+                backgroundColor: 'red',
+                //backgroundColor: '#fff',
+                onPress: () => {
+                  console.log('the delete was actually pressed', { rowData });
+                  console.log('Curren rowID: ', { rowID });
+                  const currentIndex = this.props.beforeAppOpenMedList;
+                  console.log('Current datasource index about to be popped: ',
+                  currentIndex.splice(rowID));
+                  console.log('Current datasource arrays: ', currentIndex);
+                  
+                }
+                }]
+                }
+                // onPress={() =>
+                //   console.log('the delete was actually pressed')
+                // }
+                autoClose={true}
+                backgroundColor='transparent'
+              >
+                <TouchableHighlight
+                  //underlayColor='rgba(192,192,192,1,0.6)'
+                  onPress={
+                    console.log('delete was pressed')
+                  }
+                >
+                  <View style={styles.headerColumnView}>
+
+                    { /* rowData.map((name, index) => ( {
+                      return {name};
+                    }))
+                    */
+                    }
+
+                    <Text style={styles.headerColumnText}>
+                      {rowData[0]}
+                    </Text>
+                    <Text style={styles.headerColumnText}>
+                      {rowData[1]}
+                    </Text>
+                    <Text style={styles.headerColumnText}>
+                      {rowData[2]}
+                    </Text>
+                    <Text style={styles.headerColumnText}>
+                      {rowData[3]}
+                    </Text>
+
+                  </View>
+                </TouchableHighlight>
+              </Swipeout>
+            </View>
+
+          }
           renderSectionHeader={() =>
             <View style={{ flex: 1 }}>
               <View style={styles.headerColumnView}>
