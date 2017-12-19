@@ -641,7 +641,7 @@ renderRow(rowData, sectionID, rowID) {
         </View>
       <View style={{ height: 60, backgroundColor: '#46BBE7' }} >
         <Text style={styles.instructions}>
-          Add Medication: Press Enter When Done
+          Add Medication: Press Enter When Done 
         </Text>
         <Text style={styles.instructions}>
           Swipe Row to Delete
@@ -692,8 +692,8 @@ instructions: {
   borderRadius: 4,
   borderWidth: 0.5,
   borderColor: '#d6d7da',
-  tintColor: '#FDFEFE ',
-  fontStyle: 'Open Sans'
+  color: '#333333',
+  //fontStyle: 'Open Sans'
 },
   container: {
     flex: 1,
@@ -707,11 +707,11 @@ instructions: {
     margin: 10,
     tintColor: 'black'
   },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
+  // instructions: {
+  //   textAlign: 'center',
+  //   color: '#333333',
+  //   marginBottom: 5,
+  // },
   button: {
     flex: 1,
     marginTop: 10,
