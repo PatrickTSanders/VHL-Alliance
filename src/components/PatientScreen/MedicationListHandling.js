@@ -189,7 +189,7 @@ renderRow(rowData, sectionID, rowID) {
 
                     const currentIndex = this.props.beforeAppOpenMedList;
                     console.log('Current datasource index about to be popped: ',
-                    currentIndex.splice(rowID, rowID));
+                    currentIndex.splice(rowID, 1));
 
                     console.log('Current datasource arrays: ', JSON.stringify(currentIndex));
                     await this.onAddMed(JSON.stringify(currentIndex));
@@ -648,7 +648,7 @@ renderRow(rowData, sectionID, rowID) {
           Add Medication: Press Enter When Done
         </Text>
         <Text style={styles.instructions}>
-          Swipe Row to Delete
+          Swipe Row Left to Delete
         </Text>
       </View>
       </KeyboardAvoidingView>
