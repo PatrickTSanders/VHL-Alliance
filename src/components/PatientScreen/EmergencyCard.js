@@ -38,6 +38,7 @@ class EmergencyCard extends Component {
     const accessAppStorage2 = new AppStorage();
     console.log('Get Item with key: ERCard');
     const prevList = await accessAppStorage2.GetItem('ERCard');
+    const medList = await accessAppStorage2.GetItem('totalMedList');
 
     console.log('Test for retrieving', prevList);
     var parsedList = JSON.parse(prevList);
@@ -52,6 +53,8 @@ class EmergencyCard extends Component {
     console.log('Test for retrieving', prevList);
     console.log('State within componentDidMount before setState',
                   this.state.beforeAppOpenERCardList);
+    parsedList[4][1] = medList;
+    console.log(parsedList);
     this.setState({ beforeAppOpenERCardList: parsedList });
 
 

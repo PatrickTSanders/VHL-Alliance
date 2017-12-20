@@ -39,7 +39,7 @@ class EmergencyCardUpdate extends Component {
       console.log('Get Item with key: ERCard'  );
       return await accessAppStorage2.GetItem('ERCard')
     }};
-    //console.log(AStotalMedList)
+    //console.log(getCurrent)
     const swipeBtns = [{
       text: 'Delete',
       backgroundColor: 'red',
@@ -53,7 +53,8 @@ class EmergencyCardUpdate extends Component {
       //console.log(this.state.totalMedList);;
     this.state = {
       //dataSource: ds.cloneWithRows(['test1','test2','test3','test4',]),
-      dataSource: ds.cloneWithRows(getCurrent),
+      //beforeAppOpenERCardList: [],
+      //dataSource: ds.cloneWithRows(this.state.beforeAppOpenERCardList),
       sectionID: null,
       rowID: null,
       value: '',
@@ -75,7 +76,39 @@ class EmergencyCardUpdate extends Component {
         dataSource: ds.cloneWithRows(this.props.beforeAppOpenERCardList)
       }
     }
+  async componentWillMount() {
+      const accessAppStorage2 = new AppStorage();
+      console.log('Get Item with key: ERCard');
+      const prevList = await accessAppStorage2.GetItem('ERCard');
+      const medList = await accessAppStorage2.GetItem('totalMedList');
 
+      console.log('Test for retrieving', prevList);
+      var parsedList = JSON.parse(prevList);
+
+      if (!parsedList) {
+        parsedList = [['Name', ''],['Age', ''],['Weight', ''],
+                    ['Current Diagnosis', ''],['Medication List', ''],
+                    ['Contraindicated Medicaitons', ''],
+                    ['Allergies', ''],['Emergency Contact', ''],['Primary Care', '']];
+      }
+
+      console.log('Test for retrieving', prevList);
+      console.log('State within componentDidMount before setState',
+                    this.state.beforeAppOpenERCardList);
+      parsedList[4][1] = medList;
+      console.log(parsedList);
+      const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
+
+
+      this.setState({ beforeAppOpenERCardList: parsedList });
+      this.setState({ dataSource: ds.cloneWithRows(this.state.beforeAppOpenERCardList) });
+
+      console.log('State of beforeAppOpenERCardList: ', this.state.beforeAppOpenERCardList);
+
+    //const medList = await accessAppStorage2.GetItem('totalMedList');
+
+    console.log(this.state.beforeAppOpenERCardList[5]);
+  }
 
 
 async onAddToCard(ERCardList) {
@@ -170,6 +203,9 @@ renderRow(rowData, sectionID, rowID) {
 
 
     console.log(this.state.value);
+    if (!this.state.dataSource) {
+      return false;
+    }
     return (
       <KeyboardAvoidingView {...this.props} behavior="padding" style={{ flex: 1 }}>
         {/* //{...this.onAddMed.bind(this)} */}
@@ -182,475 +218,177 @@ renderRow(rowData, sectionID, rowID) {
             dataSource={this.state.dataSource}
             //renderRow={this.renderRow.bind(this)}
             renderRow={(rowData, sectionID, rowID) =>
+              // <View style={{ flex: 1 }}>
+              //   <Swipeout
+              //     rowID={rowID}
+              //     right={[{
+              //     text: 'Update',
+              //     backgroundColor: 'red',
+              //     //backgroundColor: '#fff',
+              //     onPress: async () => {
+              //       console.log('update was actually pressed', { rowData });
+              //       console.log('Curren rowID: ', { rowID });
+              //
+              //       const currentIndex = this.props.beforeAppOpenERCardList;
+              //       console.log('Current datasource index about to be popped: ',
+              //                     currentIndex.splice(rowID, rowID));
+              //
+              //       console.log('Current datasource arrays: ', JSON.stringify(currentIndex));
+              //       await this.onAddMed(JSON.stringify(currentIndex));
+              //       console.log('onAddMed was attempted');
+              //
+              //       const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
+              //       console.log(ds);
+              //       this.setState({ dataSource: ds.cloneWithRows(currentIndex) });
+              //       console.log(this.state.dataSource);
+              //     }
+              //     }]
+              //     }
+              //     // onPress={() =>
+              //     //   console.log('the delete was actually pressed')
+              //     // }
+              //     autoClose={true}
+              //     backgroundColor='transparent'
+              //   >
+              //     <TouchableHighlight
+              //       //underlayColor='rgba(192,192,192,1,0.6)'
+              //       onPress={
+              //         console.log('delete was pressed')
+              //       }
+              //     >
+              //       <View style={styles.listColumnView}>
+              //
+              //         { /* rowData.map((name, index) => ( {
+              //           return {name};
+              //         }))
+              //         */
+              //         }
+              //
+              //         <Text style={styles.listColumnText}>
+              //           {rowData[0]}
+              //         </Text>
+              //         <Text style={styles.listColumnText}>
+              //           {rowData[1]}
+              //         </Text>
+              //         {/* <Text style={styles.listColumnText}>
+              //           {rowData[2]}
+              //         </Text>
+              //         <Text style={styles.listColumnText}>
+              //           {rowData[3]}
+              //         </Text> */}
+              //
+              //       </View>
+              //     </TouchableHighlight>
+              //   </Swipeout>
+              // </View>
               <View style={{ flex: 1 }}>
-                <Swipeout
-                  rowID={rowID}
-                  right={[{
-                  text: 'Update',
-                  backgroundColor: 'red',
-                  //backgroundColor: '#fff',
-                  onPress: async () => {
-                    console.log('update was actually pressed', { rowData });
-                    console.log('Curren rowID: ', { rowID });
+                <View style={styles.listColumnView}>
 
-                    const currentIndex = this.props.beforeAppOpenERCardList;
-                    console.log('Current datasource index about to be popped: ',
-                                  currentIndex.splice(rowID, rowID));
+                     <Text style={styles.listColumnText}>
+                          {rowData[0]}
+                      </Text>
+                      <TextInput
+                        multiline={true}
+                        style={styles.listColumnText}
+                        onChangeText={(key) => {
+                          // this.state.medication
+                          this.setState({key: key});
+                          //rowData[1] = this.state.medication
+                        }
+                        }
+                        defaultValue={
+                          rowData[1]
+                        }
+                        // value={
+                        //   this.state.medication
+                        // }
+                        //value={
+                        //   () => {
+                        //   if (!this.state.medication) {
+                        //     return rowData[1]
+                        //   }
+                        //   return this.state.medication
+                        // }
+                        //rowData[1]
+                    //  }
+                    onSubmitEditing={
+                      async () => {
+                      console.log([this.state.beforeAppOpenERCardList[rowID], this.state.key]);
+                      const currentERCard = this.state.beforeAppOpenERCardList;
+                      currentERCard[rowID][1] = this.state.key
+                      // const pushingCurrentMed = [
+                      //   this.state.medication,
+                      //   this.state.dosage,
+                      //   this.state.frequency,
+                      //   this.state.rXBy];
 
-                    console.log('Current datasource arrays: ', JSON.stringify(currentIndex));
-                    await this.onAddMed(JSON.stringify(currentIndex));
-                    console.log('onAddMed was attempted');
+                      console.log('Updated ER Card', currentERCard);
+                      // const prevMedList = this.state.totalMedList;
+                      // console.log(prevMedList);
+                      console.log(Array.isArray(currentERCard))
+                      //prevMedList.push(pushingCurrentMed);
+                      // console.log(prevMedList);
+                      // const updatingMedList = appStorage.SetItem('totalMedList',
+                      //                 JSON.stringify(prevMedList));
+                      // console.log(updatingMedList);
+                      // console.log('called AppStorage.SetItem to submit updated Meds');
 
-                    const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
-                    console.log(ds);
-                    this.setState({ dataSource: ds.cloneWithRows(currentIndex) });
-                    console.log(this.state.dataSource);
-                  }
-                  }]
-                  }
-                  // onPress={() =>
-                  //   console.log('the delete was actually pressed')
-                  // }
-                  autoClose={true}
-                  backgroundColor='transparent'
-                >
-                  <TouchableHighlight
-                    //underlayColor='rgba(192,192,192,1,0.6)'
-                    onPress={
-                      console.log('delete was pressed')
-                    }
-                  >
-                    <View style={styles.listColumnView}>
+                      //const currentIndex = this.props.beforeAppOpenMedList;
 
-                      { /* rowData.map((name, index) => ( {
-                        return {name};
-                      }))
-                      */
+                      await this.onAddToCard(JSON.stringify(currentERCard));
+                      const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
+                      console.log(ds);
+                      this.setState({ dataSource: ds.cloneWithRows(currentERCard) });
+                      console.log(this.state.dataSource);
+
+                      //!!! Clear Values of TextInput
+                      // this.setState({ medication: '' });
+                      // this.setState({ frequency: '' });
+                      // this.setState({ dosage: '' });
+                      // this.setState({ rXBy: '' });
                       }
+                    }
+                      />
+                        {/* <Text style={styles.listColumnText}>
+                          {rowData[2]}
+                        </Text>
+                        <Text style={styles.listColumnText}>
+                          {rowData[3]}
+                        </Text> */}
 
-                      <Text style={styles.listColumnText}>
-                        {rowData[0]}
-                      </Text>
-                      <Text style={styles.listColumnText}>
-                        {rowData[1]}
-                      </Text>
-                      {/* <Text style={styles.listColumnText}>
-                        {rowData[2]}
-                      </Text>
-                      <Text style={styles.listColumnText}>
-                        {rowData[3]}
-                      </Text> */}
-
-                    </View>
-                  </TouchableHighlight>
-                </Swipeout>
+                  </View>
               </View>
-
             }
-            renderSectionHeader={() =>
-              <View style={{ flex: 1 }}>
-                <View style={styles.headerColumnView}>
-                  <Text style={styles.headerColumnText}>
-                    Medication
-                  </Text>
-                  <Text style={styles.headerColumnText}>
-                    Dosage
-                  </Text>
-                  <Text style={styles.headerColumnText}>
-                    Frequency
-                  </Text>
-                  <Text style={styles.headerColumnText}>
-                    Prescribed By
-                  </Text>
-                </View>
-              </View>
-
-
-            }
+            // renderSectionHeader={() =>
+            //   <View style={{ flex: 1 }}>
+            //     <View style={styles.headerColumnView}>
+            //       <Text style={styles.headerColumnText}>
+            //         Medication
+            //       </Text>
+            //       <Text style={styles.headerColumnText}>
+            //         Dosage
+            //       </Text>
+            //       <Text style={styles.headerColumnText}>
+            //         Frequency
+            //       </Text>
+            //       <Text style={styles.headerColumnText}>
+            //         Prescribed By
+            //       </Text>
+            //     </View>
+            //   </View>
+            //
+            //
+            // }
           />
         </View>
 
-        <View style={{ flex: 1}}>
-          <View style={{ flex: 1 }}>
-            <View style={styles.headerColumnView}>
-              <TextInput
-                style={styles.headerColumnText}
-                onChangeText={(medication) => {
-                  // this.state.medication
-                  this.setState({medication: medication});
-                  }
-                }
-                value={ this.state.medication
 
-                //   JSON.stringify(
-                //   (value) =>{
-                //     if (this.state.text){
-                //       this.state.text
-                //     }
-                //     else{
-                //       'Place Holder'
-                //     }
-                //     console.log(value)
-                //   }
-                // )
-                }
-                placeholder='Medication'
-                blurOnSubmit= {true}
-                onSubmitEditing={
-                  async () => {
-                  console.log([this.state.medication,
-                    JSON.stringify([
-                      this.state.medication,
-                      this.state.dosage,
-                      this.state.frequency,
-                      this.state.rXBy])]);
-                  const pushingCurrentMed = [
-                    this.state.medication,
-                    this.state.dosage,
-                    this.state.frequency,
-                    this.state.rXBy];
-
-                  console.log(pushingCurrentMed);
-                  const prevMedList = this.state.totalMedList;
-                  console.log(prevMedList);
-                  console.log(Array.isArray(prevMedList))
-                  prevMedList.push(pushingCurrentMed);
-                  // console.log(prevMedList);
-                  // const updatingMedList = appStorage.SetItem('totalMedList',
-                  //                 JSON.stringify(prevMedList));
-                  // console.log(updatingMedList);
-                  // console.log('called AppStorage.SetItem to submit updated Meds');
-
-                  //const currentIndex = this.props.beforeAppOpenMedList;
-
-                  await this.onAddMed(JSON.stringify(prevMedList));
-                  const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
-                  console.log(ds);
-                  this.setState({ dataSource: ds.cloneWithRows(prevMedList) });
-                  console.log(this.state.dataSource);
-
-                  //!!! Clear Values of TextInput
-                  this.setState({ medication: '' });
-                  this.setState({ frequency: '' });
-                  this.setState({ dosage: '' });
-                  this.setState({ rXBy: '' });
-                  }
-                }
-                // onSubmitEditing = {() => {
-                //   let updatingMedList =  appStorage.SetItem('TestMedicationList', JSON.stringify([test1, test2]));
-                //   console.log(updatingMedList);
-                //   console.log('called AppStorage.SetItem to submit updated Meds');
-                // }
-                //
-                // }
-                //onEndEditing = {this.onSubmitMedEdit}
-                // This will only work on iOS, RMS did this
-                //onKeyPress={this.onSubmitMedEdit
-                //   () => {
-                //   if(nativeEvent === 'Enter'){
-                //     console.log(this.state.text)
-                //   }
-                // }
-
-                // }
-
-              />
-              <TextInput
-                style={styles.headerColumnText}
-                onChangeText={(dosage) => {
-                this.setState({dosage: dosage});
-                }
-                }
-                value={ this.state.dosage
-
-                //   JSON.stringify(
-                //   (value) =>{
-                //     if (this.state.text){
-                //       this.state.text
-                //     }
-                //     else{
-                //       'Place Holder'
-                //     }
-                //     console.log(value)
-                //   }
-                // )
-                }
-                placeholder='Dosage'
-                blurOnSubmit= {true}
-                onSubmitEditing={
-                  async () => {
-                  console.log([this.state.medication,
-                    JSON.stringify([
-                      this.state.medication,
-                      this.state.dosage,
-                      this.state.frequency,
-                      this.state.rXBy])]);
-                  const pushingCurrentMed = [
-                    this.state.medication,
-                    this.state.dosage,
-                    this.state.frequency,
-                    this.state.rXBy];
-
-                  console.log(pushingCurrentMed);
-                  const prevMedList = this.state.totalMedList;
-                  console.log(prevMedList);
-                  console.log(Array.isArray(prevMedList))
-                  prevMedList.push(pushingCurrentMed);
-                  // console.log(prevMedList);
-                  // const updatingMedList = appStorage.SetItem('totalMedList',
-                  //                 JSON.stringify(prevMedList));
-                  // console.log(updatingMedList);
-                  // console.log('called AppStorage.SetItem to submit updated Meds');
-
-                  //const currentIndex = this.props.beforeAppOpenMedList;
-
-                  await this.onAddMed(JSON.stringify(prevMedList));
-                  const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
-                  console.log(ds);
-                  this.setState({ dataSource: ds.cloneWithRows(prevMedList) });
-                  console.log(this.state.dataSource);
-
-                  //!!! Clear Values of TextInput
-                  this.setState({ medication: '' });
-                  this.setState({ frequency: '' });
-                  this.setState({ dosage: '' });
-                  this.setState({ rXBy: '' });
-                  }
-                }
-                // onSubmitEditing = {() => {
-                //   let updatingMedList =  appStorage.SetItem('TestMedicationList', JSON.stringify([test1, test2]));
-                //   console.log(updatingMedList);
-                //   console.log('called AppStorage.SetItem to submit updated Meds');
-                // }
-                //
-                // }
-                //onEndEditing = {this.onSubmitMedEdit}
-                // This will only work on iOS, RMS did this
-                //onKeyPress={this.onSubmitMedEdit
-                //   () => {
-                //   if(nativeEvent === 'Enter'){
-                //     console.log(this.state.text)
-                //   }
-                // }
-
-                // }
-
-              />
-              <TextInput
-                style={styles.headerColumnText}
-                onChangeText={(frequency) => {
-                this.setState({frequency: frequency})
-                }}
-                value={ this.state.frequency
-
-                //   JSON.stringify(
-                //   (value) =>{
-                //     if (this.state.text){
-                //       this.state.text
-                //     }
-                //     }
-                //     else{
-                //       'Place Holder'
-                //     console.log(value)
-                //   }
-                // )
-                }
-                placeholder='Frequency'
-                blurOnSubmit= {true}
-                onSubmitEditing={
-                  async () => {
-                  console.log([this.state.medication,
-                    JSON.stringify([
-                      this.state.medication,
-                      this.state.dosage,
-                      this.state.frequency,
-                      this.state.rXBy])]);
-                  const pushingCurrentMed = [
-                    this.state.medication,
-                    this.state.dosage,
-                    this.state.frequency,
-                    this.state.rXBy];
-
-                  console.log(pushingCurrentMed);
-                  const prevMedList = this.state.totalMedList;
-                  console.log(prevMedList);
-                  console.log(Array.isArray(prevMedList))
-                  prevMedList.push(pushingCurrentMed);
-                  // console.log(prevMedList);
-                  // const updatingMedList = appStorage.SetItem('totalMedList',
-                  //                 JSON.stringify(prevMedList));
-                  // console.log(updatingMedList);
-                  // console.log('called AppStorage.SetItem to submit updated Meds');
-
-                  //const currentIndex = this.props.beforeAppOpenMedList;
-
-                  await this.onAddMed(JSON.stringify(prevMedList));
-                  const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
-                  console.log(ds);
-                  this.setState({ dataSource: ds.cloneWithRows(prevMedList) });
-                  console.log(this.state.dataSource);
-
-                  //!!! Clear Values of TextInput
-                  this.setState({ medication: '' });
-                  this.setState({ frequency: '' });
-                  this.setState({ dosage: '' });
-                  this.setState({ rXBy: '' });
-                  }
-                }
-                // onSubmitEditing = {() => {
-                //   let updatingMedList =  appStorage.SetItem('TestMedicationList', JSON.stringify([test1, test2]));
-                //   console.log(updatingMedList);
-                //   console.log('called AppStorage.SetItem to submit updated Meds');
-                // }
-
-                //}
-                //onEndEditing = {this.onSubmitMedEdit}
-                // This will only work on iOS, RMS did this
-                //onKeyPress={this.onSubmitMedEdit
-                //   () => {
-                //   if(nativeEvent === 'Enter'){
-                //     console.log(this.state.text)
-                //   }
-                // }
-
-                // }
-
-              />
-              <TextInput
-                style={styles.headerColumnText}
-                onChangeText={(rXBy) => {
-                this.setState({rXBy: rXBy})
-                }}
-                value={ this.state.rXBy
-
-                //   JSON.stringify(
-                //   (value) =>{
-                //     if (this.state.text){
-                //       this.state.text
-                //     }
-                //     else{
-                //       'Place Holder'
-                //     }
-                //     console.log(value)
-                //   }
-                // )
-                }
-                placeholder='Prescribed By'
-                blurOnSubmit= {true}
-                onSubmitEditing={
-                  async () => {
-                  console.log([this.state.medication,
-                    JSON.stringify([
-                      this.state.medication,
-                      this.state.dosage,
-                      this.state.frequency,
-                      this.state.rXBy])]);
-                  const pushingCurrentMed = [
-                    this.state.medication,
-                    this.state.dosage,
-                    this.state.frequency,
-                    this.state.rXBy];
-
-                  console.log(pushingCurrentMed);
-                  const prevMedList = this.state.totalMedList;
-                  console.log(prevMedList);
-                  console.log(Array.isArray(prevMedList))
-                  prevMedList.push(pushingCurrentMed);
-                  // console.log(prevMedList);
-                  // const updatingMedList = appStorage.SetItem('totalMedList',
-                  //                 JSON.stringify(prevMedList));
-                  // console.log(updatingMedList);
-                  // console.log('called AppStorage.SetItem to submit updated Meds');
-
-                  //const currentIndex = this.props.beforeAppOpenMedList;
-
-                  await this.onAddMed(JSON.stringify(prevMedList));
-                  const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
-                  console.log(ds);
-                  this.setState({ dataSource: ds.cloneWithRows(prevMedList) });
-                  console.log(this.state.dataSource);
-
-                  //!!! Clear Values of TextInput
-                  this.setState({ medication: '' });
-                  this.setState({ frequency: '' });
-                  this.setState({ dosage: '' });
-                  this.setState({ rXBy: '' });
-                  }
-                  // async function(){
-                  //
-                  //   console.log('attempting to update parent state');
-                  //   var inChildStorage = new AppStorage;
-                  //   const currentTotalMedList = await inChildStorage.GetItem('MedicationList')
-                  //   this.onAddMedName(this.state.medication, currentTotalMedList)
-                  // }
-
-
-                }
-
-
-                //onEndEditing = {this.onSubmitMedEdit}
-                // This will only work on iOS, RMS did this
-                //onKeyPress={this.onSubmitMedEdit
-                //   () => {
-                //   if(nativeEvent === 'Enter'){
-                //     console.log(this.state.text)
-                //   }
-                // }
-
-                // }
-
-              />
-            </View>
-          </View>
-
-          {/* <Button
-            title='Get Prev List'
-            onPress={()=>{ this.getPrevMedList()
-              console.log('Button was pressed')
-          }}
-          />
-          <Button
-            title='Get Key'
-            onPress={
-              async function() {
-
-              //const getting = gettingItem('testing');
-              let getting =  await appStorage.GetItem('TestKey');
-              console.log('called AppStorage.GetItem result = ', {getting});
-
-            }
-          }
-
-          />
-          <Button
-            title='Test Past Med'
-            onPress={
-              async function() {
-              try {
-
-                console.log(await appStorage.GetItem('TestMed'))
-            } catch(error){
-              console.log(error)
-              }
-            }
-
-
-            }
-          />
-          <Button
-            title='Add Med'
-            onPress={() =>
-              this.state.value = this.state.text
-              //onAddMedName()
-            }
-          /> */}
-        </View>
       <View style={{ height: 60, backgroundColor: '#46BBE7' }} >
         <Text style={styles.instructions}>
-          Add Medication: Press Enter When Done
+          Update Your Emergency Card: Press Enter When Done
         </Text>
         <Text style={styles.instructions}>
-          Swipe Row to Delete
+          Emergency Card will update on Refresh
         </Text>
       </View>
       </KeyboardAvoidingView>
