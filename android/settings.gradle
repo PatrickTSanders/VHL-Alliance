@@ -1,4 +1,8 @@
 rootProject.name = 'ryanTest'
+include ':react-native-sound'
+project(':react-native-sound').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-sound/android')
+include ':react-native-audio'
+project(':react-native-audio').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-audio/android')
 include ':react-native-push-notifications'
 project(':react-native-push-notifications').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-push-notifications/android')
 include ':react-native-push-notification'

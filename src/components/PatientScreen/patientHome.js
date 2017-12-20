@@ -17,9 +17,10 @@ import EmergencyCard from './EmergencyCard';
 import EmergencyCardUpdate from './EmergencyCardUpdate';
 import MedicationList from './MedicationList'
 import DoctorInfo from './DoctorInfo'
-
 import MedicationListHandling from './MedicationListHandling'
 import PushNotifications from '../PushNotifications'
+import VoiceRecordingsAndNotes from './VoiceDataStorage/VoiceRecordingsAndNotes'
+import ListOfSaved from './VoiceDataStorage/ListOfSaved'
 
 
 
@@ -74,9 +75,10 @@ const PatientHome = ( {navigation} ) => (
         </View>
         <View style={{ flexDirection: 'row' }}>
           <Button
-            title='Button'
+            title='My Recordings'
             containerViewStyle={styles.button}
             iconRight={{ type: 'font-awesome' }}
+            onPress={() => navigation.navigate('ListOfSaved')}
           />
           <Button
             title='Emergency Card'
@@ -96,7 +98,7 @@ const stackNavPatient = StackNavigator({
     navigationOptions: ({ navigation, defaultHeader }) => ({
       ...defaultHeader,
       backgroundColor: '#3D6DCC',
-      title: 'Patient HomePage',
+      title: 'Patient Home',
       headerTintColor: '#3D6DCC',
     })
   },
@@ -122,6 +124,36 @@ const stackNavPatient = StackNavigator({
       // </TouchableOpacity>
   }),
 },
+VoiceRecordings: {
+    screen: VoiceRecordingsAndNotes,
+    path: '/',
+    headerTitle: 'Voice Recordings1',
+    navigationOptions: ({ navigation }) => ({
+      title: 'Add new Recording',
+      headerRight: <Button title='Done'
+                     /* this would be something like
+                         take current state
+                         update to realm
+                         pop this screen from current stack (so back doesnt take me back to same place)
+                      onPress={() => navigation.navigate('VoiceRecordings')} */
+                    />
+    }),
+  },
+
+  ListOfSaved: {
+    screen: ListOfSaved,
+    path: '/',
+    headerTitle: 'idk',
+    navigationOptions: ({ navigation }) => ({
+      backgroundColor: '#3D6DCC',
+      title: 'My Recordings',
+      headerTintColor: '#3D6DCC',
+      headerRight : <Button title='add'
+                    onPress={() => navigation.navigate('VoiceRecordings')}
+                    />
+    }),
+  },
+
 DoctorInfo: {
   screen: DoctorInfo,
   path: '/',
