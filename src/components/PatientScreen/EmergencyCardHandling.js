@@ -229,12 +229,12 @@ renderRow(rowData, sectionID, rowID) {
                       <Text style={styles.listColumnText}>
                         {rowData[1]}
                       </Text>
-                      <Text style={styles.listColumnText}>
+                      {/* <Text style={styles.listColumnText}>
                         {rowData[2]}
                       </Text>
                       <Text style={styles.listColumnText}>
                         {rowData[3]}
-                      </Text>
+                      </Text> */}
 
                     </View>
                   </TouchableHighlight>

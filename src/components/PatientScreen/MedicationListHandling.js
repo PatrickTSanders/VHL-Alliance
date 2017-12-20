@@ -289,7 +289,8 @@ renderRow(rowData, sectionID, rowID) {
                 // )
                 }
                 placeholder='Medication'
-                blurOnSubmit= {true}
+                //blurOnSubmit= {true}
+                multiline={true}
                 onSubmitEditing={
                   async () => {
                   console.log([this.state.medication,
@@ -370,7 +371,8 @@ renderRow(rowData, sectionID, rowID) {
                 // )
                 }
                 placeholder='Dosage'
-                blurOnSubmit= {true}
+                //blurOnSubmit= {true}
+                multiline={true}
                 onSubmitEditing={
                   async () => {
                   console.log([this.state.medication,
@@ -450,7 +452,8 @@ renderRow(rowData, sectionID, rowID) {
                 // )
                 }
                 placeholder='Frequency'
-                blurOnSubmit= {true}
+                //blurOnSubmit= {true}
+                multiline={true}
                 onSubmitEditing={
                   async () => {
                   console.log([this.state.medication,
@@ -530,7 +533,8 @@ renderRow(rowData, sectionID, rowID) {
                 // )
                 }
                 placeholder='Prescribed By'
-                blurOnSubmit= {true}
+                //blurOnSubmit= {true}
+                multiline={true}
                 onSubmitEditing={
                   async () => {
                   console.log([this.state.medication,
@@ -641,7 +645,7 @@ renderRow(rowData, sectionID, rowID) {
         </View>
       <View style={{ height: 60, backgroundColor: '#46BBE7' }} >
         <Text style={styles.instructions}>
-          Add Medication: Press Enter When Done 
+          Add Medication: Press Enter When Done
         </Text>
         <Text style={styles.instructions}>
           Swipe Row to Delete
@@ -709,7 +713,7 @@ instructions: {
   },
   // instructions: {
   //   textAlign: 'center',
-  //   color: '#333333',
+  //   color: '#333333',s
   //   marginBottom: 5,
   // },
   button: {

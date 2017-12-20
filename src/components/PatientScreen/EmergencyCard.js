@@ -28,7 +28,10 @@ class EmergencyCard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      beforeAppOpenERCardList: []
+      // beforeAppOpenERCardList: [['Name', ''],['Age', ''],['Weight', ''],
+      //             ['Current Diagnosis', ''],['Medication List', ''],
+      //             ['Contraindicated Medicaitons', ''],
+      //             ['Allergies', ''],['Emergency Contact', ''],['Primary Care', '']]
     };
   }
   async componentWillMount() {
@@ -38,29 +41,36 @@ class EmergencyCard extends Component {
 
     console.log('Test for retrieving', prevList);
     var parsedList = JSON.parse(prevList);
-    if (!parsedList)
+
+    if (!parsedList) {
       parsedList = [['Name', ''],['Age', ''],['Weight', ''],
                   ['Current Diagnosis', ''],['Medication List', ''],
                   ['Contraindicated Medicaitons', ''],
                   ['Allergies', ''],['Emergency Contact', ''],['Primary Care', '']];
+    }
 
     console.log('Test for retrieving', prevList);
+    console.log('State within componentDidMount before setState',
+                  this.state.beforeAppOpenERCardList);
+    this.setState({ beforeAppOpenERCardList: parsedList });
 
-    this.setState({ beforeAppOpenERCardList: prevList });
 
-
-    console.log(this.state.beforeAppOpenERCardList);
+    console.log('State of beforeAppOpenERCardList: ', this.state.beforeAppOpenERCardList);
 
   //const medList = await accessAppStorage2.GetItem('totalMedList');
-  console.log(this.state.beforeAppOpenERCardList);
+
+  console.log(this.state.beforeAppOpenERCardList[5]);
 }
 
 render() {
   console.log('ABout to pass to child', this.state.beforeAppOpenERCardList);
-  console.log(this.state.beforeAppOpenERCardList);
-    // if ( this.state.beforeAppOpenERCardList.length === 0 ) {
-    //   return false;
-    // }
+  console.log('State of beforeAppOpenERCardList: ', this.state.beforeAppOpenERCardList);
+  console.log('Is this an array? ', Array.isArray(this.state.beforeAppOpenERCardList));
+  console.log('typeof bAOERCL ', typeof this.state.beforeAppOpenERCardList);
+
+    if (!this.state.beforeAppOpenERCardList) {
+      return false;
+    }
     return (
     <EmergencyCardHandling beforeAppOpenERCardList={this.state.beforeAppOpenERCardList} />
 );
