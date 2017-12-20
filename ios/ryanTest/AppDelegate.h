@@ -13,4 +13,6 @@
 
 @property (nonatomic, strong) UIWindow *window;
 
+// Required to register for notifications
+
 @end

@@ -21,7 +21,7 @@ import { TabNavigator } from "react-navigation";
 
 import vhlHome from './src/components/VHLScreen/vhlHome';
 import patientHome from './src/components/PatientScreen/patientHome';
-
+import pushNotification from './src/components/PushNotifications';
 
 const App = TabNavigator({
   VHL: {
@@ -30,7 +30,28 @@ const App = TabNavigator({
       title: 'VHL',
     }),
    },
-  Patient: { screen: patientHome }
+  Patient: {
+    screen: patientHome,
+    navigationOptions: ({navigation}) => ({
+      title: 'Patient',
+    }),
+  },
 });
 
 export default App;
+/*
+const viewEx = {
+  <Text>hi</Text>
+};
+
+https://github.com/react-community/react-navigation/issues/2145
+export default class App extends React.Component {
+
+    render(){
+      return(
+          <viewEx />
+      );
+    }
+
+}
+*/

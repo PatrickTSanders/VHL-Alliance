@@ -23,7 +23,6 @@ const MainVHL= ({ navigation }) => (
 
 const VHLHome = ({ navigation }) => (
   <View style={{ flex: 1 }}>
-
     <View style={{ flex: 8 }} >
       <View style={{ flexDirection: 'row' }}>
         <Button
@@ -66,9 +65,7 @@ const VHLHome = ({ navigation }) => (
           onPress={() => navigation.navigate('Research')}
         />
       </View>
-
     </View>
-
   </View>
 );
 

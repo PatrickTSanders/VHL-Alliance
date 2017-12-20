@@ -15,6 +15,9 @@ import { StackNavigator } from 'react-navigation';
 import Calendar from './Calendar'
 import MedicationList from './MedicationList'
 import DoctorInfo from './DoctorInfo'
+import MedicationListHandling from './MedicationListHandling'
+import PushNotifications from '../PushNotifications'
+
 
 /*
 Old Header that shows Time and Cell Service in Header Area
@@ -58,7 +61,10 @@ const PatientHome = ( {navigation} ) => (
             iconRight={{ type: 'font-awesome' }}
             onPress={() => navigation.navigate('DoctorInfo')}
           />
-          <Button title='Personal Info' containerViewStyle={styles.button} />
+          <Button
+            title='Personal Info' containerViewStyle={styles.button}
+            onPress={() => navigation.navigate('PushNotifications')}
+          />
         </View>
         <View style={{ flexDirection: 'row' }}>
           <Button
@@ -118,8 +124,17 @@ DoctorInfo: {
     //     Info
     //   </Text>
     // </TouchableOpacity>
-}),
-}
+    }),
+  },
+
+  PushNotifications: {
+    screen: PushNotifications,
+    path: '/',
+    headerTitle: 'Medication List',
+    navigationOptions: ({ navigation }) => ({
+      title: 'Test',
+    }),
+  }
 });
 
 const styles = StyleSheet.create({
