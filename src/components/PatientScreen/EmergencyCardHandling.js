@@ -242,26 +242,26 @@ renderRow(rowData, sectionID, rowID) {
               </View>
 
             }
-            renderSectionHeader={() =>
-              <View style={{ flex: 1 }}>
-                <View style={styles.headerColumnView}>
-                  <Text style={styles.headerColumnText}>
-                    Medication
-                  </Text>
-                  <Text style={styles.headerColumnText}>
-                    Dosage
-                  </Text>
-                  <Text style={styles.headerColumnText}>
-                    Frequency
-                  </Text>
-                  <Text style={styles.headerColumnText}>
-                    Prescribed By
-                  </Text>
-                </View>
-              </View>
-
-
-            }
+            // renderSectionHeader={() =>
+            //   <View style={{ flex: 1 }}>
+            //     <View style={styles.headerColumnView}>
+            //       <Text style={styles.headerColumnText}>
+            //         Medication
+            //       </Text>
+            //       <Text style={styles.headerColumnText}>
+            //         Dosage
+            //       </Text>
+            //       <Text style={styles.headerColumnText}>
+            //         Frequency
+            //       </Text>
+            //       <Text style={styles.headerColumnText}>
+            //         Prescribed By
+            //       </Text>
+            //     </View>
+            //   </View>
+            //
+            //
+            // }
           />
         </View>
 

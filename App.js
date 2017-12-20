@@ -23,17 +23,33 @@ import vhlHome from './src/components/VHLScreen/vhlHome';
 import patientHome from './src/components/PatientScreen/patientHome';
 import pushNotification from './src/components/PushNotifications';
 
+import Icon from 'react-native-vector-icons/Entypo'
+
 const App = TabNavigator({
   VHL: {
     screen: vhlHome,
     navigationOptions: ({ navigation }) => ({
       title: 'VHL',
+      tabBarIcon: ({ tintColor }) => (
+      <Icon
+        name='home'
+        size={30}
+        color="#4F8EF7"
+      />
+    ),
     }),
    },
   Patient: {
     screen: patientHome,
     navigationOptions: ({navigation}) => ({
       title: 'Patient',
+      tabBarIcon: ({ tintColor }) => (
+      <Icon
+        name='user'
+        size={30}
+        color="#4F8EF7"
+      />
+    ),
     }),
   },
 });
