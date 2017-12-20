@@ -25,7 +25,7 @@ import Swipeout from 'react-native-swipeout';
 
 
 
-class MedicationListHandling extends Component {
+class DoctorInfoHandling extends Component {
     constructor(props) {
     super(props);
     this.handleSwipeout = this.handleSwipeout.bind(this);
@@ -48,15 +48,15 @@ class MedicationListHandling extends Component {
     }];
     const test1 = ['water', '150 mg', '1x per morning', 'Shams'];
     const test2 = ['soda', '200 mg', '2x per night', 'Puryear'];
-    let totalMedList = [test1, test2];
+    let totalDocList = [test1, test2];
     const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
       //console.log(this.state.totalMedList);;
     this.state = {
-      dataSource: ds.cloneWithRows(this.props.beforeAppOpenMedList),
+      dataSource: ds.cloneWithRows(this.props.beforeAppOpenDocInfo),
       sectionID: null,
       rowID: null,
       value: '',
-      totalMedList: this.props.beforeAppOpenMedList,
+      totalDocList: this.props.beforeAppOpenDocInfo,
       currentMed: '',
       medication: '',
       dosage: '',
@@ -71,30 +71,30 @@ class MedicationListHandling extends Component {
       var ds = new ListView.DataSource({rowHasChanged: (row1, row2) => true})
 
       return {
-        dataSource: ds.cloneWithRows(this.props.beforeAppOpenMedList)
+        dataSource: ds.cloneWithRows(this.props.beforeAppOpenDocInfo)
       }
     }
 
 
 
-async onAddMed(totalMedList) {
+async onAddMed(docList) {
   console.log('onAddmed reached')
     var accessAppStorage2 = new AppStorage();
     const testArray = [1,2,3]
     //testArray.push(currentMed)
     //totalMedList.push(currentMed)
     //this.setState(totalMedList);
-      await accessAppStorage2.SetItem('totalMedList', totalMedList)
-      .then(console.log('Set Item with key: totalMedList and value: ', totalMedList ))
-      .then(console.log(await accessAppStorage2.GetItem('totalMedList')))
+      await accessAppStorage2.SetItem('totalDocList', docList)
+      .then(console.log('Set Item with key: totalDocList and value: ', docList ))
+      .then(console.log(await accessAppStorage2.GetItem('totalDocList')))
 
     }
 
   async getPrevMedList() {
     var accessAppStorage2 = new AppStorage();
-    console.log('Get Item with key: totalMedList'  );
-    const prevList = await accessAppStorage2.GetItem('totalMedList')
-    this.setState({totalMedList: JSON.parse(prevList)});
+    console.log('Get Item with key: docList'  );
+    const prevList = await accessAppStorage2.GetItem('totalDocList')
+    this.setState({totalDocList: JSON.parse(prevList)});
     //console.log(this.state.totalMedList);
   }
 
@@ -187,7 +187,7 @@ renderRow(rowData, sectionID, rowID) {
                     console.log('the delete was actually pressed', { rowData });
                     console.log('Curren rowID: ', { rowID });
 
-                    const currentIndex = this.props.beforeAppOpenMedList;
+                    const currentIndex = this.props.beforeAppOpenDocInfo;
                     console.log('Current datasource index about to be popped: ',
                     currentIndex.splice(rowID, rowID));
 
@@ -245,16 +245,16 @@ renderRow(rowData, sectionID, rowID) {
               <View style={{ flex: 1 }}>
                 <View style={styles.headerColumnView}>
                   <Text style={styles.headerColumnText}>
-                    Medication
+                    Doctor
                   </Text>
                   <Text style={styles.headerColumnText}>
-                    Dosage
+                    Specialty
                   </Text>
                   <Text style={styles.headerColumnText}>
-                    Frequency
+                    Appointments
                   </Text>
                   <Text style={styles.headerColumnText}>
-                    Prescribed By
+                    Location
                   </Text>
                 </View>
               </View>
@@ -269,12 +269,12 @@ renderRow(rowData, sectionID, rowID) {
             <View style={styles.headerColumnView}>
               <TextInput
                 style={styles.headerColumnText}
-                onChangeText={(medication) => {
+                onChangeText={(doctor) => {
                   // this.state.medication
-                  this.setState({medication: medication});
+                  this.setState({ doctor: doctor });
                   }
                 }
-                value={ this.state.medication
+                value={ this.state.doctor
 
                 //   JSON.stringify(
                 //   (value) =>{
@@ -288,28 +288,28 @@ renderRow(rowData, sectionID, rowID) {
                 //   }
                 // )
                 }
-                placeholder='Medication'
+                placeholder='Doctor'
                 //blurOnSubmit= {true}
                 multiline={true}
                 onSubmitEditing={
                   async () => {
-                  console.log([this.state.medication,
+                  console.log([this.state.doctor,
                     JSON.stringify([
-                      this.state.medication,
-                      this.state.dosage,
-                      this.state.frequency,
-                      this.state.rXBy])]);
-                  const pushingCurrentMed = [
-                    this.state.medication,
-                    this.state.dosage,
-                    this.state.frequency,
-                    this.state.rXBy];
+                      this.state.doctor,
+                      this.state.specialty,
+                      this.state.appointments,
+                      this.state.location])]);
+                  const pushingCurrentDoc = [
+                    this.state.doctor,
+                    this.state.specialty,
+                    this.state.appointments,
+                    this.state.location];
 
-                  console.log(pushingCurrentMed);
-                  const prevMedList = this.state.totalMedList;
-                  console.log(prevMedList);
-                  console.log(Array.isArray(prevMedList))
-                  prevMedList.push(pushingCurrentMed);
+                  console.log(pushingCurrentDoc);
+                  const prevDocList = this.state.totalDocList;
+                  console.log(prevDocList);
+                  console.log(Array.isArray(prevDocList))
+                  prevDocList.push(pushingCurrentDoc);
                   // console.log(prevMedList);
                   // const updatingMedList = appStorage.SetItem('totalMedList',
                   //                 JSON.stringify(prevMedList));
@@ -318,17 +318,17 @@ renderRow(rowData, sectionID, rowID) {
 
                   //const currentIndex = this.props.beforeAppOpenMedList;
 
-                  await this.onAddMed(JSON.stringify(prevMedList));
+                  await this.onAddMed(JSON.stringify(prevDocList));
                   const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
                   console.log(ds);
-                  this.setState({ dataSource: ds.cloneWithRows(prevMedList) });
+                  this.setState({ dataSource: ds.cloneWithRows(prevDocList) });
                   console.log(this.state.dataSource);
 
                   //!!! Clear Values of TextInput
-                  this.setState({ medication: '' });
-                  this.setState({ frequency: '' });
-                  this.setState({ dosage: '' });
-                  this.setState({ rXBy: '' });
+                  this.setState({ doctor: '' });
+                  this.setState({ specialty: '' });
+                  this.setState({ appointments: '' });
+                  this.setState({ location: '' });
                   }
                 }
                 // onSubmitEditing = {() => {
@@ -352,11 +352,11 @@ renderRow(rowData, sectionID, rowID) {
               />
               <TextInput
                 style={styles.headerColumnText}
-                onChangeText={(dosage) => {
-                this.setState({dosage: dosage});
+                onChangeText={(specialty) => {
+                this.setState({specialty: specialty});
                 }
                 }
-                value={ this.state.dosage
+                value={ this.state.specialty
 
                 //   JSON.stringify(
                 //   (value) =>{
@@ -370,28 +370,28 @@ renderRow(rowData, sectionID, rowID) {
                 //   }
                 // )
                 }
-                placeholder='Dosage'
+                placeholder='Specialty'
                 //blurOnSubmit= {true}
                 multiline={true}
                 onSubmitEditing={
                   async () => {
-                  console.log([this.state.medication,
+                  console.log([this.state.doctor,
                     JSON.stringify([
-                      this.state.medication,
-                      this.state.dosage,
-                      this.state.frequency,
-                      this.state.rXBy])]);
-                  const pushingCurrentMed = [
-                    this.state.medication,
-                    this.state.dosage,
-                    this.state.frequency,
-                    this.state.rXBy];
+                      this.state.doctor,
+                      this.state.specialty,
+                      this.state.appointments,
+                      this.state.location])]);
+                  const pushingCurrentDoc = [
+                    this.state.doctor,
+                    this.state.specialty,
+                    this.state.appointments,
+                    this.state.location];
 
-                  console.log(pushingCurrentMed);
-                  const prevMedList = this.state.totalMedList;
-                  console.log(prevMedList);
-                  console.log(Array.isArray(prevMedList))
-                  prevMedList.push(pushingCurrentMed);
+                  console.log(pushingCurrentDoc);
+                  const prevDocList = this.state.totalDocList;
+                  console.log(prevDocList);
+                  console.log(Array.isArray(prevDocList))
+                  prevDocList.push(pushingCurrentDoc);
                   // console.log(prevMedList);
                   // const updatingMedList = appStorage.SetItem('totalMedList',
                   //                 JSON.stringify(prevMedList));
@@ -400,17 +400,17 @@ renderRow(rowData, sectionID, rowID) {
 
                   //const currentIndex = this.props.beforeAppOpenMedList;
 
-                  await this.onAddMed(JSON.stringify(prevMedList));
+                  await this.onAddMed(JSON.stringify(prevDocList));
                   const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
                   console.log(ds);
-                  this.setState({ dataSource: ds.cloneWithRows(prevMedList) });
+                  this.setState({ dataSource: ds.cloneWithRows(prevDocList) });
                   console.log(this.state.dataSource);
 
                   //!!! Clear Values of TextInput
-                  this.setState({ medication: '' });
-                  this.setState({ frequency: '' });
-                  this.setState({ dosage: '' });
-                  this.setState({ rXBy: '' });
+                  this.setState({ doctor: '' });
+                  this.setState({ specialty: '' });
+                  this.setState({ appointments: '' });
+                  this.setState({ location: '' });
                   }
                 }
                 // onSubmitEditing = {() => {
@@ -434,10 +434,10 @@ renderRow(rowData, sectionID, rowID) {
               />
               <TextInput
                 style={styles.headerColumnText}
-                onChangeText={(frequency) => {
-                this.setState({frequency: frequency})
+                onChangeText={(appointments) => {
+                this.setState({appointments: appointments})
                 }}
-                value={ this.state.frequency
+                value={this.state.appointments
 
                 //   JSON.stringify(
                 //   (value) =>{
@@ -451,28 +451,28 @@ renderRow(rowData, sectionID, rowID) {
                 //   }
                 // )
                 }
-                placeholder='Frequency'
+                placeholder='Appointments'
                 //blurOnSubmit= {true}
                 multiline={true}
                 onSubmitEditing={
                   async () => {
-                  console.log([this.state.medication,
+                  console.log([this.state.doctor,
                     JSON.stringify([
-                      this.state.medication,
-                      this.state.dosage,
-                      this.state.frequency,
-                      this.state.rXBy])]);
-                  const pushingCurrentMed = [
-                    this.state.medication,
-                    this.state.dosage,
-                    this.state.frequency,
-                    this.state.rXBy];
+                      this.state.doctor,
+                      this.state.specialty,
+                      this.state.appointments,
+                      this.state.location])]);
+                  const pushingCurrentDoc = [
+                    this.state.doctor,
+                    this.state.specialty,
+                    this.state.appointments,
+                    this.state.location];
 
-                  console.log(pushingCurrentMed);
-                  const prevMedList = this.state.totalMedList;
-                  console.log(prevMedList);
-                  console.log(Array.isArray(prevMedList))
-                  prevMedList.push(pushingCurrentMed);
+                  console.log(pushingCurrentDoc);
+                  const prevDocList = this.state.totalDocList;
+                  console.log(prevDocList);
+                  console.log(Array.isArray(prevDocList))
+                  prevDocList.push(pushingCurrentDoc);
                   // console.log(prevMedList);
                   // const updatingMedList = appStorage.SetItem('totalMedList',
                   //                 JSON.stringify(prevMedList));
@@ -481,17 +481,17 @@ renderRow(rowData, sectionID, rowID) {
 
                   //const currentIndex = this.props.beforeAppOpenMedList;
 
-                  await this.onAddMed(JSON.stringify(prevMedList));
+                  await this.onAddMed(JSON.stringify(prevDocList));
                   const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
                   console.log(ds);
-                  this.setState({ dataSource: ds.cloneWithRows(prevMedList) });
+                  this.setState({ dataSource: ds.cloneWithRows(prevDocList) });
                   console.log(this.state.dataSource);
 
                   //!!! Clear Values of TextInput
-                  this.setState({ medication: '' });
-                  this.setState({ frequency: '' });
-                  this.setState({ dosage: '' });
-                  this.setState({ rXBy: '' });
+                  this.setState({ doctor: '' });
+                  this.setState({ specialty: '' });
+                  this.setState({ appointments: '' });
+                  this.setState({ location: '' });
                   }
                 }
                 // onSubmitEditing = {() => {
@@ -515,10 +515,10 @@ renderRow(rowData, sectionID, rowID) {
               />
               <TextInput
                 style={styles.headerColumnText}
-                onChangeText={(rXBy) => {
-                this.setState({rXBy: rXBy})
+                onChangeText={(location) => {
+                this.setState({location: location})
                 }}
-                value={ this.state.rXBy
+                value={ this.state.location
 
                 //   JSON.stringify(
                 //   (value) =>{
@@ -532,28 +532,28 @@ renderRow(rowData, sectionID, rowID) {
                 //   }
                 // )
                 }
-                placeholder='Prescribed By'
+                placeholder='Location'
                 //blurOnSubmit= {true}
                 multiline={true}
                 onSubmitEditing={
                   async () => {
-                  console.log([this.state.medication,
+                  console.log([this.state.doctor,
                     JSON.stringify([
-                      this.state.medication,
-                      this.state.dosage,
-                      this.state.frequency,
-                      this.state.rXBy])]);
-                  const pushingCurrentMed = [
-                    this.state.medication,
-                    this.state.dosage,
-                    this.state.frequency,
-                    this.state.rXBy];
+                      this.state.doctor,
+                      this.state.specialty,
+                      this.state.appointments,
+                      this.state.location])]);
+                  const pushingCurrentDoc = [
+                    this.state.doctor,
+                    this.state.specialty,
+                    this.state.appointments,
+                    this.state.location];
 
-                  console.log(pushingCurrentMed);
-                  const prevMedList = this.state.totalMedList;
-                  console.log(prevMedList);
-                  console.log(Array.isArray(prevMedList))
-                  prevMedList.push(pushingCurrentMed);
+                  console.log(pushingCurrentDoc);
+                  const prevDocList = this.state.totalDocList;
+                  console.log(prevDocList);
+                  console.log(Array.isArray(prevDocList));
+                  prevDocList.push(pushingCurrentDoc);
                   // console.log(prevMedList);
                   // const updatingMedList = appStorage.SetItem('totalMedList',
                   //                 JSON.stringify(prevMedList));
@@ -562,27 +562,18 @@ renderRow(rowData, sectionID, rowID) {
 
                   //const currentIndex = this.props.beforeAppOpenMedList;
 
-                  await this.onAddMed(JSON.stringify(prevMedList));
+                  await this.onAddMed(JSON.stringify(prevDocList));
                   const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
                   console.log(ds);
-                  this.setState({ dataSource: ds.cloneWithRows(prevMedList) });
+                  this.setState({ dataSource: ds.cloneWithRows(prevDocList) });
                   console.log(this.state.dataSource);
 
                   //!!! Clear Values of TextInput
-                  this.setState({ medication: '' });
-                  this.setState({ frequency: '' });
-                  this.setState({ dosage: '' });
-                  this.setState({ rXBy: '' });
+                  this.setState({ doctor: '' });
+                  this.setState({ specialty: '' });
+                  this.setState({ appointments: '' });
+                  this.setState({ location: '' });
                   }
-                  // async function(){
-                  //
-                  //   console.log('attempting to update parent state');
-                  //   var inChildStorage = new AppStorage;
-                  //   const currentTotalMedList = await inChildStorage.GetItem('MedicationList')
-                  //   this.onAddMedName(this.state.medication, currentTotalMedList)
-                  // }
-
-
                 }
 
 
@@ -645,7 +636,7 @@ renderRow(rowData, sectionID, rowID) {
         </View>
       <View style={{ height: 60, backgroundColor: '#46BBE7' }} >
         <Text style={styles.instructions}>
-          Add Medication: Press Enter When Done
+          Add Doctor: Press Enter When Done
         </Text>
         <Text style={styles.instructions}>
           Swipe Row to Delete
@@ -729,4 +720,4 @@ instructions: {
     width: 100
   }
 });
-export default MedicationListHandling;
+export default DoctorInfoHandling;

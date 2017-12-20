@@ -14,6 +14,7 @@ import {
 import { StackNavigator } from 'react-navigation';
 import Calendar from './Calendar'
 import MedicationList from './MedicationList'
+import DoctorInfo from './DoctorInfo'
 
 /*
 Old Header that shows Time and Cell Service in Header Area
@@ -55,6 +56,7 @@ const PatientHome = ( {navigation} ) => (
             title='Doctor Info'
             containerViewStyle={styles.button}
             iconRight={{ type: 'font-awesome' }}
+            onPress={() => navigation.navigate('DoctorInfo')}
           />
           <Button title='Personal Info' containerViewStyle={styles.button} />
         </View>
@@ -94,7 +96,7 @@ const stackNavPatient = StackNavigator({
     screen: MedicationList,
     path: '/',
     headerTitle: 'Medication List',
-    headerRight: <rnButton title="Info" />,
+    //headerRight: <rnButton title="Info" />,
     navigationOptions: ({ navigation }) => ({
       title: 'Medication List',
       // headerRight: <TouchableOpacity title="Info" style={{ flex: 1 }} >
@@ -103,6 +105,20 @@ const stackNavPatient = StackNavigator({
       //   </Text>
       // </TouchableOpacity>
   }),
+},
+DoctorInfo: {
+  screen: DoctorInfo,
+  path: '/',
+  headerTitle: 'Doctor Information',
+  //headerRight: <rnButton title="Info" />,
+  navigationOptions: ({ navigation }) => ({
+    title: 'Doctor Information',
+    // headerRight: <TouchableOpacity title="Info" style={{ flex: 1 }} >
+    //   <Text style={{ flex: 1, fontSize: 20, justifyContent: 'center', color: 'blue' }}>
+    //     Info
+    //   </Text>
+    // </TouchableOpacity>
+}),
 }
 });
 
