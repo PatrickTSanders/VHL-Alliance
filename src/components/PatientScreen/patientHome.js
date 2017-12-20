@@ -46,7 +46,6 @@ const PatientHome = ( {navigation} ) => (
           <Button
             title='Medication List'
             containerViewStyle={styles.button}
-            onPress={() => navigation.navigate('PushNotifications')}
           />
         </View>
 
@@ -56,7 +55,10 @@ const PatientHome = ( {navigation} ) => (
             containerViewStyle={styles.button}
             iconRight={{ type: 'font-awesome' }}
           />
-          <Button title='Personal Info' containerViewStyle={styles.button} />
+          <Button
+            title='Personal Info' containerViewStyle={styles.button}
+            onPress={() => navigation.navigate('PushNotifications')}
+          />
         </View>
         <View style={{ flexDirection: 'row' }}>
           <Button

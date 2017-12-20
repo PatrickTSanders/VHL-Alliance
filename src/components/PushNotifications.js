@@ -15,7 +15,7 @@ import {
   }
   from 'react-native-elements';
 
-import PushNotification from 'react-native-push-notification'
+import PushNotification from 'react-native-push-notification';
 
 export default class PushNotificationsController extends Component {
 
