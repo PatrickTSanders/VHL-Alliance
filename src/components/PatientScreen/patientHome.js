@@ -13,7 +13,10 @@ import {
 } from 'react-native-elements';
 import { StackNavigator } from 'react-navigation';
 import Calendar from './Calendar'
+import EmergencyCard from './EmergencyCard';
+import EmergencyCardUpdate from './EmergencyCardUpdate';
 import MedicationList from './MedicationList'
+import DoctorInfo from './DoctorInfo'
 
 /*
 Old Header that shows Time and Cell Service in Header Area
@@ -55,6 +58,7 @@ const PatientHome = ( {navigation} ) => (
             title='Doctor Info'
             containerViewStyle={styles.button}
             iconRight={{ type: 'font-awesome' }}
+            onPress={() => navigation.navigate('DoctorInfo')}
           />
           <Button title='Personal Info' containerViewStyle={styles.button} />
         </View>
@@ -64,7 +68,11 @@ const PatientHome = ( {navigation} ) => (
             containerViewStyle={styles.button}
             iconRight={{ type: 'font-awesome' }}
           />
-          <Button title='Emergency Card' containerViewStyle={styles.button} />
+          <Button
+            title='Emergency Card'
+            containerViewStyle={styles.button}
+            onPress={() => navigation.navigate('EmergencyCard')}
+          />
         </View>
 
       </View>
@@ -103,7 +111,60 @@ const stackNavPatient = StackNavigator({
       //   </Text>
       // </TouchableOpacity>
   }),
+},
+DoctorInfo: {
+  screen: DoctorInfo,
+  path: '/',
+  headerTitle: 'Doctor Info',
+  //headerRight: <rnButton title="Info" />,
+  navigationOptions: ({ navigation }) => ({
+    title: 'Doctor Info',
+    // headerRight: <TouchableOpacity title="Info" style={{ flex: 1 }} >
+    //   <Text style={{ flex: 1, fontSize: 20, justifyContent: 'center', color: 'blue' }}>
+    //     Info
+    //   </Text>
+    // </TouchableOpacity>
+}),
+},
+EmergencyCard: {
+  screen: EmergencyCard,
+  path: '/',
+  headerTitle: 'Patient Info',
+  //headerRight: <rnButton title="Info" />,
+  navigationOptions: ({ navigation }) => ({
+    title: 'Emergency Card',
+    headerRight: <TouchableOpacity
+      title="Info"
+      style={{ flex: 1 }}
+      onPress={() => navigation.navigate('EmergencyCardUpdate')}
+
+      >
+      <Text style={{ flex: 1, fontSize: 20, justifyContent: 'center', color: 'blue' }}>
+        Update
+      </Text>
+    </TouchableOpacity>
+}),
+},
+EmergencyCardUpdate: {
+  screen: EmergencyCardUpdate,
+  path: '/',
+  headerTitle: 'Update Emergency Card',
+  //headerRight: <rnButton title="Info" />,
+  navigationOptions: ({ navigation }) => ({
+    title: 'Update Emergency Card',
+    // headerRight: <TouchableOpacity
+    //   title="Info"
+    //   style={{ flex: 1 }}
+    //   onPress={() => navigation.navigate('EmergencyCardUpdate')}
+    //
+    //   >
+    //   <Text style={{ flex: 1, fontSize: 20, justifyContent: 'center', color: 'blue' }}>
+    //     Update
+    //   </Text>
+    // </TouchableOpacity>
+}),
 }
+
 });
 
 const styles = StyleSheet.create({
