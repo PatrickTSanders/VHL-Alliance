@@ -713,7 +713,7 @@ instructions: {
   },
   // instructions: {
   //   textAlign: 'center',
-  //   color: '#333333',
+  //   color: '#333333',s
   //   marginBottom: 5,
   // },
   button: {
