@@ -85,14 +85,14 @@ class EmergencyCardUpdate extends Component {
       console.log('Test for retrieving', prevList);
       var parsedList = JSON.parse(prevList);
 
-      // if (!parsedList) {
-      //   parsedList = [['Name', ''],['Age', ''],['Weight', ''],
-      //               ['Current Diagnosis', ''],['Medication List', ''],
-      //               ['Contraindicated Medicaitons', ''],
-      //               ['Allergies', ''],['Emergency Contact', ''],['Primary Care', '']];
-      // }
+      if (!parsedList) {
+        parsedList = [['Name', ''],['Age', ''],['Weight', ''],
+                    ['Current Diagnosis', ''],['Medication List', ''],
+                    ['Contraindicated Medicaitons', ''],
+                    ['Allergies', ''],['Emergency Contact', ''],['Primary Care', '']];
+      }
 
-      console.log('Test for retrieving', prevList);
+      console.log('Test for retrieving', parsedList);
       console.log('State within componentDidMount before setState',
                     this.state.beforeAppOpenERCardList);
       //parsedList[4][1] = medList;
