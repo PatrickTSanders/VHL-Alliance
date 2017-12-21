@@ -178,90 +178,52 @@ renderRow(rowData, sectionID, rowID) {
             //renderRow={this.renderRow.bind(this)}
             renderRow={(rowData, sectionID, rowID) =>
               <View style={{ flex: 1 }}>
-                <Swipeout
-                  rowID={rowID}
-                  right={[{
-                  text: 'Delete',
-                  backgroundColor: 'red',
-                  //backgroundColor: '#fff',
-                  onPress: async () => {
-                    console.log('the delete was actually pressed', { rowData });
-                    console.log('Curren rowID: ', { rowID });
+                
+                <View style={styles.listColumnView}>
 
-                    const currentIndex = this.props.beforeAppOpenERCardList;
-                    console.log('Current datasource index about to be popped: ',
-                    currentIndex.splice(rowID, rowID));
-
-                    console.log('Current datasource arrays: ', JSON.stringify(currentIndex));
-                    await this.onAddMed(JSON.stringify(currentIndex));
-                    console.log('onAddMed was attempted');
-
-                    const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
-                    console.log(ds);
-                    this.setState({ dataSource: ds.cloneWithRows(currentIndex) });
-                    console.log(this.state.dataSource);
+                  { /* rowData.map((name, index) => ( {
+                    return {name};
+                  }))
+                  */
                   }
-                  }]
-                  }
-                  // onPress={() =>
-                  //   console.log('the delete was actually pressed')
-                  // }
-                  autoClose={true}
-                  backgroundColor='transparent'
-                >
-                  <TouchableHighlight
-                    //underlayColor='rgba(192,192,192,1,0.6)'
-                    onPress={
-                      console.log('delete was pressed')
-                    }
-                  >
-                    <View style={styles.listColumnView}>
 
-                      { /* rowData.map((name, index) => ( {
-                        return {name};
-                      }))
-                      */
-                      }
+                  <Text style={styles.listColumnText}>
+                    {rowData[0]}
+                  </Text>
+                  <Text style={styles.listColumnText}>
+                    {rowData[1]}
+                  </Text>
+                  {/* <Text style={styles.listColumnText}>
+                    {rowData[2]}
+                  </Text>
+                  <Text style={styles.listColumnText}>
+                    {rowData[3]}
+                  </Text> */}
 
-                      <Text style={styles.listColumnText}>
-                        {rowData[0]}
-                      </Text>
-                      <Text style={styles.listColumnText}>
-                        {rowData[1]}
-                      </Text>
-                      {/* <Text style={styles.listColumnText}>
-                        {rowData[2]}
-                      </Text>
-                      <Text style={styles.listColumnText}>
-                        {rowData[3]}
-                      </Text> */}
-
-                    </View>
-                  </TouchableHighlight>
-                </Swipeout>
-              </View>
-
-            }
-            renderSectionHeader={() =>
-              <View style={{ flex: 1 }}>
-                <View style={styles.headerColumnView}>
-                  <Text style={styles.headerColumnText}>
-                    Medication
-                  </Text>
-                  <Text style={styles.headerColumnText}>
-                    Dosage
-                  </Text>
-                  <Text style={styles.headerColumnText}>
-                    Frequency
-                  </Text>
-                  <Text style={styles.headerColumnText}>
-                    Prescribed By
-                  </Text>
                 </View>
               </View>
 
-
             }
+            // renderSectionHeader={() =>
+            //   <View style={{ flex: 1 }}>
+            //     <View style={styles.headerColumnView}>
+            //       <Text style={styles.headerColumnText}>
+            //         Medication
+            //       </Text>
+            //       <Text style={styles.headerColumnText}>
+            //         Dosage
+            //       </Text>
+            //       <Text style={styles.headerColumnText}>
+            //         Frequency
+            //       </Text>
+            //       <Text style={styles.headerColumnText}>
+            //         Prescribed By
+            //       </Text>
+            //     </View>
+            //   </View>
+            //
+            //
+            // }
           />
         </View>
 
