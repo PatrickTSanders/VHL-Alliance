@@ -88,7 +88,7 @@ class EmergencyCardUpdate extends Component {
       if (!parsedList) {
         parsedList = [['Name', ''],['Age', ''],['Weight', ''],
                     ['Current Diagnosis', ''],['Medication List', ''],
-                    ['Contraindicated Medicaitons', ''],
+                    ['Contraindicated Medications', ''],
                     ['Allergies', ''],['Emergency Contact', ''],['Primary Care', '']];
       }
 
