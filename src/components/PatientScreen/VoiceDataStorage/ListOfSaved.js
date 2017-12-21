@@ -197,19 +197,22 @@ class ListOfSaved extends Component {
 
   render() {
     return (
-      <List containerStyle={{ borderTopWidth: 0, borderBottomWidth: 0 }}>
-        <FlatList
-          data={this.state.data}
+      <View style = {{flex:10}}>
+        <FlatList style = {{flex: 3}}
+          //data={this.state.data}
+          data={[{date: 'Decemeber 7, 2017', blurb: 'Opthamalogist exam was ..'}, {date: 'December 17, 2017', blurb: 'I think I need..'}]}
           renderItem={({ item }) => (
             <ListItem
               //roundAvatar
-              title={`${item.name.first} ${item.name.last}`}
-              subtitle={item.email}
+              //title={`${item.name.first} ${item.name.last}`}
+              //subtitle={item.email}
+              title = {`${item.date}`}
+              subtitle = {item.blurb}
               //avatar={{ uri: item.picture.thumbnail }}
               containerStyle={{ borderBottomWidth: 0 }}
             />
           )}
-          keyExtractor={item => item.email}
+          keyExtractor={item => item.date}
           /*ItemSeparatorComponent={this.renderSeparator}
           ListHeaderComponent={this.renderHeader}
           ListFooterComponent={this.renderFooter}
@@ -218,7 +221,19 @@ class ListOfSaved extends Component {
           onEndReached={this.handleLoadMore}
           onEndReachedThreshold={50}*/
         />
-      </List>
+        <Text style={{padding: 20}}>
+          Message to Judging Panelists:
+        </Text>
+        <Text style={{padding: 20}}>
+          We currently have functionality to record, however the saving of the recording is not production ready.
+          The exact saving method can be determined based on the prefered saving preference of VHL Alliance.
+          Above is the layout of example future recordings. After clicking previous recording,
+          a screen would render displaying the previoius recording
+          where you would have the ability to view/edit the notes you had previously
+          taken and listen to your recording. The add screen viewed by clicking
+          the add button shows the recording functionality.
+        </Text>
+        </View>
     );
   }
 }
