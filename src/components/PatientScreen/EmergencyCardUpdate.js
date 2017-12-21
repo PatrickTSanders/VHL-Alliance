@@ -80,22 +80,22 @@ class EmergencyCardUpdate extends Component {
       const accessAppStorage2 = new AppStorage();
       console.log('Get Item with key: ERCard');
       const prevList = await accessAppStorage2.GetItem('ERCard');
-      const medList = await accessAppStorage2.GetItem('totalMedList');
+      //const medList = await accessAppStorage2.GetItem('totalMedList');
 
       console.log('Test for retrieving', prevList);
       var parsedList = JSON.parse(prevList);
 
-      if (!parsedList) {
-        parsedList = [['Name', ''],['Age', ''],['Weight', ''],
-                    ['Current Diagnosis', ''],['Medication List', ''],
-                    ['Contraindicated Medicaitons', ''],
-                    ['Allergies', ''],['Emergency Contact', ''],['Primary Care', '']];
-      }
+      // if (!parsedList) {
+      //   parsedList = [['Name', ''],['Age', ''],['Weight', ''],
+      //               ['Current Diagnosis', ''],['Medication List', ''],
+      //               ['Contraindicated Medicaitons', ''],
+      //               ['Allergies', ''],['Emergency Contact', ''],['Primary Care', '']];
+      // }
 
       console.log('Test for retrieving', prevList);
       console.log('State within componentDidMount before setState',
                     this.state.beforeAppOpenERCardList);
-      parsedList[4][1] = medList;
+      //parsedList[4][1] = medList;
       console.log(parsedList);
       const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
 
@@ -107,7 +107,7 @@ class EmergencyCardUpdate extends Component {
 
     //const medList = await accessAppStorage2.GetItem('totalMedList');
 
-    console.log(this.state.beforeAppOpenERCardList[5]);
+    console.log(this.state.beforeAppOpenERCardList[4]);
   }
 
 
