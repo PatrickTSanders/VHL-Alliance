@@ -320,6 +320,13 @@
 			remoteGlobalIDString = A15C300E1CD25C330074CB35;
 			remoteInfo = RNFetchBlob;
 		};
+		80F865411FEB646600D53523 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7D9E25C636DA4937A67F83C5 /* RNSound.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 19825A1E1BD4A89800EE0337;
+			remoteInfo = RNSound;
+		};
 		832341B41AAA6A8300B99B32 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */;
@@ -656,6 +663,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		80F865171FEB646600D53523 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				80F865421FEB646600D53523 /* libRNSound.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
@@ -965,7 +980,7 @@
 					ProjectRef = 1FDEEDC290B542EBA222A007 /* RNFetchBlob.xcodeproj */;
 				},
 				{
-					ProductGroup = CD26F5DF1FEBEDFC00136A94 /* Products */;
+					ProductGroup = 80F865171FEB646600D53523 /* Products */;
 					ProjectRef = 7D9E25C636DA4937A67F83C5 /* RNSound.xcodeproj */;
 				},
 				{
@@ -1227,6 +1242,13 @@
 			fileType = archive.ar;
 			path = libRNFetchBlob.a;
 			remoteRef = 80860DEA1FEAD03300471D65 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		80F865421FEB646600D53523 /* libRNSound.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNSound.a;
+			remoteRef = 80F865411FEB646600D53523 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		832341B51AAA6A8300B99B32 /* libRCTText.a */ = {
