@@ -13,6 +13,7 @@
 #import <React/RCTRootView.h>
 #import <React/RCTPushNotificationManager.h>
 
+#import <HockeySDK>
 
 @implementation AppDelegate
 
@@ -27,6 +28,11 @@
                                                initialProperties:nil
                                                    launchOptions:launchOptions];
   rootView.backgroundColor = [[UIColor alloc] initWithRed:1.0f green:1.0f blue:1.0f alpha:1];
+  [BITHockeyManager sharedHockeyManager] configureWithIdentifier:@"71e82d0cff8d4ef3a39077f2b3a1ed0c"];
+  // Do some additional configuration if needed here
+  [[BITHockeyManager sharedHockeyManager] startManager];
+  [[BITHockeyManager sharedHockeyManager].authenticator
+   authenticateInstallation];
 
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
   UIViewController *rootViewController = [UIViewController new];

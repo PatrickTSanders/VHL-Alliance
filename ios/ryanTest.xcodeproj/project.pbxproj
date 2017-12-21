@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -44,6 +45,16 @@
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 		68B0861B055147B5BD993E40 /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7DED2C1382DD49E4A00AC40A /* Feather.ttf */; };
 		8023E35C1FEAEF7300326B01 /* VHLHandbook.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 8023E35B1FEAEF7300326B01 /* VHLHandbook.pdf */; };
+		80F864DE1FEB364E00D53523 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80F864B61FEB364E00D53523 /* AssetsLibrary.framework */; };
+		80F864E01FEB365600D53523 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80F864DF1FEB365600D53523 /* CoreGraphics.framework */; };
+		80F864E21FEB365F00D53523 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80F864E11FEB365F00D53523 /* CoreText.framework */; };
+		80F864E41FEB366900D53523 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80F864E31FEB366800D53523 /* Foundation.framework */; };
+		80F864E61FEB368000D53523 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80F864E51FEB368000D53523 /* MobileCoreServices.framework */; };
+		80F864E81FEB368500D53523 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80F864E71FEB368500D53523 /* QuartzCore.framework */; };
+		80F864EA1FEB368C00D53523 /* QuickLook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80F864E91FEB368C00D53523 /* QuickLook.framework */; };
+		80F864EC1FEB369700D53523 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80F864EB1FEB369700D53523 /* Security.framework */; };
+		80F864EE1FEB369E00D53523 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80F864ED1FEB369E00D53523 /* SystemConfiguration.framework */; };
+		80F864F01FEB36CD00D53523 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80F864EF1FEB36CD00D53523 /* UIKit.framework */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		8E9B47B5A0D4433D8D0CE186 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C29DFE38C07549D19355D63E /* Foundation.ttf */; };
 		95C278627E8B42DD92EC9237 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F97E32B8E5D44D60BD678FCB /* FontAwesome.ttf */; };
@@ -385,6 +396,17 @@
 		7DED2C1382DD49E4A00AC40A /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
 		8023E35A1FEAEE4000326B01 /* VHLHandbook.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = VHLHandbook.pdf; path = "../../../Workspace/VHL-Alliance /ios/ryanTest/Images.xcassets/VHLHandbook.imageset/VHLHandbook.pdf"; sourceTree = "<group>"; };
 		8023E35B1FEAEF7300326B01 /* VHLHandbook.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = VHLHandbook.pdf; path = ryanTest/Images.xcassets/VHLHandbook.pdf; sourceTree = "<group>"; };
+		80F864B61FEB364E00D53523 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		80F864DF1FEB365600D53523 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		80F864E11FEB365F00D53523 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
+		80F864E31FEB366800D53523 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		80F864E51FEB368000D53523 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		80F864E71FEB368500D53523 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		80F864E91FEB368C00D53523 /* QuickLook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickLook.framework; path = System/Library/Frameworks/QuickLook.framework; sourceTree = SDKROOT; };
+		80F864EB1FEB369700D53523 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		80F864ED1FEB369E00D53523 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		80F864EF1FEB36CD00D53523 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		80F864F11FEB3F4200D53523 /* HockeySDK.embeddedframework */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HockeySDK.embeddedframework; path = "HockeySDK-iOS/HockeySDK.embeddedframework"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		8FDDD00141504E0FAE8791EA /* RNVectorIcons.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNVectorIcons.xcodeproj; path = "../node_modules/react-native-vector-icons/RNVectorIcons.xcodeproj"; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
@@ -413,6 +435,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				80F864F01FEB36CD00D53523 /* UIKit.framework in Frameworks */,
+				18352A0A492D4CD0871FC1F6 /* libc++.tbd in Frameworks */,
+				80F864EE1FEB369E00D53523 /* SystemConfiguration.framework in Frameworks */,
+				80F864EC1FEB369700D53523 /* Security.framework in Frameworks */,
+				80F864EA1FEB368C00D53523 /* QuickLook.framework in Frameworks */,
+				80F864E81FEB368500D53523 /* QuartzCore.framework in Frameworks */,
+				80F864E61FEB368000D53523 /* MobileCoreServices.framework in Frameworks */,
+				80F864E41FEB366900D53523 /* Foundation.framework in Frameworks */,
+				80F864E21FEB365F00D53523 /* CoreText.framework in Frameworks */,
+				80F864E01FEB365600D53523 /* CoreGraphics.framework in Frameworks */,
+				80F864DE1FEB364E00D53523 /* AssetsLibrary.framework in Frameworks */,
 				CD3866191FE7630500C75D76 /* libRCTPushNotification.a in Frameworks */,
 				ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */,
 				5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */,
@@ -429,7 +462,6 @@
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
 				DF43CA0C709C46E7BAA5E107 /* libRNVectorIcons.a in Frameworks */,
 				33C96122D34B4ADBBD46EFBB /* libRealmReact.a in Frameworks */,
-				18352A0A492D4CD0871FC1F6 /* libc++.tbd in Frameworks */,
 				0B2906B0015C476EA6CE1966 /* libz.tbd in Frameworks */,
 				5111DA3C986643409FBC0697 /* libRCTPdf.a in Frameworks */,
 				EA666D7B18F540B699E7A466 /* libRNFetchBlob.a in Frameworks */,
@@ -602,6 +634,17 @@
 		76FB39B6188E4964B2780384 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				80F864F11FEB3F4200D53523 /* HockeySDK.embeddedframework */,
+				80F864EF1FEB36CD00D53523 /* UIKit.framework */,
+				80F864ED1FEB369E00D53523 /* SystemConfiguration.framework */,
+				80F864EB1FEB369700D53523 /* Security.framework */,
+				80F864E91FEB368C00D53523 /* QuickLook.framework */,
+				80F864E71FEB368500D53523 /* QuartzCore.framework */,
+				80F864E51FEB368000D53523 /* MobileCoreServices.framework */,
+				80F864E31FEB366800D53523 /* Foundation.framework */,
+				80F864E11FEB365F00D53523 /* CoreText.framework */,
+				80F864DF1FEB365600D53523 /* CoreGraphics.framework */,
+				80F864B61FEB364E00D53523 /* AssetsLibrary.framework */,
 				B0176A740D5A4F499562EB8E /* libc++.tbd */,
 				0CD1ACD7B7D940CF817F9F0F /* libz.tbd */,
 			);
