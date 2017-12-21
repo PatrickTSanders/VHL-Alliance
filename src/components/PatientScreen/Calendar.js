@@ -14,7 +14,7 @@ import { StackNavigator } from 'react-navigation';
 import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
 
 const ViewCalendar = ({ navigation }) => (
-    <Agenda />
+    <Calendar />
 );
 
 const styles = StyleSheet.create({
