@@ -81,7 +81,7 @@ const stackNavVHL = StackNavigator({
     navigationOptions: ({ navigation, defaultHeader }) => ({
       ...defaultHeader,
       backgroundColor: '#3D6DCC',
-      title: 'VHL HomePage',
+      title: 'VHL Home',
       headerTintColor: '#3D6DCC',
   }),
 
