@@ -16,6 +16,10 @@ import Databank from './Databank';
 import CareCenter from './CareCenter';
 import NewsEvents from './NewsEvents';
 import Research from './Research';
+import Handbook from './Handbook';
+
+
+
 
 const MainVHL= ({ navigation }) => (
   <VHLHome navigation={navigation} title={'VHL'} />
@@ -43,6 +47,7 @@ const VHLHome = ({ navigation }) => (
           title='Handbook'
           containerViewStyle={styles.button}
           iconRight={{ type: 'font-awesome' }}
+          onPress={() => navigation.navigate('Handbook')}
         />
 
         <Button
@@ -118,6 +123,14 @@ const stackNavVHL = StackNavigator({
     headerTitle: 'Research',
     navigationOptions: ({ navigation }) => ({
       title: 'Research',
+    }),
+  },
+  Handbook: {
+    screen: Handbook,
+    path: '/',
+    headerTitle: 'Handbook',
+    navigationOptions: ({ navigation }) => ({
+      title: 'Handbook',
     }),
   },
 });

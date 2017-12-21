@@ -5,6 +5,8 @@ import android.app.Application;
 import com.facebook.react.ReactApplication;
 import com.zmxv.RNSound.RNSoundPackage;
 import com.rnim.rn.audio.ReactNativeAudioPackage;
+import com.RNFetchBlob.RNFetchBlobPackage;
+import org.wonday.pdf.RCTPdfView;
 import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
 import io.realm.react.RealmReactPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
@@ -30,6 +32,8 @@ public class MainApplication extends Application implements ReactApplication {
           new MainReactPackage(),
             new RNSoundPackage(),
             new ReactNativeAudioPackage(),
+            new RNFetchBlobPackage(),
+            new RCTPdfView(),
             new ReactNativePushNotificationPackage(),
             new RealmReactPackage(),
             new VectorIconsPackage()
