@@ -68,7 +68,7 @@ const PatientHome = ( {navigation} ) => (
 
           />
           <Button
-            title='Personal Info' containerViewStyle={styles.button}
+            title='Notification Hub' containerViewStyle={styles.button}
             onPress={() => navigation.navigate('PushNotifications')}
 
           />
@@ -130,13 +130,14 @@ VoiceRecordings: {
     headerTitle: 'Voice Recordings1',
     navigationOptions: ({ navigation }) => ({
       title: 'Add new Recording',
-      headerRight: <Button title='Done'
+
+      //headerRight: <Button title='Done'
                      /* this would be something like
                          take current state
                          update to realm
                          pop this screen from current stack (so back doesnt take me back to same place)
                       onPress={() => navigation.navigate('VoiceRecordings')} */
-                    />
+      //              />
     }),
   },
 
@@ -148,9 +149,14 @@ VoiceRecordings: {
       backgroundColor: '#3D6DCC',
       title: 'My Recordings',
       headerTintColor: '#3D6DCC',
-      headerRight : <Button title='add'
+      headerRight : <TouchableOpacity title='Add'
                     onPress={() => navigation.navigate('VoiceRecordings')}
-                    />
+                    >
+                      <Text style={{ flex: 1, fontSize: 20, justifyContent: 'center', color: 'blue' }}>
+                        Add
+                      </Text>
+                    </TouchableOpacity>
+
     }),
   },
 
@@ -177,7 +183,7 @@ DoctorInfo: {
     path: '/',
     headerTitle: 'Medication List',
     navigationOptions: ({ navigation }) => ({
-      title: 'Test',
+      title: 'Notification Hub',
     }),
   },
 

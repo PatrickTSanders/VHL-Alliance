@@ -126,6 +126,13 @@ export default class PushNotificationsController extends Component {
   }
 
   render() {
-    return null;
+    return <Text>
+      Hi! This is a blank area where we just wanted to demonstrate our ability to have push notifications.
+      {'\n\n'}
+      You'll notice if you press the home button, that you will be notified about certain annual checkups.
+      {'\n\n'}
+      Also, Remote Notifcations can be used through the library that we use to create these local notifications. 
+
+    </Text>;
   }
 }
