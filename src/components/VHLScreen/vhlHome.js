@@ -18,6 +18,7 @@ import CareCenter from './CareCenter';
 import NewsEvents from './NewsEvents';
 import Research from './Research';
 import Handbook from './Handbook';
+import SurveillanceGuidelines from './SurveillanceGuidelines';
 
 
 
@@ -66,9 +67,9 @@ const VHLHome = ({ navigation }) => (
           onPress={() => navigation.navigate('NewsEvents')}
         />
         <Button
-          title='Research'
+          title='Surveillance'
           containerViewStyle={styles.button}
-          onPress={() => navigation.navigate('Research')}
+          onPress={() => navigation.navigate('SurveillanceGuidelines')}
         />
       </View>
     </View>
@@ -134,6 +135,15 @@ const stackNavVHL = StackNavigator({
       title: 'Handbook',
     }),
   },
+
+  SurveillanceGuidelines: {
+    screen: SurveillanceGuidelines,
+    path: '/',
+    headerTitle: 'Surveillance',
+    navigationOptions: ({ navigation }) => ({
+      title: 'Surveillance',
+  }),
+},
 });
 
 const styles = StyleSheet.create({
