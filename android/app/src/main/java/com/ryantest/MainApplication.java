@@ -18,6 +18,9 @@ import com.facebook.soloader.SoLoader;
 import java.util.Arrays;
 import java.util.List;
 
+
+import com.geektime.rnonesignalandroid.ReactNativeOneSignalPackage;
+
 public class MainApplication extends Application implements ReactApplication {
 
   private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
@@ -36,7 +39,8 @@ public class MainApplication extends Application implements ReactApplication {
             new RCTPdfView(),
             new ReactNativePushNotificationPackage(),
             new RealmReactPackage(),
-            new VectorIconsPackage()
+            new VectorIconsPackage(),
+            new ReactNativeOneSignalPackage()
       );
     }
 

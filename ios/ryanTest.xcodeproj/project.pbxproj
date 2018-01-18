@@ -47,6 +47,7 @@
 		68B0861B055147B5BD993E40 /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7DED2C1382DD49E4A00AC40A /* Feather.ttf */; };
 		70A0D5C73FB84083BF999773 /* libRNSound.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 62B5EC247AE0435A8C53775A /* libRNSound.a */; };
 		8023E35C1FEAEF7300326B01 /* VHLHandbook.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 8023E35B1FEAEF7300326B01 /* VHLHandbook.pdf */; };
+		80ACB4BC2011318100917604 /* libRCTOneSignal.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 80ACB4BB2011315B00917604 /* libRCTOneSignal.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		8E9B47B5A0D4433D8D0CE186 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C29DFE38C07549D19355D63E /* Foundation.ttf */; };
 		95C278627E8B42DD92EC9237 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F97E32B8E5D44D60BD678FCB /* FontAwesome.ttf */; };
@@ -320,6 +321,13 @@
 			remoteGlobalIDString = A15C300E1CD25C330074CB35;
 			remoteInfo = RNFetchBlob;
 		};
+		80ACB4BA2011315B00917604 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 80ACB4B62011315B00917604 /* RCTOneSignal.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 3245CDED1BFEE35C00EABF68;
+			remoteInfo = RCTOneSignal;
+		};
 		80F865411FEB646600D53523 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7D9E25C636DA4937A67F83C5 /* RNSound.xcodeproj */;
@@ -406,6 +414,7 @@
 		8023E35A1FEAEE4000326B01 /* VHLHandbook.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = VHLHandbook.pdf; path = "../../../Workspace/VHL-Alliance /ios/ryanTest/Images.xcassets/VHLHandbook.imageset/VHLHandbook.pdf"; sourceTree = "<group>"; };
 		8023E35B1FEAEF7300326B01 /* VHLHandbook.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = VHLHandbook.pdf; path = ryanTest/Images.xcassets/VHLHandbook.pdf; sourceTree = "<group>"; };
 		80284CF4201124CF00FAE0BF /* ryanTest.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = ryanTest.entitlements; path = ryanTest/ryanTest.entitlements; sourceTree = "<group>"; };
+		80ACB4B62011315B00917604 /* RCTOneSignal.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTOneSignal.xcodeproj; path = "../node_modules/react-native-onesignal/ios/RCTOneSignal.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		8FDDD00141504E0FAE8791EA /* RNVectorIcons.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNVectorIcons.xcodeproj; path = "../node_modules/react-native-vector-icons/RNVectorIcons.xcodeproj"; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
@@ -438,6 +447,7 @@
 				CD3866191FE7630500C75D76 /* libRCTPushNotification.a in Frameworks */,
 				ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */,
 				5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */,
+				80ACB4BC2011318100917604 /* libRCTOneSignal.a in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
 				5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */,
 				00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */,
@@ -658,6 +668,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		80ACB4B72011315B00917604 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				80ACB4BB2011315B00917604 /* libRCTOneSignal.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		80F865171FEB646600D53523 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -669,6 +687,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				80ACB4B62011315B00917604 /* RCTOneSignal.xcodeproj */,
 				CD3865B71FE758E900C75D76 /* RCTPushNotification.xcodeproj */,
 				5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
@@ -937,6 +956,10 @@
 				{
 					ProductGroup = 00C302D41ABCB9D200DB3ED1 /* Products */;
 					ProjectRef = 00C302D31ABCB9D200DB3ED1 /* RCTNetwork.xcodeproj */;
+				},
+				{
+					ProductGroup = 80ACB4B72011315B00917604 /* Products */;
+					ProjectRef = 80ACB4B62011315B00917604 /* RCTOneSignal.xcodeproj */;
 				},
 				{
 					ProductGroup = 80860DE21FEAD03300471D65 /* Products */;
@@ -1243,6 +1266,13 @@
 			remoteRef = 80860DEA1FEAD03300471D65 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		80ACB4BB2011315B00917604 /* libRCTOneSignal.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRCTOneSignal.a;
+			remoteRef = 80ACB4BA2011315B00917604 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		80F865421FEB646600D53523 /* libRNSound.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1524,6 +1554,7 @@
 					"$(SRCROOT)/../node_modules/react-native-sound/RNSound",
 					"$(SRCROOT)/../node_modules/react-native-pdf/ios/RCTPdf/**",
 					"$(SRCROOT)/../node_modules/react-native-fetch-blob/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-onesignal/**",
 				);
 				INFOPLIST_FILE = ryanTest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1558,6 +1589,7 @@
 					"$(SRCROOT)/../node_modules/react-native-sound/RNSound",
 					"$(SRCROOT)/../node_modules/react-native-pdf/ios/RCTPdf/**",
 					"$(SRCROOT)/../node_modules/react-native-fetch-blob/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-onesignal/**",
 				);
 				INFOPLIST_FILE = ryanTest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
