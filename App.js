@@ -31,9 +31,11 @@ import OneSignal from 'react-native-onesignal';
 class AppBeginning extends Component {
 
   componentDidMount() {
+    //Decide whether to ask for permission on app open for notifications
       OneSignal.configure({});
+
     }
-    
+
     render() {
       return (
         <AppBeginningNav />
