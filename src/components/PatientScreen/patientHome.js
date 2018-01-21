@@ -21,6 +21,11 @@ import MedicationListHandling from './MedicationListHandling'
 import PushNotifications from '../PushNotifications'
 import VoiceRecordingsAndNotes from './VoiceDataStorage/VoiceRecordingsAndNotes'
 import ListOfSaved from './VoiceDataStorage/ListOfSaved'
+import ViewCalendar from './Calendar.js'
+import CalendarAdd from './CalendarAdd.js'
+import moment from 'moment';
+import * as AddCalendarEvent from 'react-native-add-calendar-event';
+import { AppStorage } from '../StorageWrapper';
 
 
 
@@ -33,10 +38,88 @@ Old Header that shows Time and Cell Service in Header Area
       centerComponent={{ text: 'Patient Homepage', style: { color: '#fff' } }}
       rightComponent={{ icon: 'home', color: '#fff' }}
       outerContainerStyles={{ backgroundColor: '#3D6DCC' }}
-
   />
 </View>
 */
+
+//RMS CALENDAR
+// const utcDateToString = (momentInUTC: moment): string => {
+//   let s = moment.utc(momentInUTC).format('YYYY-MM-DDTHH:mm:ss.SSS[Z]');
+//   // console.warn(s);
+//   return s;
+// };
+//
+// const addToCalendar = (title: string, startDateUTC: moment) => {
+//   const eventConfig = {
+//     title,
+//     startDate: utcDateToString(startDateUTC),
+//     endDate: utcDateToString(moment.utc(startDateUTC).add(1, 'hours')),
+//   };
+//
+//   AddCalendarEvent.presentNewCalendarEventDialog(eventConfig)
+//     .then(eventId => {
+//       //handle success (receives event id) or dismissing the modal (receives false)
+//       if (eventId) {
+//           async () => {
+//           console.log(eventID)
+//           const prevDocList = this.state.totalDocList;
+//           console.log(prevDocList);
+//           console.log(Array.isArray(prevDocList))
+//           prevDocList.push(pushingCurrentDoc);
+//           // console.log(prevMedList);
+//           // const updatingMedList = appStorage.SetItem('totalMedList',
+//           //                 JSON.stringify(prevMedList));
+//           // console.log(updatingMedList);
+//           // console.log('called AppStorage.SetItem to submit updated Meds');
+//
+//           //const currentIndex = this.props.beforeAppOpenMedList;
+//
+//           await this.onAddMed(JSON.stringify(prevDocList));
+//           const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
+//           console.log(ds);
+//           this.setState({ dataSource: ds.cloneWithRows(prevDocList) });
+//           console.log(this.state.dataSource);
+//
+//           //!!! Clear Values of TextInput
+//           this.setState({ doctor: '' });
+//           this.setState({ specialty: '' });
+//           this.setState({ appointments: '' });
+//           this.setState({ location: '' });
+//           }
+//         }
+//       } else {
+//         console.warn('dismissed');
+//       }
+//     })
+//     .catch((error: string) => {
+//       // handle error such as when user rejected permissions
+//       console.warn(error);
+//     });
+// };
+// const eventTitle = 'Lunch';
+// const nowUTC = moment.utc();
+//
+// async addCalendarEventID(calendarID) {
+//   console.log('AddCalendarEvent reached')
+//     var accessAppStorage = new AppStorage();
+//       await accessAppStorage.SetItem('CalendarID', calendarID)
+//       .then(console.log('Set Item with key: CalendarIDs and value: ', calendarID ))
+//       .then(console.log(await accessAppStorage2.GetItem('CalendarID')))
+//
+//     }
+//
+// async fetchCalendarEventID() {
+//     var accessAppStorage = new AppStorage();
+//     console.log('Get Item with key: CalendarID'  );
+//     const prevID = await accessAppStorage.GetItem('CalendarID')
+//     this.setState({totalCalendarEvents: JSON.parse(prevID)});
+//     //console.log(this.state.totalMedList);
+//   }
+
+//END RMS CALENDAR
+
+
+
 const MainPatient= ({ navigation }) => (
   <PatientHome navigation={navigation} title={'VHL'} />
 );
@@ -103,25 +186,45 @@ const stackNavPatient = StackNavigator({
     })
   },
   ViewCalendar: {
-    screen: Calendar,
+    screen: ViewCalendar,
     path: '/',
     headerTitle: 'Calendar',
     navigationOptions: ({ navigation }) => ({
       title: 'Calendar',
+      headerRight: <TouchableOpacity
+        title="Info"
+        style={{ flex: 1 }}
+        onPress={() => {
+          console.log('Pressed');
+          navigation.navigate('CalendarAdd')
+        }}
+        >
+        <Text style={{ flex: 1, fontSize: 20, justifyContent: 'center', color: 'blue' }}>
+          Add
+        </Text>
+      </TouchableOpacity>
   }),
-  },
-  MedicationList: {
-    screen: MedicationList,
-    path: '/',
-    headerTitle: 'Medication List',
-    //headerRight: <rnButton title="Info" />,
+},
+CalendarAdd: {
+    screen: CalendarAdd,
+    path:'/',
+    headerTitle: 'Test',
     navigationOptions: ({ navigation }) => ({
-      title: 'Medication List',
-      // headerRight: <TouchableOpacity title="Info" style={{ flex: 1 }} >
-      //   <Text style={{ flex: 1, fontSize: 20, justifyContent: 'center', color: 'blue' }}>
-      //     Info
-      //   </Text>
-      // </TouchableOpacity>
+      title: 'Add Calendar',
+    }),
+},
+MedicationList: {
+  screen: MedicationList,
+  path: '/',
+  headerTitle: 'Medication List',
+  //headerRight: <rnButton title="Info" />,
+  navigationOptions: ({ navigation }) => ({
+    title: 'Medication List',
+    // headerRight: <TouchableOpacity title="Info" style={{ flex: 1 }} >
+    //   <Text style={{ flex: 1, fontSize: 20, justifyContent: 'center', color: 'blue' }}>
+    //     Info
+    //   </Text>
+    // </TouchableOpacity>
   }),
 },
 VoiceRecordings: {
