@@ -185,7 +185,7 @@ class VoiceRecordingsAndNotes extends Component {
       // See https://github.com/zmxv/react-native-sound/issues/89.
       setTimeout(() => {
         //var sound = new Sound(this.state.audioPath, '', (error) => { //here we go
-        var sound = new Sound(this.state.file + "/1516308354467.aac", '', (error) => {
+        var sound = new Sound(this.state.file + "/1516481535461.aac", '', (error) => {
           if (error) {
             console.log('failed to load the sound', error);
           }

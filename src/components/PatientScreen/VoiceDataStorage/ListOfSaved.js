@@ -46,8 +46,8 @@ class ListOfSaved extends Component {
         realm.write(() => {
           // realm.create('Recordings4',
           //                 {
-          //                   filePath: "/Users/Olivia/Library/Developer/CoreSimulator/Devices/FBF25F34-452F-4779-BC9D-40AC561B6624/data/Containers/Data/Application/DE8CF06A-9095-4F1A-9E4A-E24078BED011/Documents/1516308491462.aac",
-          //                   title: 'A Recording',
+          //                   filePath: '1516557224505.aac',
+          //                   title: 'other Recording',
           //                   lengthOfRecording: 7,
           //                   notes: 'Today i went to..',
           //                 });
@@ -118,7 +118,7 @@ class ListOfSaved extends Component {
                 subtitle = {item.filePath}
                 //avatar={{ uri: item.picture.thumbnail }}
                 containerStyle={{ borderBottomWidth: 0 }}
-                onPress={function() {navigate('VoiceRecordings', {
+                onPress={function() {navigate('PlayRecording', {
                       title: item.title,
                       filePath: item.filePath,
                       lengthOfRecording: item.lengthOfRecording,
