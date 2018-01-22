@@ -32,10 +32,9 @@ class PlayOldRecording extends Component {
       recording: false,
       stoppedRecording: false,
       finished: false,
-      file: AudioUtils.DocumentDirectoryPath + '/',
+      file: AudioUtils.DocumentDirectoryPath,
       hasPermission: true,
-      test : '/Users/Patrick/Library/Developer/CoreSimulator/Devices/FBF25F34-452F-4779-BC9D-40AC561B6624/data/Containers/Data/Application/9327637C-2B22-4AB8-B5C1-6AB43BB1120C/Documents/1516557664084.aac'
-
+      myRecording: null
     };
 
 
@@ -53,13 +52,13 @@ class PlayOldRecording extends Component {
           this.setState({currentTime: Math.floor(data.currentTime)});
         };
 
-        // AudioRecorder.onFinished = (data) => {
-        //   // Android callback comes in the form of a promise instead.
-        //   if (Platform.OS === 'ios') {
-        //     this.setState({myRecording : data});
-        //     console.log(this.state.myRecording);
-        //   }
-        // };
+        AudioRecorder.onFinished = (data) => {
+          // Android callback comes in the form of a promise instead.
+          if (Platform.OS === 'ios') {
+            this.setState({myRecording : data});
+            console.log(this.state.myRecording);
+          }
+        };
       //});
     }
 
@@ -138,11 +137,11 @@ class PlayOldRecording extends Component {
       // These timeouts are a hacky workaround for some issues with react-native-sound.
       // See https://github.com/zmxv/react-native-sound/issues/89.
       setTimeout(() => {
-        var sound = new Sound(this.state.test, '', (error) => { //here we go
-        //var sound = new Sound(this.state.file + this.props.navigation.state.params.filepath, '', (error) => {
+        var sound = new Sound(this.state.file + '/' + this.props.navigation.state.params.filePath, '', (error) => { //here we go
+        //var sound = new Sound(this.state.file + "/1516581824433.aac", '', (error) => { //1516481535461
+        //var sound = new Sound("/Users/Patrick/Library/Developer/CoreSimulator/Devices/FBF25F34-452F-4779-BC9D-40AC561B6624/data/Containers/Data/Application/87738C1D-226F-430C-9498-229F8A5BEC68/Documents/1516581824433.aac", '', (error) => {
           if (error) {
             console.log('failed to load the sound', error);
-            console.log(this.state.file + this.props.navigation.state.params.filePath);
           }
         });
 

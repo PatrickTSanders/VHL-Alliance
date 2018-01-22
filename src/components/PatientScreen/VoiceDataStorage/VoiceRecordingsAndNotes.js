@@ -20,56 +20,28 @@ import { StackNavigator } from 'react-navigation';
 import storage from 'react-native-storage-wrapper';
 import Sound from 'react-native-sound';
 import {AudioRecorder, AudioUtils} from 'react-native-audio';
-//var toArrayBuffer = require('to-array-buffer');
-//var resolveAssetSource = require("react-native/Libraries/Image/resolveAssetSource");
 
 
 const Realm = require('realm');
 
 
-//rn once and audio file is stopped, it is saved to some file path
-//once you press play and there is something that has been recorded, it goes and looks up the audioPath and r
-  //reads (plays?) from there
-//I want to have realm s.t. once you stop recording, instead of saving to some file path, it saves to the realm as
-  //an array buffer
-
-//and when you press play, i want it to open the correct entry in realm, and encode the file from arraybuffer ->
-  // .aac file and go from there
-
-
-//Want to try converting an array buffer back to .aac
-// but i would need to be able to convert it to array buffer in order to do so :(
-
-//Thinking that if i am able to use this library and encode / decode, that when we come back from toArrayBuffer
-// that we will need to save it as a file somewhere so when we create a Sound object it has somewhere to lookup?
-// - maybe it can just look up in realm if we call the right title
-// - will having the realm open for that long end up slowing down the app
-
-// stuff needed in the Realm
-// Title of it
-// length of recording
-// audio file name (sort by this)
-
 class VoiceRecordingsAndNotes extends Component {
 
-  // constructor(props){
-  //   super(props);
-  //
-  //   console.log('props ', props);
 
     state = {
       //title: null,
       currentTime: 0.0,
+      hasRecorded: false,
       recording: false,
       stoppedRecording: false,
       finished: false,
-      audioPath: AudioUtils.DocumentDirectoryPath +'/' + Date.now().toString() + '.aac',// + '/test.aac', //change this bc it looks ugly
+      fileName: Date.now().toString() + '.aac',
+      audioPath: AudioUtils.DocumentDirectoryPath +'/' + Date.now().toString() + '.aac',
       file: AudioUtils.DocumentDirectoryPath,
       hasPermission: true,
       realm: null,
       myRecording:null
     };
-//  }
 
     prepareRecordingPath(audioPath){
       console.log(audioPath, "audioPath");
@@ -83,13 +55,48 @@ class VoiceRecordingsAndNotes extends Component {
     }
 
 
+    componentWillUnmount(){
+      if(this.state.hasRecorded){
+          Realm.open({
+          schema: [
+                    {name: 'Recordings4', properties:
+                                            {
+                                              filePath: 'string',
+                                              title: 'string',
+                                              lengthOfRecording: 'int',
+                                              notes: 'string',
+                                            }
+                    }
+                  ]
+        }).then(realm => {
+
+            realm.write(() => {
+              realm.create('Recordings4',
+                              {
+                                filePath: this.state.fileName,
+                                title: 'Bom bom bee dom',
+                                lengthOfRecording: this.state.currentTime,
+                                notes: 'Today i went to..',
+                              });
+            });
+
+            this.setState({ realm });
+
+        });
+      }
+    }
+
 
     componentDidMount() {
     /*  this._checkPermission().then((hasPermission) => {
         this.setState({ hasPermission });
         if (!hasPermission) return; */
 
+
         console.log(this.props.navigation);
+        console.log(this.state.fileName);
+        console.log(this.state.audioPath);
+
 
         //this.setState({hasPermission});
         this.prepareRecordingPath(this.state.audioPath);
@@ -184,8 +191,9 @@ class VoiceRecordingsAndNotes extends Component {
       // These timeouts are a hacky workaround for some issues with react-native-sound.
       // See https://github.com/zmxv/react-native-sound/issues/89.
       setTimeout(() => {
-        //var sound = new Sound(this.state.audioPath, '', (error) => { //here we go
-        var sound = new Sound(this.state.file + "/1516481535461.aac", '', (error) => {
+        var sound = new Sound(this.state.audioPath, '', (error) => { //here we go
+        //var sound = new Sound(this.state.file + "/1516581824433.aac", '', (error) => { //1516481535461
+        //var sound = new Sound("/Users/Patrick/Library/Developer/CoreSimulator/Devices/FBF25F34-452F-4779-BC9D-40AC561B6624/data/Containers/Data/Application/87738C1D-226F-430C-9498-229F8A5BEC68/Documents/1516581824433.aac", '', (error) => {
           if (error) {
             console.log('failed to load the sound', error);
           }
@@ -204,6 +212,9 @@ class VoiceRecordingsAndNotes extends Component {
     }
 
     async _record() {
+
+      this.setState({hasRecorded: true});
+
       if (this.state.recording) {
         console.warn('Already recording!');
         return;
@@ -271,17 +282,14 @@ class VoiceRecordingsAndNotes extends Component {
                             {
                               //think i need to save this as just /date.aac, so then when i need to look it up from realm,
                               //i just create this.state.audio path and then append the filename to it
-                              name: this.state.audioPath.toString(),
-                              title: 'First Recording',
-                              lengthOfRecording: this.state.currentTime,
+                              // name: this.state.audioPath.toString(),
+                              // title: 'First Recording',
+                              // lengthOfRecording: this.state.currentTime,
                               //audioFile: arrayBuff
                             });
           });
 
           this.setState({ realm });
-          let myRecordings = this.state.realm.objects('Recordings');
-          console.log(myRecordings.map( (x) => x.name ));
-          //console.log(this.state.realm.objects('Recordings').name, "we are in the realm");
 
       });
 

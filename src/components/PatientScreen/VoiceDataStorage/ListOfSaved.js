@@ -41,25 +41,7 @@ class ListOfSaved extends Component {
               ]
     }).then(realm => {
 
-
-           //uncomment when i want to start writing to realm again
-        realm.write(() => {
-          // realm.create('Recordings4',
-          //                 {
-          //                   filePath: '1516557224505.aac',
-          //                   title: 'other Recording',
-          //                   lengthOfRecording: 7,
-          //                   notes: 'Today i went to..',
-          //                 });
-        //realm.delete(realm.objects('Recordings4'));
-        });
-
-        //don't know why we need to do this, but it breaks without doing it
         this.setState({ realm });
-
-        //need to set state ofrealm to be able to access its objects
-        let myRecordings = this.state.realm.objects('Recordings4');
-
     });
   }
   /*renderSeparator = () => {
@@ -100,7 +82,6 @@ class ListOfSaved extends Component {
     if(info === 1){
       let myRecord = this.state.realm.objects('Recordings4');
       var values = [];
-      // values[index] = value for (filePath, title) in myRecord;
       for(i=0; i < myRecord.length; i++) {
         values.push({filePath: myRecord[i].filePath, title: myRecord[i].title,
                     lengthOfRecording: myRecord[i].lengthOfRecording, notes: myRecord[i].notes});
