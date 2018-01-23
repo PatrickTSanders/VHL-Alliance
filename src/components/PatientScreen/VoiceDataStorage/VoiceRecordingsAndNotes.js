@@ -29,7 +29,6 @@ class VoiceRecordingsAndNotes extends Component {
 
 
     state = {
-      //title: null,
       currentTime: 0.0,
       hasRecorded: false,
       recording: false,
@@ -40,7 +39,8 @@ class VoiceRecordingsAndNotes extends Component {
       file: AudioUtils.DocumentDirectoryPath,
       hasPermission: true,
       realm: null,
-      myRecording:null
+      myRecording:null,
+      text: ''
     };
 
     prepareRecordingPath(audioPath){
@@ -74,15 +74,17 @@ class VoiceRecordingsAndNotes extends Component {
               realm.create('Recordings4',
                               {
                                 filePath: this.state.fileName,
-                                title: 'Bom bom bee dom',
+                                title: 'I want notes',
                                 lengthOfRecording: this.state.currentTime,
-                                notes: 'Today i went to..',
+                                notes: this.state.text,
                               });
             });
 
-            this.setState({ realm });
+            //this.setState({ realm });
 
         });
+
+        console.log(this.state.text);
       }
     }
 
@@ -91,11 +93,11 @@ class VoiceRecordingsAndNotes extends Component {
     /*  this._checkPermission().then((hasPermission) => {
         this.setState({ hasPermission });
         if (!hasPermission) return; */
-
-
-        console.log(this.props.navigation);
-        console.log(this.state.fileName);
-        console.log(this.state.audioPath);
+        //
+        //
+        // console.log(this.props.navigation);
+        // console.log(this.state.fileName);
+        // console.log(this.state.audioPath);
 
 
         //this.setState({hasPermission});
@@ -264,34 +266,34 @@ class VoiceRecordingsAndNotes extends Component {
 
 
 
-      Realm.open({
-        schema: [
-                  {name: 'Recordings', properties:
-                                          {
-                                            name: 'string',
-                                            title: 'string',
-                                            lengthOfRecording: 'int',
-                                            //audioFile: 'data'
-                                          }
-                  }
-                ]
-      }).then(realm => {
-
-          realm.write(() => {
-            realm.create('Recordings',
-                            {
-                              //think i need to save this as just /date.aac, so then when i need to look it up from realm,
-                              //i just create this.state.audio path and then append the filename to it
-                              // name: this.state.audioPath.toString(),
-                              // title: 'First Recording',
-                              // lengthOfRecording: this.state.currentTime,
-                              //audioFile: arrayBuff
-                            });
-          });
-
-          this.setState({ realm });
-
-      });
+      // Realm.open({
+      //   schema: [
+      //             {name: 'Recordings', properties:
+      //                                     {
+      //                                       name: 'string',
+      //                                       title: 'string',
+      //                                       lengthOfRecording: 'int',
+      //                                       //audioFile: 'data'
+      //                                     }
+      //             }
+      //           ]
+      // }).then(realm => {
+      //
+      //     realm.write(() => {
+      //       realm.create('Recordings',
+      //                       {
+      //                         //think i need to save this as just /date.aac, so then when i need to look it up from realm,
+      //                         //i just create this.state.audio path and then append the filename to it
+      //                         // name: this.state.audioPath.toString(),
+      //                         // title: 'First Recording',
+      //                         // lengthOfRecording: this.state.currentTime,
+      //                         //audioFile: arrayBuff
+      //                       });
+      //     });
+      //
+      //     this.setState({ realm });
+      //
+      // });
 
     }
 
