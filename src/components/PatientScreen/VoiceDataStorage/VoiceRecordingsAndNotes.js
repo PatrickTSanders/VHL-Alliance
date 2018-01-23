@@ -40,7 +40,8 @@ class VoiceRecordingsAndNotes extends Component {
       hasPermission: true,
       realm: null,
       myRecording:null,
-      text: ''
+      text: '',
+      title: '',
     };
 
     prepareRecordingPath(audioPath){
@@ -56,27 +57,37 @@ class VoiceRecordingsAndNotes extends Component {
 
 
     componentWillUnmount(){
+
+      var rightNow = new Date();
+      var day = rightNow.getDate();
+      var month = rightNow.getMonth()+1;
+      var year = rightNow.getFullYear();
+
+      var date = month.toString() + '/' + day.toString() + '/' + year.toString();
+
       if(this.state.hasRecorded){
           Realm.open({
           schema: [
-                    {name: 'Recordings4', properties:
+                    {name: 'Recordings', properties:
                                             {
                                               filePath: 'string',
                                               title: 'string',
                                               lengthOfRecording: 'int',
                                               notes: 'string',
+                                              date: 'string',
                                             }
                     }
                   ]
         }).then(realm => {
 
             realm.write(() => {
-              realm.create('Recordings4',
+              realm.create('Recordings',
                               {
                                 filePath: this.state.fileName,
-                                title: 'I want notes',
+                                title: this.state.title,
                                 lengthOfRecording: this.state.currentTime,
                                 notes: this.state.text,
+                                date: date,
                               });
             });
 
@@ -301,6 +312,15 @@ class VoiceRecordingsAndNotes extends Component {
       return (
       <View style={{flex: 1, flexDirection: 'column'}}>
         <View style={styles.container}>
+
+          <View style = {{flexDirection: 'row'}}>
+            <TextInput
+              placeholder = "Please enter a title"
+              onChangeText = {(title) => this.setState({title})}
+            />
+
+          </View>
+
           <View style={styles.controls}>
 
             <View style={{flexDirection: 'row'}}>

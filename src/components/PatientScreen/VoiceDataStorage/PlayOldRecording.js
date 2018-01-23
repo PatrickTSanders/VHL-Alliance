@@ -184,8 +184,9 @@ class PlayOldRecording extends Component {
        <TextInput
          style={{flexDirection: 'column'}}
          placeholder="Click to type"
-         value = {this.props.navigation.state.params.notes}
+         editable = {true}
          onChangeText={(text) => this.setState({text})}
+         value = {this.props.navigation.state.params.notes}
          multiline = {true}
        />
      </View>
