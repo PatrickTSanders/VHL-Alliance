@@ -21,6 +21,7 @@ import MedicationListHandling from './MedicationListHandling'
 import PushNotifications from '../PushNotifications'
 import VoiceRecordingsAndNotes from './VoiceDataStorage/VoiceRecordingsAndNotes'
 import ListOfSaved from './VoiceDataStorage/ListOfSaved'
+import PlayOldRecording from './VoiceDataStorage/PlayOldRecording'
 
 
 
@@ -139,6 +140,13 @@ VoiceRecordings: {
                       onPress={() => navigation.navigate('VoiceRecordings')} */
       //              />
     }),
+  },
+
+  PlayRecording: {
+    screen: PlayOldRecording,
+    path: '/',
+    navigationOptions: ({navigation}) => ({title: 'Play Recording'}), //should this somehow grab the title they wanted
+
   },
 
   ListOfSaved: {
