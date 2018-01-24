@@ -3,7 +3,8 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 import * as AddCalendarEvent from 'react-native-add-calendar-event';
 import moment from 'moment';
-
+import { AppStorage } from '../StorageWrapper';
+import CalendarViewEvent from './CalendarViewEvent.js'
 
 class CalendarAdd extends Component{
   constructor(props){
@@ -24,6 +25,7 @@ class CalendarAdd extends Component{
     //Decide whether to ask for permission on app open for notifications
       this.setState({momentInUTC: moment.now()});
       this.addToCalendar();
+      this.getPrevCalendarEvents();
 
 
     }
@@ -43,6 +45,27 @@ class CalendarAdd extends Component{
     //     this.setState({totalCalendarEvents: JSON.parse(prevID)});
     //     //console.log(this.state.totalMedList);
     //   };
+    async addCalendarEvent(calendarEvent) {
+      console.log('addCalendarEvent reached')
+        var accessAppStorage1 = new AppStorage();
+          await accessAppStorage1.SetItem('totalCalendarEvents', calendarEvent)
+          .then(console.log('Set Item with key: totalCalendarEvents and value: ', calendarEvent ))
+          .then(console.log(await accessAppStorage1.GetItem('totalCalendarEvents')))
+          .then(await this.getPrevCalendarEvents())
+
+        }
+
+  async getPrevCalendarEvents() {
+    //console.log('getPrevCalendar Events was called when component mounted')
+      var accessAppStorage2 = new AppStorage();
+      console.log('Get Item with key: totalCalendarEvents'  );
+      const prevCal = await accessAppStorage2.GetItem('totalCalendarEvents')
+      this.setState({totalCalendarEvents: JSON.parse(prevCal)});
+      if (!this.state.totalCalendarEvents){
+        this.state.totalCalendarEvents = []
+      }
+      console.log(this.state.totalCalendarEvents);
+    }
 
  addToCalendar(){
    const utcDateToString = () => {
@@ -50,6 +73,7 @@ class CalendarAdd extends Component{
      // console.warn(s);
      return s;
    };
+        //Use this to set update for event already created
         const eventConfig = {
           title: 'Lunch',
           startDate: utcDateToString(this.state.momentInUTC),
@@ -60,18 +84,23 @@ class CalendarAdd extends Component{
           .then(eventId => {
             //handle success (receives event id) or dismissing the modal (receives false)
             if (eventId) {
-              console.log(prevCalendarEvents);
-              async () => {
-                  console.log(eventID)
-                  await fetchCalendarEventID()
-                  const prevCalendarEvents= this.state.totalCalendarEvents;
-                  console.log(prevCalendarEvents);
-                  console.log(Array.isArray(prevCalendarEvents))
-                  prevCalendarEvents.push(eventID);
+              console.log(eventId)
+              this.setState({currentEventId: eventId})
+              console.log('Showing currentEventId state: ', this.state.currentEventId)
+              this.getPrevCalendarEvents();
+              const prevCalendarEvents= this.state.totalCalendarEvents;
 
-                  await this.onAddMed(JSON.stringify(prevCalendarEvents));
-                  }
-                }
+              console.log(prevCalendarEvents);
+              console.log(Array.isArray(prevCalendarEvents))
+              prevCalendarEvents.push(eventId);
+
+              console.log('Called state on totalCalendarEvents ', this.state.totalCalendarEvents)
+              this.addCalendarEvent(JSON.stringify(prevCalendarEvents));
+
+              // async (eventId) => {
+              //
+              //     }
+              }
             else {
               console.warn('dismissed');
             }
@@ -84,7 +113,7 @@ class CalendarAdd extends Component{
 
   render(){
     return(
-      <View />
+      <CalendarViewEvent currentEventId={this.state.currentEventId} />
     )
   }
 }
