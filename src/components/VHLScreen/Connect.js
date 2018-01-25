@@ -4,6 +4,7 @@ import {
   StyleSheet,
   Text,
   View,
+  Linking,
   WebView
 } from 'react-native';
 import {
@@ -14,6 +15,7 @@ import { StackNavigator } from 'react-navigation';
 
 import Blog from './Blog';
 import Facebook from './Facebook';
+
 
 // import Databank from './Databank';
 // import CareCenter from './CareCenter';
@@ -38,7 +40,20 @@ const ConnectHome = ({ navigation }) => (
         <Button
           title='Facebook'
           containerViewStyle={styles.button}
-          onPress={() => navigation.navigate('Facebook')}
+          //onPress={() => navigation.navigate('Facebook')}
+          //onPress = { openAppOrURL('https://www.facebook.com/groups/VHLawareness/', {'Facebook', 284882215, ''})}
+        />
+        <Button
+          title='Instagram'
+          containerViewStyle={styles.button}
+          //onPress={() => navigation.navigate('Facebook')}
+        //  onPress = { openAppOrURL('https://www.instagram.com/vhl_alliance/', {'Instagram', 389801252, ''})}
+        />
+        <Button
+          title='Twitter'
+          containerViewStyle={styles.button}
+          //onPress={() => navigation.navigate('Facebook')}
+        //  onPress = { openAppOrURL('https://twitter.com/VHLAlliance', {'Twitter', 333903271, ''})}
         />
       </View>
 
@@ -48,6 +63,30 @@ const ConnectHome = ({ navigation }) => (
 
   //</View>
 );
+
+const openAppOrURL = async (
+  url,
+  { appName, appStoreId, appStoreLocale, playStoreId }
+) => {
+  Linking.openURL(url).catch(err => {
+  if (err.code === 'EUNSPECIFIED') {
+    if (Platform.OS === 'ios') {
+
+      // check if appStoreLocale is set
+      const locale = typeof appStoreLocale === 'undefined' ? 'us' : appStoreLocale;
+
+      Linking.openURL(`https://itunes.apple.com/${locale}/app/${appStoreId}`);
+    } else {
+      Linking.openURL(
+        `https://play.google.com/store/apps/details?id=${playStoreId}`
+      );
+    }
+  } else {
+    throw new Error(`Could not open ${appName}. ${err.toString()}`);
+  }
+});
+};
+
 
 const stackNavConnect = StackNavigator({
 
