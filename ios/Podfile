@@ -1,0 +1,22 @@
+# Uncomment the next line to define a global platform for your project
+# platform :ios, '9.0'
+
+#RMS Message: Orinall had ryanTestTV-os stuff as well
+
+target 'ryanTest' do
+  # Uncomment the next line if you're using Swift or would like to use dynamic frameworks
+  # use_frameworks!
+
+  # Pods for ryanTest
+  pod 'OneSignal', '~> 5.5.1'
+
+
+end
+
+target 'ryanTestTests' do
+    inherit! :search_paths
+
+    # Pods for testing
+    pod 'OneSignal', '~> 5.5.1'
+
+end

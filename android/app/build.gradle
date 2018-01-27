@@ -137,6 +137,9 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-add-calendar-event')
+    compile project(':react-native-onesignal')
+    compile project(':react-native-calendar-events')
     compile project(':react-native-sound')
     compile project(':react-native-audio')
     compile project(':react-native-fetch-blob')

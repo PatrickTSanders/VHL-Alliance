@@ -12,13 +12,24 @@
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
 #import <React/RCTPushNotificationManager.h>
+#import "RCTOneSignal.h"
 
 
 @implementation AppDelegate
 
+// Required for the notification event.
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)notification {
+    [RCTOneSignal didReceiveRemoteNotification:notification];
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
   NSURL *jsCodeLocation;
+
+  self.oneSignal = [[RCTOneSignal alloc] initWithLaunchOptions:launchOptions
+                                                         appId:@"59d7a8ee-bd81-4a21-aa9b-058b4be080b7"];
+
+  // ...
 
   jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
 
@@ -61,5 +72,6 @@
   [RCTPushNotificationManager didReceiveLocalNotification:notification];
  }
 
+@synthesize oneSignal = _oneSignal;
 
 @end

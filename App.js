@@ -23,9 +23,27 @@ import vhlHome from './src/components/VHLScreen/vhlHome';
 import patientHome from './src/components/PatientScreen/patientHome';
 import pushNotification from './src/components/PushNotifications';
 
-import Icon from 'react-native-vector-icons/Entypo'
+import Icon from 'react-native-vector-icons/Entypo';
 
-const App = TabNavigator({
+import OneSignal from 'react-native-onesignal';
+
+
+class AppBeginning extends Component {
+
+  componentDidMount() {
+    //Decide whether to ask for permission on app open for notifications
+      OneSignal.configure({});
+
+    }
+
+    render() {
+      return (
+        <AppBeginningNav />
+      )
+    }
+  }
+
+const AppBeginningNav = TabNavigator({
   VHL: {
     screen: vhlHome,
     navigationOptions: ({ navigation }) => ({
@@ -54,7 +72,7 @@ const App = TabNavigator({
   },
 });
 
-export default App;
+export default AppBeginning;
 /*
 const viewEx = {
   <Text>hi</Text>

@@ -11,8 +11,7 @@ import {
   Header,
   Button
 } from 'react-native-elements';
-import Icon from 'react-native-vector-icons/Entypo'
-import { StackNavigator, NavigationActions } from 'react-navigation';
+import { StackNavigator } from 'react-navigation';
 import Calendar from './Calendar'
 import EmergencyCard from './EmergencyCard';
 import EmergencyCardUpdate from './EmergencyCardUpdate';
@@ -22,21 +21,11 @@ import MedicationListHandling from './MedicationListHandling'
 import PushNotifications from '../PushNotifications'
 import VoiceRecordingsAndNotes from './VoiceDataStorage/VoiceRecordingsAndNotes'
 import ListOfSaved from './VoiceDataStorage/ListOfSaved'
-import PlayOldRecording from './VoiceDataStorage/PlayOldRecording'
-
 import ViewCalendar from './Calendar.js'
 import CalendarAdd from './CalendarAdd.js'
 import moment from 'moment';
 import * as AddCalendarEvent from 'react-native-add-calendar-event';
 import { AppStorage } from '../StorageWrapper';
-
-// const resetAction = NavigationActions.reset({
-//   index: 1,
-//   actions: [
-//     NavigationActions.navigate({ routeName: 'Profile'})
-//   ]
-// })
-
 
 
 
@@ -213,38 +202,15 @@ const stackNavPatient = StackNavigator({
         <Text style={{ flex: 1, fontSize: 20, justifyContent: 'center', color: 'blue' }}>
           Add
         </Text>
-      </TouchableOpacity>,
-
+      </TouchableOpacity>
   }),
 },
 CalendarAdd: {
     screen: CalendarAdd,
     path:'/',
     headerTitle: 'Test',
-
     navigationOptions: ({ navigation }) => ({
       title: 'Add Calendar',
-      // headerLeft: <Icon name={'air'}
-      //                         onPress={ () => {
-      //                           // const backAction = NavigationActions.back({
-      //                           //   index: 1,
-      //                           //   actions: [
-      //                           //     NavigationActions.navigate({ key: 'ViewCalendar'})
-      //                           //   ]
-      //                           // })
-      //                           // navigation.dispatch(backAction)
-      //                           // console.log('reset')
-      //
-      //                           // const resetAction = NavigationActions.reset({
-      //                           //   index: 0,
-      //                           //   actions: [
-      //                           //     NavigationActions.navigate({ routeName: 'ViewCalendar'})
-      //                           //   ]
-      //                           // })
-      //                           // navigation.dispatch(resetAction)
-      //                             navigation.navigate('ViewCalendar')
-      //                         }} />,
-
     }),
 },
 MedicationList: {
@@ -276,13 +242,6 @@ VoiceRecordings: {
                       onPress={() => navigation.navigate('VoiceRecordings')} */
       //              />
     }),
-  },
-
-  PlayRecording: {
-    screen: PlayOldRecording,
-    path: '/',
-    navigationOptions: ({navigation}) => ({title: 'Play Recording'}), //should this somehow grab the title they wanted
-
   },
 
   ListOfSaved: {
