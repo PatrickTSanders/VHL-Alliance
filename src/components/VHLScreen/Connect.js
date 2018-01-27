@@ -53,9 +53,10 @@ const ConnectHome = /*({ navigation })*/() => (
 
       <View style={{ flex: 2, flexDirection: 'row', justifyContent: 'space-between' }}>
         <Icon
-          title='blogger'
+          name="blogger"
           size={150}
-          //onPress = { () => this.openAppOrURL('https://www.info@vhl.org', 'Instagram', 389801252, '', '')}
+          color = {twitterColor}
+          onPress = { () => this.openAppOrURL('https://www.vhl.org/blog', '', 1, '', '')}
         />
         <Icon
           name='instagram'
@@ -118,40 +119,6 @@ openAppOrURL = async (
   }
 });
 };
-
-
-// const stackNavConnect = StackNavigator({
-//
-//   Home: {
-//       screen: MainConnect,
-//       navigationOptions: ({ navigation, defaultHeader }) => ({
-//         ...defaultHeader,
-//         backgroundColor: '#3D6DCC',
-//         title: 'VHL HomePage',
-//         headerTintColor: '#3D6DCC',
-//     }),
-//
-//   },
-//
-//   Blog: {
-//         screen: Blog,
-//         path: '/',
-//         headerTitle: 'Blog',
-//         navigationOptions: ({ navigation }) => ({
-//           title: 'Blog',
-//         }),
-//   },
-//
-//   Facebook: {
-//         screen: Facebook,
-//         path: '/',
-//         headerTitle: 'Facebook',
-//         navigationOptions: ({ navigation }) => ({
-//           title: 'Facebook',
-//         }),
-//   },
-//
-// });
 
 const styles = StyleSheet.create({
 
