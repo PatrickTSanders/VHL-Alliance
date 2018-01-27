@@ -167,13 +167,12 @@ renderRow(rowData, sectionID, rowID) {
         <Image
          style={{width: null, height: null}}
          source={require('./EmergencyCard.png')}
-         //resizeMode="stretch"
+         resizeMode="stretch"
          position= 'absolute'
          top = {0}
          left= {0}
          bottom= {0}
          right= {0}
-         padding= {10}
        />
        </View>
 
