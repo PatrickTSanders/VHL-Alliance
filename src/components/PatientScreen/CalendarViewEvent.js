@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, View, Button, ScrollView } from 'react-native';
 import * as AddCalendarEvent from 'react-native-add-calendar-event';
 import moment from 'moment';
 import RNCalendarEvents from 'react-native-calendar-events';
@@ -16,11 +16,31 @@ class CalendarViewEvent extends Component{
     const startDateUTC = moment.now();
 
     this.state = {
-      //currentEventId: this.props.currentEventId
+      currentEventPromise: {
+        id: '',
+        calendarId: '',
+        title: '',
+        startDate: '',
+        endDate: '',
+        allDay: '',
+        recurrence: '',
+        recurrenceRule: '',
+        occurrenceDate: '',
+        isDetached: '',
+        url: '',
+        location: '',
+        notes: '',
+        description: '',
+        alarms: '',
+        calendar: ''
+      },
+      //currentRouteKey: props.navigation.state.key
 
     }
   }
   componentWillMount(){
+    //this.setState({currentRouteKey: this.props.navigation.state.key})
+    console.log('In componentWillMount with currentRouteKey: ', this.state.currentRouteKey)
     RNCalendarEvents.authorizationStatus()
     .then(status => {
       // if the status was previous accepted, set the authorized status to state
@@ -41,7 +61,7 @@ class CalendarViewEvent extends Component{
 
   componentWillReceiveProps() {
     //Decide whether to ask for permission on app open for notifications
-
+    console.log('In componentWillReceiveProps with currentRouteKey: ', this.state.currentRouteKey)
       this.setState({momentInUTC: moment.now()});
       this.setState({currentEventId: this.props.currentEventId})
       console.log('Showing currentEvent Id state in Calendar view ', this.state.currentEventId)
@@ -51,10 +71,15 @@ class CalendarViewEvent extends Component{
       if (this.state.currentEventId){
         RNCalendarEvents.findEventById(this.state.currentEventId)
           .then(event => {
-            console.log('In calendar view event with, promise from react-native-calendar event: ', event)
+            console.log('In calendar view event with, promise from react-native-calendar event: ', event);
+            console.log(event['endDate'])
+            this.setState({currentEventPromise: event})
+            console.log(this.state.currentEventPromise)
+
           })
           .catch(error => {
            console.log('Error in RNCalendarEvents.findEventById');
+           console.log(error)
           });
       }
 
@@ -62,11 +87,176 @@ class CalendarViewEvent extends Component{
     }
   render(){
     return(
-      <View>
-        <Text>
-          {this.state.currentEventId}
-        </Text>
-      </View>
+      //Will include iOS only properties for the moment, and decide on deprecation after conferring
+      //with PTS
+      <ScrollView contentContainerStyle={styles.container}>
+
+        <View style={styles.container} >
+          <View style={styles.header}>
+            <Text>
+            title
+            </Text>
+          </View>
+
+          <View style={styles.header}>
+            <Text style={styles.description}>
+            {this.state.currentEventPromise['title']}
+            </Text>
+          </View>
+
+          <View style={styles.header}>
+            <Text>
+            startDate
+            </Text>
+          </View>
+          <View style={styles.header}>
+            <Text style={styles.description}>
+            {this.state.currentEventPromise['startDate']}
+            </Text>
+          </View>
+
+          <View style={styles.header}>
+            <Text>
+            endDate
+            </Text>
+          </View>
+
+          <View style={styles.header}>
+            <Text style={styles.description}>
+            {this.state.currentEventPromise['endDate']}
+            </Text>
+          </View>
+
+          <View style={styles.header}>
+            <Text>
+            allDay
+            </Text>
+          </View>
+
+          <View style={styles.header}>
+            <Text style={styles.description}>
+            {this.state.currentEventPromise['allDay']}
+            </Text>
+          </View>
+
+          <View style={styles.header}>
+            <Text>
+          recurrence
+            </Text>
+          </View>
+
+          <View style={styles.header}>
+            <Text style={styles.description}>
+            {this.state.currentEventPromise['recurrence']}
+            </Text>
+          </View>
+
+
+
+          <View style={styles.header}>
+            <Text>
+            occurrenceDate
+            </Text>
+          </View>
+
+          <View style={styles.header}>
+            <Text style={styles.description}>
+            {this.state.currentEventPromise['occurrenceDate']}
+            </Text>
+          </View>
+
+          <View style={styles.header}>
+            <Text>
+            isDetached
+            </Text>
+          </View>
+
+          <View style={styles.header}>
+            <Text style={styles.description}>
+            {this.state.currentEventPromise['isDetached']}
+            </Text>
+          </View>
+
+          <View style={styles.header}>
+            <Text>
+            url
+            </Text>
+          </View>
+
+          <View style={styles.header}>
+            <Text style={styles.description}>
+            {this.state.currentEventPromise['url']}
+            </Text>
+          </View>
+
+          <View style={styles.header}>
+            <Text>
+            location
+            </Text>
+          </View>
+
+          <View style={styles.header}>
+            <Text style={styles.description}>
+            {this.state.currentEventPromise['location']}
+            </Text>
+          </View>
+
+          <View style={styles.header}>
+            <Text>
+            notes
+            </Text>
+          </View>
+
+          <View style={styles.header}>
+            <Text style={styles.description}>
+            {this.state.currentEventPromise['notes']}
+            </Text>
+          </View>
+
+
+
+
+        </View>
+
+      </ScrollView>
+
+      // Can't have comments in render
+      // <View style={styles.header}>
+      //   <Text>
+      //   recurrenceRule
+      //   </Text>
+      // </View>
+      //
+      // <View style={styles.header}>
+      //   <Text style={styles.description}>
+      //   {this.state.currentEventPromise['recurrenceRule']}
+      //   </Text>
+      // </View>
+      //Android only
+      // <View style={styles.header}>
+      //   <Text>
+      //   this.state.currentEventPromise['description']
+      //   </Text>
+      // </View>
+      // <View style={styles.header}>
+      //   <Text>
+      //   this.state.currentEventPromise['alarms']
+      //   </Text>
+      // </View>
+      // <View style={styles.header}>
+      //   <Text>
+      //   this.state.currentEventPromise['calendar']
+      //   </Text>
+      // </View>
+
+
+      // Testing
+      //   <View style={styles.container} >
+      //     <Text style={styles.header} >
+      //       {this.state.currentEventPromise['title']}
+      //     </Text>
+      // </View>
+
     )
   }
 }
@@ -74,75 +264,23 @@ class CalendarViewEvent extends Component{
 
 
 
-
-
-// async addCalendarEventID(calendarID) {
-//   console.log('AddCalendarEvent reached')
-//     var accessAppStorage = new AppStorage();
-//       await accessAppStorage.SetItem('CalendarID', calendarID)
-//       .then(console.log('Set Item with key: CalendarIDs and value: ', calendarID ))
-//       .then(console.log(await accessAppStorage2.GetItem('CalendarID')))
-//
-//     };
-//
-// async fetchCalendarEventID() => {
-//     var accessAppStorage = new AppStorage();
-//     console.log('Get Item with key: CalendarID'  );
-//     const prevID = await accessAppStorage.GetItem('CalendarID')
-//     this.setState({totalCalendarEvents: JSON.parse(prevID)});
-//     //console.log(this.state.totalMedList);
-//   };
-//
-// const addToCalendar = () => {
-//     const eventConfig = {
-//       title: 'Lunch',
-//       startDate: utcDateToString(startDateUTC),
-//       endDate: utcDateToString(moment.utc(startDateUTC).add(1, 'hours')),
-//     };
-//
-//     AddCalendarEvent.presentNewCalendarEventDialog(eventConfig)
-//       .then(eventId => {
-//         //handle success (receives event id) or dismissing the modal (receives false)
-//         if (eventId) {
-//           console.log(prevCalendarEvents);
-//           async () => {
-//               console.log(eventID)
-//               await fetchCalendarEventID()
-//               const prevCalendarEvents= this.state.totalCalendarEvents;
-//               console.log(prevCalendarEvents);
-//               console.log(Array.isArray(prevCalendarEvents))
-//               prevCalendarEvents.push(eventID);
-//
-//               await this.onAddMed(JSON.stringify(prevCalendarEvents));
-//               }
-//             }
-//         } else {
-//           console.warn('dismissed');
-//         }
-//       })
-//       .catch((error: string) => {
-//         // handle error such as when user rejected permissions
-//         console.warn(error);
-//       });
-//   };
-
-
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    //flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
+    paddingVertical: 20
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
+  header: {
+    //fontSize: 20,
+    //textAlign: 'center',
     margin: 10,
   },
-  instructions: {
+  description: {
     textAlign: 'center',
     color: '#333333',
-    marginBottom: 5,
+    //marginBottom: 5,
   },
 });
 

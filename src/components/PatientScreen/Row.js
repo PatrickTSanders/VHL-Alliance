@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Image, TouchableHighlight, TouchableOpacity } from 'react-native';
+import CalendarViewEvent from './CalendarViewEvent.js'
 
 const styles = StyleSheet.create({
   container: {
@@ -25,19 +26,84 @@ const styles = StyleSheet.create({
     padding: 10
   },
 });
+//const {navigate} = this.props.navigation;
 
 const Row = (props) => (
+
+
   <View style={styles.container}>
     <TouchableOpacity
       style={styles.button}
-      onPress={()=>console.log('TouchableOpacity')}
+      onPress={()=>{
+          console.log('TouchableOpacity was pressed with id: ', props.dataFromCalendar.id)
+          // props.navigation('PlayRecording', {
+          //
+          //           })
+
+      }
+
+      }
     >
-      <Image source={{ uri: props.picture.large}} style={styles.photo} />
+
       <Text style={styles.text}>
-        {`${props.name.first} ${props.name.last}`}
+        {`${props.dataFromCalendar.title}`}
       </Text>
     </TouchableOpacity>
   </View>
 );
+
+// class Row extends Component{
+//   constructor(props){
+//     super(props);
+//
+//     this.state = {
+//       eventInfo: this.props.dataFromCalendar
+//     }
+//   }
+//
+//   componentDidMount() {
+//     //Decide whether to ask for permission on app open for notifications
+//       console.log(this.state.eventInfo)
+//     }
+//
+//
+//   render(){
+//     if(this.state.eventInfo){
+//     return(
+//     <View style={styles.container}>
+//       <TouchableOpacity
+//         style={styles.button}
+//         onPress={()=>{
+//             console.log('TouchableOpacity was pressed with id: ', this.eventInfo.id)
+//
+//         }
+//
+//         }
+//       >
+//
+//         <Text style={styles.text}>
+//           {`${this.eventInfo.title}`}
+//         </Text>
+//       </TouchableOpacity>
+//     </View>
+//   )
+//
+//     }
+//     else{
+//       return(
+//         <View />
+//
+//       )
+//     }
+//
+//
+//   }
+// }
+
+
+
+
+
+
 
 export default Row;
