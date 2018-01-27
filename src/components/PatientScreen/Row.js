@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Image, TouchableHighlight, TouchableOpacity } from 'react-native';
-import CalendarViewEvent from './CalendarViewEvent.js'
+import CalendarViewEvent from './CalendarViewEvent.js';
+import { StackNavigator, NavigationActions } from 'react-navigation';
+
 
 const styles = StyleSheet.create({
   container: {
@@ -34,15 +36,19 @@ const Row = (props) => (
   <View style={styles.container}>
     <TouchableOpacity
       style={styles.button}
-      onPress={()=>{
-          console.log('TouchableOpacity was pressed with id: ', props.dataFromCalendar.id)
+      onPress={({navigation})=>{
+          //console.log('TouchableOpacity was pressed with id: ', props.dataFromCalendar.id)
+          navigation.navigate('ViewCalendar', {
+                          currentEventId: props.dataFromCalendar.id,
+
+                        })
           // props.navigation('PlayRecording', {
           //
           //           })
 
       }
+    }
 
-      }
     >
 
       <Text style={styles.text}>
