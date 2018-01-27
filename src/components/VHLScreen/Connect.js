@@ -26,9 +26,9 @@ import Facebook from './Facebook';
 
 const facebookColor = '#3b5998';
 const twitterColor = '#00aced';
-//facebook #3b5998
-//Twitter #00aced
-//insta #
+const blogColor = '#6a7397';
+const phoneColor = '1a3461';
+
 
 const ConnectHome = /*({ navigation })*/() => (
   //<View style={{ flex: 1 }}>
@@ -55,7 +55,7 @@ const ConnectHome = /*({ navigation })*/() => (
         <Icon
           name="blogger"
           size={150}
-          color = {twitterColor}
+          color = {blogColor}
           onPress = { () => this.openAppOrURL('https://www.vhl.org/blog', '', 1, '', '')}
         />
         <Icon
@@ -72,6 +72,7 @@ const ConnectHome = /*({ navigation })*/() => (
         <Icon
           name = 'phone'
           size = {75}
+          color = {phoneColor}
         />
       </View>
       <View style={{flex:7, flexDirection: 'column', justifyContent: 'center'}}>
@@ -86,6 +87,7 @@ const ConnectHome = /*({ navigation })*/() => (
         <Icon
           name = 'email-outline'
           size = {75}
+          color = {blogColor}
         />
       </View>
       <View style={{flex:7, flexDirection: 'column', justifyContent: 'center'}}>
