@@ -29,7 +29,7 @@
 		"react-native-sound": "^0.10.4",
 		"react-native-storage-wrapper": "^0.1.0",
 		"react-native-swipeout": "^2.3.3",
-		"react-native-vector-icons": "^4.4.3",
+		"react-native-vector-icons": "^4.5.0",
 		"react-navigation": "^1.0.0-beta.21",
 		"realm": "^2.1.1",
 		"to-array-buffer": "^2.1.0"
