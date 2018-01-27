@@ -22,3 +22,20 @@ allprojects {
         }
     }
 }
+android {
+    ...
+    buildToolsVersion "23.0.2" // UPGRADE
+    ...
+    defaultConfig {
+        ...
+        manifestPlaceholders = [manifestApplicationId: "${applicationId}",
+",
+                                onesignal_google_project_number: "869419070724"]
+    }
+}
+
+dependencies {
+    ...
+    compile project(':react-native-onesignal,
+    compile project(':react-native-calendar-events')
+}
