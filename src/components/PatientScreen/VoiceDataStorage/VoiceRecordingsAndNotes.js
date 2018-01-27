@@ -17,27 +17,31 @@ import {
 } from 'react-native-elements';
 
 import { StackNavigator } from 'react-navigation';
-import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
 import storage from 'react-native-storage-wrapper';
 import Sound from 'react-native-sound';
 import {AudioRecorder, AudioUtils} from 'react-native-audio';
-var resolveAssetSource = require("react-native/Libraries/Image/resolveAssetSource");
 
 
 const Realm = require('realm');
+
 
 class VoiceRecordingsAndNotes extends Component {
 
 
     state = {
       currentTime: 0.0,
+      hasRecorded: false,
       recording: false,
       stoppedRecording: false,
       finished: false,
-      audioPath: AudioUtils.DocumentDirectoryPath +'/' + Date.now().toString() + '.aac',// + '/test.aac', //change this bc it looks ugly
+      fileName: Date.now().toString() + '.aac',
+      audioPath: AudioUtils.DocumentDirectoryPath +'/' + Date.now().toString() + '.aac',
+      file: AudioUtils.DocumentDirectoryPath,
       hasPermission: true,
       realm: null,
-      myRecording:null
+      myRecording:null,
+      text: '',
+      title: '',
     };
 
     prepareRecordingPath(audioPath){
@@ -51,31 +55,63 @@ class VoiceRecordingsAndNotes extends Component {
       });
     }
 
-    /*componentWillUnmount(audioPath) {
-      console.log('hello');
-    Realm.open({
-      schema: [{name: 'Recordings', properties: {name: 'string', lengthOfRecording: 'int'}}]
-    }).then(realm => {
-      if( 1 > 2){
-        realm.write(() => {
-          realm.create('Dog', {name: 'Rex'});
-        });
-        this.setState({ realm });
-        console.log(this.state.realm.objects('Dog'));
-        console.log('hello2');
-    }
-    });
-  }*/
 
+    componentWillUnmount(){
+
+      var rightNow = new Date();
+      var day = rightNow.getDate();
+      var month = rightNow.getMonth()+1;
+      var year = rightNow.getFullYear();
+
+      var date = month.toString() + '/' + day.toString() + '/' + year.toString();
+
+      if(this.state.hasRecorded){
+          Realm.open({
+          schema: [
+                    {name: 'Recordings', properties:
+                                            {
+                                              filePath: 'string',
+                                              title: 'string',
+                                              lengthOfRecording: 'int',
+                                              notes: 'string',
+                                              date: 'string',
+                                            }
+                    }
+                  ]
+        }).then(realm => {
+
+            realm.write(() => {
+              realm.create('Recordings',
+                              {
+                                filePath: this.state.fileName,
+                                title: this.state.title,
+                                lengthOfRecording: this.state.currentTime,
+                                notes: this.state.text,
+                                date: date,
+                              });
+            });
+
+            //this.setState({ realm });
+
+        });
+
+        console.log(this.state.text);
+      }
+    }
 
 
     componentDidMount() {
     /*  this._checkPermission().then((hasPermission) => {
         this.setState({ hasPermission });
         if (!hasPermission) return; */
+        //
+        //
+        // console.log(this.props.navigation);
+        // console.log(this.state.fileName);
+        // console.log(this.state.audioPath);
+
 
         //this.setState({hasPermission});
-
         this.prepareRecordingPath(this.state.audioPath);
 
         AudioRecorder.onProgress = (data) => {
@@ -112,7 +148,7 @@ class VoiceRecordingsAndNotes extends Component {
       var style = (active) ? styles.activeButtonText : styles.buttonText;
 
       return (
-        <TouchableHighlight style={styles.button} onPress={onPress}>
+        <TouchableHighlight  style={styles.button} onPress={onPress}>
           <Text style={style}>
             {title}
           </Text>
@@ -169,6 +205,8 @@ class VoiceRecordingsAndNotes extends Component {
       // See https://github.com/zmxv/react-native-sound/issues/89.
       setTimeout(() => {
         var sound = new Sound(this.state.audioPath, '', (error) => { //here we go
+        //var sound = new Sound(this.state.file + "/1516581824433.aac", '', (error) => { //1516481535461
+        //var sound = new Sound("/Users/Patrick/Library/Developer/CoreSimulator/Devices/FBF25F34-452F-4779-BC9D-40AC561B6624/data/Containers/Data/Application/87738C1D-226F-430C-9498-229F8A5BEC68/Documents/1516581824433.aac", '', (error) => {
           if (error) {
             console.log('failed to load the sound', error);
           }
@@ -187,6 +225,9 @@ class VoiceRecordingsAndNotes extends Component {
     }
 
     async _record() {
+
+      this.setState({hasRecorded: true});
+
       if (this.state.recording) {
         console.warn('Already recording!');
         return;
@@ -226,26 +267,44 @@ class VoiceRecordingsAndNotes extends Component {
 
       }, 100);
 
-      console.log(resolveAssetSource(this.state.audioPath), "resolve");
+      //console.log(resolveAssetSource(this.state.audioPath), "resolve");
       console.log(this.state.audioPath," audio path");
       console.log(new Sound(this.state.audioPath, '',null,null));
 
+      //var reader = new FileReader();
+      //var arrayBuff = reader.result;
+      //reader.readAsArrayBuffer(this.state.audioPath);
 
 
-      Realm.open({
-        schema: [{name: 'Recordings', properties: {name: 'string', lengthOfRecording: 'int'}}]
-      }).then(realm => {
 
-          realm.write(() => {
-            realm.create('Recordings', {name: this.state.audioPath.toString(), lengthOfRecording: this.state.currentTime});
-          });
-          this.setState({ realm });
-          console.log(this.state.realm.objects('Recordings').length, "we are in the realm");
-          //console.log('hello2');
-      });
-
-      //console.log(this.state.realm.objects('firstRecord'), "hi");
-      //console.log(this.state.realm.objects('Recordings').filtered('name = /Users/Patrick/Library/Developer/CoreSimulator/Devices/FBF25F34-452F-4779-BC9D-40AC561B6624/data/Containers/Data/Application/B31907CA-9EF3-4657-A02B-F42F910B01FE/Documents/1513733030812.aac'));
+      // Realm.open({
+      //   schema: [
+      //             {name: 'Recordings', properties:
+      //                                     {
+      //                                       name: 'string',
+      //                                       title: 'string',
+      //                                       lengthOfRecording: 'int',
+      //                                       //audioFile: 'data'
+      //                                     }
+      //             }
+      //           ]
+      // }).then(realm => {
+      //
+      //     realm.write(() => {
+      //       realm.create('Recordings',
+      //                       {
+      //                         //think i need to save this as just /date.aac, so then when i need to look it up from realm,
+      //                         //i just create this.state.audio path and then append the filename to it
+      //                         // name: this.state.audioPath.toString(),
+      //                         // title: 'First Recording',
+      //                         // lengthOfRecording: this.state.currentTime,
+      //                         //audioFile: arrayBuff
+      //                       });
+      //     });
+      //
+      //     this.setState({ realm });
+      //
+      // });
 
     }
 
@@ -253,6 +312,15 @@ class VoiceRecordingsAndNotes extends Component {
       return (
       <View style={{flex: 1, flexDirection: 'column'}}>
         <View style={styles.container}>
+
+          <View style = {{flexDirection: 'row'}}>
+            <TextInput
+              placeholder = "Please enter a title"
+              onChangeText = {(title) => this.setState({title})}
+            />
+
+          </View>
+
           <View style={styles.controls}>
 
             <View style={{flexDirection: 'row'}}>

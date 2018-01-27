@@ -22,6 +22,8 @@ import MedicationListHandling from './MedicationListHandling'
 import PushNotifications from '../PushNotifications'
 import VoiceRecordingsAndNotes from './VoiceDataStorage/VoiceRecordingsAndNotes'
 import ListOfSaved from './VoiceDataStorage/ListOfSaved'
+import PlayOldRecording from './VoiceDataStorage/PlayOldRecording'
+
 import ViewCalendar from './Calendar.js'
 import CalendarAdd from './CalendarAdd.js'
 import moment from 'moment';
@@ -34,9 +36,6 @@ import { AppStorage } from '../StorageWrapper';
 //     NavigationActions.navigate({ routeName: 'Profile'})
 //   ]
 // })
-
-
-
 
 
 
@@ -277,6 +276,13 @@ VoiceRecordings: {
                       onPress={() => navigation.navigate('VoiceRecordings')} */
       //              />
     }),
+  },
+
+  PlayRecording: {
+    screen: PlayOldRecording,
+    path: '/',
+    navigationOptions: ({navigation}) => ({title: 'Play Recording'}), //should this somehow grab the title they wanted
+
   },
 
   ListOfSaved: {
