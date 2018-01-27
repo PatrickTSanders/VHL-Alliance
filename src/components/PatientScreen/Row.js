@@ -36,9 +36,9 @@ const Row = (props) => (
   <View style={styles.container}>
     <TouchableOpacity
       style={styles.button}
-      onPress={({navigation})=>{
+      onPress={function(){
           //console.log('TouchableOpacity was pressed with id: ', props.dataFromCalendar.id)
-          navigation.navigate('ViewCalendar', {
+          navigate('ViewCalendar', {
                           currentEventId: props.dataFromCalendar.id,
 
                         })
