@@ -18,7 +18,6 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Blog from './Blog';
 import Facebook from './Facebook';
 
-
 // import Databank from './Databank';
 // import CareCenter from './CareCenter';
 // import NewsEvents from './NewsEvents';
