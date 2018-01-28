@@ -26,6 +26,7 @@ import PlayOldRecording from './VoiceDataStorage/PlayOldRecording'
 
 import ViewCalendar from './Calendar.js'
 import CalendarAdd from './CalendarAdd.js'
+import CalendarViewEvent from './CalendarViewEvent.js';
 import moment from 'moment';
 import * as AddCalendarEvent from 'react-native-add-calendar-event';
 import { AppStorage } from '../StorageWrapper';
@@ -253,6 +254,13 @@ CalendarAdd: {
       //                         }} />,
 
     }),
+},
+CalendarViewEvent:{
+  screen: CalendarViewEvent,
+  navigationOptions: ({ navigation}) => ({
+    path:'/',
+    headerTitle: 'CalendarViewEvent',
+  })
 },
 MedicationList: {
   screen: MedicationList,

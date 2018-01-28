@@ -10,7 +10,8 @@ import {
   ListView,
   Button as rnButton,
   TouchableHighlight,
-  KeyboardAvoidingView
+  KeyboardAvoidingView,
+  Image
 } from 'react-native';
 import {
   Header,
@@ -33,13 +34,7 @@ class EmergencyCardHandling extends Component {
     this.updateDataSource = this.updateDataSource.bind(this);
     this.renderRow = this.renderRow.bind(this);
     this.onAddMed = this.onAddMed.bind(this);
-    // var accessAppStorage = new AppStorage();
-    // const getCurrent = {async fetchMedList(){
-    //   var accessAppStorage2 = new AppStorage();
-    //   console.log('Get Item with key: totalMedList'  );
-    //   return await accessAppStorage2.GetItem('totalMedList')
-    // }};
-    //console.log(AStotalMedList)
+
     const swipeBtns = [{
       text: 'Delete',
       backgroundColor: 'red',
@@ -75,15 +70,10 @@ class EmergencyCardHandling extends Component {
       }
     }
 
-
-
 async onAddMed(totalMedList) {
   console.log('onAddmed reached')
     var accessAppStorage2 = new AppStorage();
     const testArray = [1,2,3]
-    //testArray.push(currentMed)
-    //totalMedList.push(currentMed)
-    //this.setState(totalMedList);
       await accessAppStorage2.SetItem('totalMedList', totalMedList)
       .then(console.log('Set Item with key: totalMedList and value: ', totalMedList ))
       .then(console.log(await accessAppStorage2.GetItem('totalMedList')))
@@ -95,7 +85,6 @@ async onAddMed(totalMedList) {
     console.log('Get Item with key: totalMedList'  );
     const prevList = await accessAppStorage2.GetItem('totalMedList')
     this.setState({totalMedList: JSON.parse(prevList)});
-    //console.log(this.state.totalMedList);
   }
 
 updateDataSource(data) {
@@ -143,93 +132,53 @@ renderRow(rowData, sectionID, rowID) {
         </Swipeout>
   );
 }
-  // onAddMedInfor = async function(){
-  //
-  // }
-
-  // componentDidMount() {
-  //    requestAnimationFrame(() => {
-  //       // HACK TO RELOAD DATA
-  //       this.refs._list.scrollTo({x: 1, y: 0, animated: false})
-  //     });
-  // }
 
   render() {
     var appStorage = new AppStorage();
-    // onSubmitMedEdit = () => {
-    //   let updatingMedList =  appStorage.SetItem('TestMed', this.state.text);
-    //   console.log(updatingMedList);
-    //   console.log('called AppStorage.SetItem to submit updated Meds');
-    // }
-
 
     console.log(this.state.value);
     return (
       <KeyboardAvoidingView {...this.props} behavior="padding" style={{ flex: 1 }}>
-        {/* //{...this.onAddMed.bind(this)} */}
         <View style={{flex: 3}}>
           <ListView
             enableEmptySections={true}
             ref="_list"
             style={{ flex: 8 }}
-            //removeClippedSubViews={false}
-            //dataSource={this.state.dataSource}
             dataSource={this.state.dataSource}
-            //renderRow={this.renderRow.bind(this)}
             renderRow={(rowData, sectionID, rowID) =>
               <View style={{ flex: 1 }}>
-                
+
                 <View style={styles.listColumnView}>
-
-                  { /* rowData.map((name, index) => ( {
-                    return {name};
-                  }))
-                  */
-                  }
-
                   <Text style={styles.listColumnText}>
                     {rowData[0]}
                   </Text>
                   <Text style={styles.listColumnText}>
                     {rowData[1]}
                   </Text>
-                  {/* <Text style={styles.listColumnText}>
-                    {rowData[2]}
-                  </Text>
-                  <Text style={styles.listColumnText}>
-                    {rowData[3]}
-                  </Text> */}
 
                 </View>
               </View>
 
             }
-            // renderSectionHeader={() =>
-            //   <View style={{ flex: 1 }}>
-            //     <View style={styles.headerColumnView}>
-            //       <Text style={styles.headerColumnText}>
-            //         Medication
-            //       </Text>
-            //       <Text style={styles.headerColumnText}>
-            //         Dosage
-            //       </Text>
-            //       <Text style={styles.headerColumnText}>
-            //         Frequency
-            //       </Text>
-            //       <Text style={styles.headerColumnText}>
-            //         Prescribed By
-            //       </Text>
-            //     </View>
-            //   </View>
-            //
-            //
-            // }
           />
         </View>
 
+        <View style = {{flex:6}}>
+        <Image
+         style={{width: null, height: null}}
+         source={require('./EmergencyCard.png')}
+         resizeMode="stretch"
+         position= 'absolute'
+         top = {0}
+         left= {0}
+         bottom= {0}
+         right= {0}
+       />
+       </View>
 
-      <View style={{ height: 60, backgroundColor: '#46BBE7' }} />
       </KeyboardAvoidingView>
+
+
 
     );
   }
