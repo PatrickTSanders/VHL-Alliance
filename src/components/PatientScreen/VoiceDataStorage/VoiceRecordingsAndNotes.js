@@ -37,7 +37,7 @@ class VoiceRecordingsAndNotes extends Component {
       fileName: Date.now().toString() + '.aac',
       audioPath: AudioUtils.DocumentDirectoryPath +'/' + Date.now().toString() + '.aac',
       file: AudioUtils.DocumentDirectoryPath,
-      hasPermission: true,
+      hasPermission: false,
       realm: null,
       myRecording:null,
       text: '',
@@ -68,14 +68,16 @@ class VoiceRecordingsAndNotes extends Component {
       if(this.state.hasRecorded){
           Realm.open({
           schema: [
-                    {name: 'Recordings', properties:
-                                            {
-                                              filePath: 'string',
-                                              title: 'string',
-                                              lengthOfRecording: 'int',
-                                              notes: 'string',
-                                              date: 'string',
-                                            }
+                    {name: 'Recordings',
+                    primaryKey: 'filePath',
+                     properties:
+                        {
+                          filePath: 'string',
+                          title: 'string',
+                          lengthOfRecording: 'int',
+                          notes: 'string',
+                          date: 'string',
+                        }
                     }
                   ]
         }).then(realm => {
@@ -101,17 +103,11 @@ class VoiceRecordingsAndNotes extends Component {
 
 
     componentDidMount() {
-    /*  this._checkPermission().then((hasPermission) => {
+      this._checkPermission().then((hasPermission) => {
         this.setState({ hasPermission });
-        if (!hasPermission) return; */
-        //
-        //
-        // console.log(this.props.navigation);
-        // console.log(this.state.fileName);
-        // console.log(this.state.audioPath);
+        if (!hasPermission) return;
 
-
-        //this.setState({hasPermission});
+        this.setState({hasPermission});
         this.prepareRecordingPath(this.state.audioPath);
 
         AudioRecorder.onProgress = (data) => {
@@ -126,10 +122,10 @@ class VoiceRecordingsAndNotes extends Component {
             this._finishRecording(data.status === "OK", data.audioFileURL);
           }
         };
-      //});
+      });
     }
 
-    /*_checkPermission() {
+    _checkPermission() {
       if (Platform.OS !== 'android') {
         return Promise.resolve(true);
       }
@@ -142,7 +138,7 @@ class VoiceRecordingsAndNotes extends Component {
           console.log('Permission result:', result);
           return (result === true || result === PermissionsAndroid.RESULTS.GRANTED);
         });
-    }*/
+    }
 
     _renderButton(title, onPress, active) {
       var style = (active) ? styles.activeButtonText : styles.buttonText;
@@ -204,9 +200,7 @@ class VoiceRecordingsAndNotes extends Component {
       // These timeouts are a hacky workaround for some issues with react-native-sound.
       // See https://github.com/zmxv/react-native-sound/issues/89.
       setTimeout(() => {
-        var sound = new Sound(this.state.audioPath, '', (error) => { //here we go
-        //var sound = new Sound(this.state.file + "/1516581824433.aac", '', (error) => { //1516481535461
-        //var sound = new Sound("/Users/Patrick/Library/Developer/CoreSimulator/Devices/FBF25F34-452F-4779-BC9D-40AC561B6624/data/Containers/Data/Application/87738C1D-226F-430C-9498-229F8A5BEC68/Documents/1516581824433.aac", '', (error) => {
+        var sound = new Sound(this.state.audioPath, '', (error) => {
           if (error) {
             console.log('failed to load the sound', error);
           }
@@ -254,7 +248,6 @@ class VoiceRecordingsAndNotes extends Component {
     _finishRecording(didSucceed, filePath) {
       this.setState({ finished: didSucceed });
       console.log(`Finished recording of duration ${this.state.currentTime} seconds at path: ${filePath}`);
-      //console.log(this.myRecording);
 
       setTimeout( () => {
 
@@ -270,42 +263,6 @@ class VoiceRecordingsAndNotes extends Component {
       //console.log(resolveAssetSource(this.state.audioPath), "resolve");
       console.log(this.state.audioPath," audio path");
       console.log(new Sound(this.state.audioPath, '',null,null));
-
-      //var reader = new FileReader();
-      //var arrayBuff = reader.result;
-      //reader.readAsArrayBuffer(this.state.audioPath);
-
-
-
-      // Realm.open({
-      //   schema: [
-      //             {name: 'Recordings', properties:
-      //                                     {
-      //                                       name: 'string',
-      //                                       title: 'string',
-      //                                       lengthOfRecording: 'int',
-      //                                       //audioFile: 'data'
-      //                                     }
-      //             }
-      //           ]
-      // }).then(realm => {
-      //
-      //     realm.write(() => {
-      //       realm.create('Recordings',
-      //                       {
-      //                         //think i need to save this as just /date.aac, so then when i need to look it up from realm,
-      //                         //i just create this.state.audio path and then append the filename to it
-      //                         // name: this.state.audioPath.toString(),
-      //                         // title: 'First Recording',
-      //                         // lengthOfRecording: this.state.currentTime,
-      //                         //audioFile: arrayBuff
-      //                       });
-      //     });
-      //
-      //     this.setState({ realm });
-      //
-      // });
-
     }
 
     render() {
@@ -332,10 +289,6 @@ class VoiceRecordingsAndNotes extends Component {
           </View>
         </View>
 
-
-        {/* }{this._renderButton("PLAY", () => {this._play()} )}
-        {this._renderButton("PAUSE", () => {this._pause()} )}
-        {this._renderButton("Back 10", () => {this.state.setCurrentTime(this.state.getCurrentTime() -1)} )}*/}
 
 
 
