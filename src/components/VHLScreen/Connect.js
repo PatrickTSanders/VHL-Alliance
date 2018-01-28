@@ -26,7 +26,7 @@ import Facebook from './Facebook';
 const facebookColor = '#3b5998';
 const twitterColor = '#00aced';
 const blogColor = '#6a7397';
-const phoneColor = '1a3461';
+const phoneColor = '#1a3461';
 
 
 const ConnectHome = /*({ navigation })*/() => (
