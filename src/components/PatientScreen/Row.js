@@ -28,6 +28,7 @@ const styles = StyleSheet.create({
     padding: 10
   },
 });
+
 //const {navigate} = this.props.navigation;
 
 const Row = (props) => (
@@ -37,8 +38,9 @@ const Row = (props) => (
     <TouchableOpacity
       style={styles.button}
       onPress={function(){
+          const {navigate} = props.navigation;
           //console.log('TouchableOpacity was pressed with id: ', props.dataFromCalendar.id)
-          navigate('ViewCalendar', {
+          navigate('CalendarAdd', {
                           currentEventId: props.dataFromCalendar.id,
 
                         })
