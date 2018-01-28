@@ -29,14 +29,16 @@ class ListOfSaved extends Component {
     console.log("componentWillMount");
     Realm.open({
       schema: [
-                {name: 'Recordings', properties:
-                                        {
-                                          filePath: 'string',
-                                          title: 'string',
-                                          lengthOfRecording: 'int',
-                                          notes: 'string',
-                                          date: 'string',
-                                        }
+                {name: 'Recordings',
+                primaryKey: 'filePath',
+                properties:
+                    {
+                      filePath: 'string',
+                      title: 'string',
+                      lengthOfRecording: 'int',
+                      notes: 'string',
+                      date: 'string',
+                    }
                 }
               ]
     }).then(realm => {
