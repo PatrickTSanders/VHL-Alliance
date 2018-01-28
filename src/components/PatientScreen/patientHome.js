@@ -30,6 +30,12 @@ import moment from 'moment';
 import * as AddCalendarEvent from 'react-native-add-calendar-event';
 import { AppStorage } from '../StorageWrapper';
 
+import DoctorContacts from './DoctorContacts.js'
+import DoctorContactsAdd from './DoctorContactsAdd.js'
+import DoctorContactsViewContact from './DoctorContactsViewContact.js'
+import ContactsWrapper from 'react-native-contacts-wrapper';
+
+
 // const resetAction = NavigationActions.reset({
 //   index: 1,
 //   actions: [
@@ -158,7 +164,8 @@ const PatientHome = ( {navigation} ) => (
             title='Doctor Info'
             containerViewStyle={styles.button}
             iconRight={{ type: 'font-awesome' }}
-            onPress={() => navigation.navigate('DoctorInfo')}
+            // Change back navigation to 'DoctorInfo' if needed
+            onPress={() => navigation.navigate('DoctorContacts')}
 
           />
           <Button
@@ -303,6 +310,87 @@ VoiceRecordings: {
 
     }),
   },
+
+DoctorContacts: {
+    screen: DoctorContacts,
+    path: '/',
+
+    headerTitle: 'Doctor Contact',
+    //headerRight: <rnButton title="Info" />,
+    navigationOptions: ({ navigation }) => ({
+      title: 'Doctor Contact',
+      headerRight: <TouchableOpacity
+        title="Info"
+        style={{ flex: 1 }}
+        onPress={function(){
+          ContactsWrapper.getContact()
+            .then((contact) => {
+                // Replace this code
+                console.log(contact);
+                navigation.navigate('DoctorContactsViewContact', {
+                  contactRecordID: contact.recordID
+                })
+                //const getContact = contact
+            })
+            .catch((error) => {
+                console.log("ERROR CODE: ", error.code);
+                console.log("ERROR MESSAGE: ", error.message);
+            })
+            //console.log('TouchableOpacity was pressed with id: ', props.dataFromCalendar.id)
+
+
+        }
+      }
+        // onPress={() => {
+        //   console.log('DoctorContacts Add button pressed');
+        //
+        //   ContactsWrapper.getContact()
+        //   .then((contact) => {
+        //       // Replace this code
+        //       console.log(contact);
+        //       const getContact = contact
+        //   })
+        //   .catch((error) => {
+        //       console.log("ERROR CODE: ", error.code);
+        //       console.log("ERROR MESSAGE: ", error.message);
+        //   })
+        //   .then(
+        //     navigation.navigate('DoctorContactsView', {
+        //       contactArray: contact
+        //     })
+        //   );
+        // }}
+
+        >
+        <Text style={{ flex: 1, fontSize: 20, justifyContent: 'center', color: 'blue' }}>
+          Add
+        </Text>
+      </TouchableOpacity>,
+      // headerRight: <TouchableOpacity title="Info" style={{ flex: 1 }} >
+      //   <Text style={{ flex: 1, fontSize: 20, justifyContent: 'center', color: 'blue' }}>
+      //     Info
+      //   </Text>
+      // </TouchableOpacity>
+
+      }),
+    },
+DoctorContactsViewContact: {
+    screen: DoctorContactsViewContact,
+    path: '/',
+
+    headerTitle: 'DoctorContactsView',
+    //headerRight: <rnButton title="Info" />,
+    navigationOptions: ({ navigation }) => ({
+      title: 'Doctor Contact View',
+
+      // headerRight: <TouchableOpacity title="Info" style={{ flex: 1 }} >
+      //   <Text style={{ flex: 1, fontSize: 20, justifyContent: 'center', color: 'blue' }}>
+      //     Info
+      //   </Text>
+      // </TouchableOpacity>
+
+      }),
+    },
 
 DoctorInfo: {
   screen: DoctorInfo,

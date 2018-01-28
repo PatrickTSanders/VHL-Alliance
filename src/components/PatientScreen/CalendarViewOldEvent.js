@@ -1,3 +1,4 @@
+//I DON"T THINK I USE THIS FILE, DOUBLE CHECK LATER
 import React, { Component } from 'react';
 import {
   Platform,
@@ -26,6 +27,7 @@ import CalendarAdd from './CalendarAdd.js'
 import moment from 'moment';
 import * as AddCalendarEvent from 'react-native-add-calendar-event';
 import { AppStorage } from '../StorageWrapper';
+
 
 
 
