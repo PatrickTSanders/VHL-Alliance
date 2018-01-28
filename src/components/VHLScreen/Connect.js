@@ -18,7 +18,6 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Blog from './Blog';
 import Facebook from './Facebook';
 
-
 // import Databank from './Databank';
 // import CareCenter from './CareCenter';
 // import NewsEvents from './NewsEvents';
@@ -26,9 +25,9 @@ import Facebook from './Facebook';
 
 const facebookColor = '#3b5998';
 const twitterColor = '#00aced';
-//facebook #3b5998
-//Twitter #00aced
-//insta #
+const blogColor = '#6a7397';
+const phoneColor = '#1a3461';
+
 
 const ConnectHome = /*({ navigation })*/() => (
   //<View style={{ flex: 1 }}>
@@ -53,9 +52,10 @@ const ConnectHome = /*({ navigation })*/() => (
 
       <View style={{ flex: 2, flexDirection: 'row', justifyContent: 'space-between' }}>
         <Icon
-          title='blogger'
+          name="blogger"
           size={150}
-          //onPress = { () => this.openAppOrURL('https://www.info@vhl.org', 'Instagram', 389801252, '', '')}
+          color = {blogColor}
+          onPress = { () => this.openAppOrURL('https://www.vhl.org/blog', '', 1, '', '')}
         />
         <Icon
           name='instagram'
@@ -71,6 +71,7 @@ const ConnectHome = /*({ navigation })*/() => (
         <Icon
           name = 'phone'
           size = {75}
+          color = {phoneColor}
         />
       </View>
       <View style={{flex:7, flexDirection: 'column', justifyContent: 'center'}}>
@@ -85,6 +86,7 @@ const ConnectHome = /*({ navigation })*/() => (
         <Icon
           name = 'email-outline'
           size = {75}
+          color = {blogColor}
         />
       </View>
       <View style={{flex:7, flexDirection: 'column', justifyContent: 'center'}}>
@@ -118,40 +120,6 @@ openAppOrURL = async (
   }
 });
 };
-
-
-// const stackNavConnect = StackNavigator({
-//
-//   Home: {
-//       screen: MainConnect,
-//       navigationOptions: ({ navigation, defaultHeader }) => ({
-//         ...defaultHeader,
-//         backgroundColor: '#3D6DCC',
-//         title: 'VHL HomePage',
-//         headerTintColor: '#3D6DCC',
-//     }),
-//
-//   },
-//
-//   Blog: {
-//         screen: Blog,
-//         path: '/',
-//         headerTitle: 'Blog',
-//         navigationOptions: ({ navigation }) => ({
-//           title: 'Blog',
-//         }),
-//   },
-//
-//   Facebook: {
-//         screen: Facebook,
-//         path: '/',
-//         headerTitle: 'Facebook',
-//         navigationOptions: ({ navigation }) => ({
-//           title: 'Facebook',
-//         }),
-//   },
-//
-// });
 
 const styles = StyleSheet.create({
 
