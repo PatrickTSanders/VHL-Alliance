@@ -7,6 +7,7 @@ import RNCalendarEvents from 'react-native-calendar-events';
 class CalendarViewEvent extends Component{
   constructor(props){
     super(props);
+    this.gettingContact = this.gettingContact.bind(this)
 
     const utcDateToString = (momentInUTC: moment): string => {
       let s = moment.utc(momentInUTC).format('YYYY-MM-DDTHH:mm:ss.SSS[Z]');
@@ -81,163 +82,164 @@ class CalendarViewEvent extends Component{
   //   .catch(error => console.warn('Auth Error: ', error));
   // }
   //
-  componentWillReceiveProps() {
+  gettingContact(){
+    var Contacts = require('react-native-contacts')
+    Contacts.getContact(this.state.contactRecordID, (err, contact) => {
+    if(err === 'denied'){
+        console.log('In componentDidMount DoctorContactsViewContact with err: ', err)
+      } else {
+      // Contains only contacts matching "filter"
+      console.log('In componentDidMount DoctorContactsViewContact with contact: ', contact)
+      console.log()
+      this.setState({currentEventPromise: contact}, function(){
+        console.log('In gettingContact checking currentEventPromise[\phoneNumbers][0]', this.state.currentEventPromise['phoneNumbers'][0]['number'])
+      })
+    }
+  })
+  }
+  componentDidMount() {
     //Decide whether to ask for permission on app open for notifications
     //console.log('In componentWillReceiveProps with currentRouteKey: ', this.state.currentRouteKey)
-    var Contacts = require('react-native-contacts')
-    this.setState({contactRecordID: this.props.contactRecordID})
-    if (this.state.contactRecordID){
-      Contacts.getContact(this.state.contactRecordID, (err, contact) => {
-        if(err === 'denied'){
-            console.log('In componentDidMount DoctorContactsViewContact with err: ', err)
-          } else {
-          // Contains only contacts matching "filter"
-          console.log('In componentDidMount DoctorContactsViewContact with contact: ', contact)
-        }
-      });
+
+    console.log('In componentWillReceiveProps of DoctorContactViewContact with this.state.contactRecordID: ', this.state.courtRecordID)
+    console.log('In componentWillReceiveProps of DoctorContactViewContact with this.props.navigation.state.params.contactRecordID: ', this.props.navigation.state.params.contactRecordID)
+    this.setState({contactRecordID: this.props.navigation.state.params.contactRecordID}, function(){
+      this.gettingContact();
     }
-    
+
+    );
+
+
+    // if (this.props.navigation.state.params.contactRecordID){
+    //   Contacts.getContact(this.props.navigation.state.params.contactRecordID, (err, contact) => {
+    //     if(err === 'denied'){
+    //         console.log('In componentDidMount DoctorContactsViewContact with err: ', err)
+    //       } else {
+    //       // Contains only contacts matching "filter"
+    //       console.log('In componentDidMount DoctorContactsViewContact with contact: ', contact)
+    //       console.log()
+    //     }
+    //   });
+    // }
+  }
+
   //
   //
   //   }
   render(){
     return(
 
-      <Text>
-        PlaceHolder Text
-      </Text>
+      // <Text>
+      //   PlaceHolder Text
+      // </Text>
       //Will include iOS only properties for the moment, and decide on deprecation after conferring
       //with PTS
-      // <ScrollView contentContainerStyle={styles.container}>
-      //
-      //   <View style={styles.container} >
-      //     <View style={styles.header}>
-      //       <Text>
-      //       title
-      //       </Text>
-      //     </View>
-      //
-      //     <View style={styles.header}>
-      //       <Text style={styles.description}>
-      //       {this.state.currentEventPromise['title']}
-      //       </Text>
-      //     </View>
-      //
-      //     <View style={styles.header}>
-      //       <Text>
-      //       startDate
-      //       </Text>
-      //     </View>
-      //     <View style={styles.header}>
-      //       <Text style={styles.description}>
-      //       {this.state.currentEventPromise['startDate']}
-      //       </Text>
-      //     </View>
-      //
-      //     <View style={styles.header}>
-      //       <Text>
-      //       endDate
-      //       </Text>
-      //     </View>
-      //
-      //     <View style={styles.header}>
-      //       <Text style={styles.description}>
-      //       {this.state.currentEventPromise['endDate']}
-      //       </Text>
-      //     </View>
-      //
-      //     <View style={styles.header}>
-      //       <Text>
-      //       allDay
-      //       </Text>
-      //     </View>
-      //
-      //     <View style={styles.header}>
-      //       <Text style={styles.description}>
-      //       {this.state.currentEventPromise['allDay']}
-      //       </Text>
-      //     </View>
-      //
-      //     <View style={styles.header}>
-      //       <Text>
-      //     recurrence
-      //       </Text>
-      //     </View>
-      //
-      //     <View style={styles.header}>
-      //       <Text style={styles.description}>
-      //       {this.state.currentEventPromise['recurrence']}
-      //       </Text>
-      //     </View>
-      //
-      //
-      //
-      //     <View style={styles.header}>
-      //       <Text>
-      //       occurrenceDate
-      //       </Text>
-      //     </View>
-      //
-      //     <View style={styles.header}>
-      //       <Text style={styles.description}>
-      //       {this.state.currentEventPromise['occurrenceDate']}
-      //       </Text>
-      //     </View>
-      //
-      //     <View style={styles.header}>
-      //       <Text>
-      //       isDetached
-      //       </Text>
-      //     </View>
-      //
-      //     <View style={styles.header}>
-      //       <Text style={styles.description}>
-      //       {this.state.currentEventPromise['isDetached']}
-      //       </Text>
-      //     </View>
-      //
-      //     <View style={styles.header}>
-      //       <Text>
-      //       url
-      //       </Text>
-      //     </View>
-      //
-      //     <View style={styles.header}>
-      //       <Text style={styles.description}>
-      //       {this.state.currentEventPromise['url']}
-      //       </Text>
-      //     </View>
-      //
-      //     <View style={styles.header}>
-      //       <Text>
-      //       location
-      //       </Text>
-      //     </View>
-      //
-      //     <View style={styles.header}>
-      //       <Text style={styles.description}>
-      //       {this.state.currentEventPromise['location']}
-      //       </Text>
-      //     </View>
-      //
-      //     <View style={styles.header}>
-      //       <Text>
-      //       notes
-      //       </Text>
-      //     </View>
-      //
-      //     <View style={styles.header}>
-      //       <Text style={styles.description}>
-      //       {this.state.currentEventPromise['notes']}
-      //       </Text>
-      //     </View>
-      //
-      //
-      //
-      //
-      //   </View>
-      //
-      // </ScrollView>
+      <ScrollView contentContainerStyle={styles.container}>
+
+        <View style={styles.container} >
+          <View style={styles.header}>
+            <Text>
+            RecordID
+            </Text>
+          </View>
+
+          <View style={styles.header}>
+            <Text style={styles.description}>
+            {this.state.currentEventPromise['recordID']}
+            </Text>
+          </View>
+
+          <View style={styles.header}>
+            <Text>
+            givenName
+            </Text>
+          </View>
+          <View style={styles.header}>
+            <Text style={styles.description}>
+            {this.state.currentEventPromise['givenName']}
+            </Text>
+          </View>
+
+          <View style={styles.header}>
+            <Text>
+            familyName
+            </Text>
+          </View>
+          <View style={styles.header}>
+            <Text style={styles.description}>
+            {this.state.currentEventPromise['familyName']}
+            </Text>
+          </View>
+
+          <View style={styles.header}>
+            <Text>
+            phoneNumbers COULD HAVE MORE THAN 1
+            </Text>
+          </View>
+
+          <View style={styles.header}>
+            <Text style={styles.description}>
+            /* PlaceHolder until configure display for phone numbers */
+            </Text>
+          </View>
+
+          <View style={styles.header}>
+            <Text>
+              postalAddresses COULD HAVE MORE THAN 1
+            </Text>
+          </View>
+
+          <View style={styles.header}>
+            <Text style={styles.description}>
+            /* PlaceHolder until configure display for postal address */
+            </Text>
+          </View>
+
+          <View style={styles.header}>
+            <Text>
+          thumbnailPath
+            </Text>
+          </View>
+
+          <View style={styles.header}>
+            <Text style={styles.description}>
+            {this.state.currentEventPromise['thumbnailPath']}
+            </Text>
+          </View>
+
+
+
+          <View style={styles.header}>
+            <Text>
+            hasThumbnail
+            </Text>
+          </View>
+
+          <View style={styles.header}>
+            <Text style={styles.description}>
+            {this.state.currentEventPromise['hasThumbnail']}
+            </Text>
+          </View>
+
+          <View style={styles.header}>
+            <Text>
+            company
+            </Text>
+          </View>
+
+          <View style={styles.header}>
+            <Text style={styles.description}>
+            {this.state.currentEventPromise['company']}
+            </Text>
+          </View>
+
+
+
+
+
+        </View>
+
+      </ScrollView>
 
       // Can't have comments in render
       // <View style={styles.header}>

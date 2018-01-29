@@ -330,25 +330,59 @@ DoctorContacts: {
       headerRight: <TouchableOpacity
         title="Info"
         style={{ flex: 1 }}
-        onPress={function(){
+        onPress={ async function(){
+          let addedContact
           ContactsWrapper.getContact()
             .then((contact) => {
                 // Replace this code
                 console.log(contact);
+                addedContact = contact
                 navigation.navigate('DoctorContactsViewContact', {
                   contactRecordID: contact.recordID
                 })
-                //const getContact = contact
-            })
+                console.log('In patientHome should have navigated to DoctorContactsViewContact')
+
+                })
             .catch((error) => {
                 console.log("ERROR CODE: ", error.code);
                 console.log("ERROR MESSAGE: ", error.message);
             })
+
+            console.log('In DoctorContacts trying to get old recordID'  );
+            var accessAppStorage1 = new AppStorage();
+
+            let prevRecordIds = await accessAppStorage1.GetItem('totalRecordIds')
+              .then(async function(){
+                if (prevRecordIds){
+                  console.log('In if of totalRecordIds getItem')
+                  prevRecordIds.push(addedContact.recordID)
+                  console.log(prevRecordIds)
+                }
+                else{
+                  console.log('In else of totalRecordIds getItem')
+                  prevRecordIds = [contact.recordID]
+                  console.log(prevRecordIds)
+                }
+                return(prevRecordIds)
+              }
+
+              )
+              .then((prevRec) => {
+                accessAppStorage1.SetItem('totalRecordIds', prevRec)
+              }
+              )
+              .then(console.log('Set Item with key: totalRecordIds and value: ', prevRec ))
+              .then(console.log('Checking if setting totalRecordIds with new recordId worksed',
+                    await accessAppStorage1.GetItem('totalRecordIds')))
+
+            console.log('In patientHome should have navigated to DoctorContactsViewContact and set keys')
+                }
+
             //console.log('TouchableOpacity was pressed with id: ', props.dataFromCalendar.id)
 
 
         }
-      }
+
         // onPress={() => {
         //   console.log('DoctorContacts Add button pressed');
         //
