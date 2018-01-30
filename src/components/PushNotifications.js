@@ -28,7 +28,10 @@ const pediatrician = 'Pediatrician to look for signs of neurological disturbance
 
 const physicalExaminationString = 'Physical examination and neurological assessment by pediatrician informed about VHL, with particular attention to blood pressure (taken while lying down and standing), hearing impairment, neurological disturbance, nystagmus, strabismus, white pupil, and other signs indicating retinal problems.'
 const dilatedEyeRetinal = 'Dilated eye/retinal examination with indirect ophthalmoscope by ophthalmologist informed about VHL.';
-const fractionatedMet = 'Test for fractionated metanephrines, especially normetanephrine in a “plasma free metanephrine” blood test or in a 24-hour urine test. Abdominal ultrasonography annually from 8 years or earlier if indicated. Abdominal MRI or MIBG scan only if biochemical abnormalities found.';
+const fractionatedString = 'Test for fractionated metanephrines, especially normetanephrine in a “plasma free metanephrine” blood test or in a 24-hour urine test. Abdominal ultrasonography annually from 8 years or earlier if indicated. Abdominal MRI or MIBG scan only if biochemical abnormalities found.';
+
+
+const MRI16String = 'MRI scans should be ordered as no less than a 1.5T MRI with and without contrast of brain, cervical, thoracic, and lumbar spine, with thin cuts through the posterior fossa, and attention to inner ear/petrous temporal bone to rule out both ELST and hemangioblastomas of the neuraxis.';
 
 export default class PushNotificationsController extends Component {
 
@@ -51,8 +54,13 @@ export default class PushNotificationsController extends Component {
         isLessThan5: false,
         isBetween5And15: false,
         isOver16: false,
+        hasDoneEye: false,
         hasDoneAudio: false,
         hasDonePediatrician: false,
+        hasDonePhysicalExamination: false,
+        hasDoneDilated: false,
+        hasDoneFractionated: false,
+        hasDoneMRI16: false,
     };
   }
 
@@ -152,7 +160,19 @@ export default class PushNotificationsController extends Component {
 
           <View style={{flexDirection:'row', justifyContent: 'space-between'}}>
             <Switch
-              onValueChange={isLessThan5 => this.setState({isLessThan5, isBetween5And15:false, isOver16:false})}
+              onValueChange={isLessThan5 =>
+                this.setState({
+                    isLessThan5,
+                    isBetween5And15:false,
+                    isOver16:false,
+                    hasDoneEye: false,
+                    hasDoneAudio: false,
+                    hasDonePediatrician: false,
+                    hasDonePhysicalExamination: false,
+                    hasDoneDilated: false,
+                    hasDoneFractionated: false,
+                    hasDoneMRI16: false
+                  })}
               value={this.state.isLessThan5}
             />
 
@@ -161,14 +181,38 @@ export default class PushNotificationsController extends Component {
 
           {/* <View style={{flexDirection:'row'}}> */}
             <Switch
-             onValueChange={isBetween5And15 => this.setState({isBetween5And15, isLessThan5:false, isOver16:false})}
+             onValueChange={isBetween5And15 =>
+                this.setState({
+                  isBetween5And15,
+                  isLessThan5:false,
+                  isOver16:false,
+                  hasDoneEye: false,
+                  hasDoneAudio: false,
+                  hasDonePediatrician: false,
+                  hasDonePhysicalExamination: false,
+                  hasDoneDilated: false,
+                  hasDoneFractionated: false,
+                  hasDoneMRI16: false
+                })}
              value={this.state.isBetween5And15}
            />
            <Text>5-15</Text>
          {/* </View> */}
          {/* <View style={{flexDirection:'row'}}> */}
            <Switch
-            onValueChange={isOver16 => this.setState({isOver16, isBetween5And15:false, isLessThan5:false})}
+            onValueChange={isOver16 =>
+              this.setState({
+                isOver16,
+                isBetween5And15:false,
+                isLessThan5:false,
+                hasDoneEye: false,
+                hasDoneAudio: false,
+                hasDonePediatrician: false,
+                hasDonePhysicalExamination: false,
+                hasDoneDilated: false,
+                hasDoneFractionated: false,
+                hasDoneMRI16: false
+              })}
             value={this.state.isOver16}
           />
           <Text> 16+</Text>
@@ -182,8 +226,8 @@ export default class PushNotificationsController extends Component {
         <View style={{flexDirection:'row'}}>
           <View style={{flexDirection:'column'}}>
             <Switch
-             onValueChange={hasDoneAudio => this.setState({hasDoneAudio})}
-             value={this.state.hasDoneAudio}
+             onValueChange={hasDoneEye => this.setState({hasDoneEye})}
+             value={this.state.hasDoneEye}
            />
          </View>
 
@@ -210,10 +254,265 @@ export default class PushNotificationsController extends Component {
 
 
       </View>
-
-
      );
    }
+
+
+//######################### Starts 5-15 ###################################//
+
+
+   else if(this.state.isBetween5And15){
+     return(
+       <View>
+         <Text>Please select your age range. Switching ages will reset your notification preferences</Text>
+
+
+          <View style={{flexDirection:'row', justifyContent: 'space-between'}}>
+            <Switch
+              onValueChange={isLessThan5 =>
+                this.setState({
+                    isLessThan5,
+                    isBetween5And15:false,
+                    isOver16:false,
+                    hasDoneEye: false,
+                    hasDoneAudio: false,
+                    hasDonePediatrician: false,
+                    hasDonePhysicalExamination: false,
+                    hasDoneDilated: false,
+                    hasDoneFractionated: false,
+                    hasDoneMRI16: false
+                  })}
+              value={this.state.isLessThan5}
+            />
+
+            <Text>1-4</Text>
+          {/* </View> */}
+
+          {/* <View style={{flexDirection:'row'}}> */}
+            <Switch
+             onValueChange={isBetween5And15 =>
+                this.setState({
+                  isBetween5And15,
+                  isLessThan5:false,
+                  isOver16:false,
+                  hasDoneEye: false,
+                  hasDoneAudio: false,
+                  hasDonePediatrician: false,
+                  hasDonePhysicalExamination: false,
+                  hasDoneDilated: false,
+                  hasDoneFractionated: false,
+                  hasDoneMRI16: false
+                })}
+             value={this.state.isBetween5And15}
+           />
+           <Text>5-15</Text>
+         {/* </View> */}
+         {/* <View style={{flexDirection:'row'}}> */}
+           <Switch
+            onValueChange={isOver16 =>
+              this.setState({
+                isOver16,
+                isBetween5And15:false,
+                isLessThan5:false,
+                hasDoneEye: false,
+                hasDoneAudio: false,
+                hasDonePediatrician: false,
+                hasDonePhysicalExamination: false,
+                hasDoneDilated: false,
+                hasDoneFractionated: false,
+                hasDoneMRI16: false
+              })}
+            value={this.state.isOver16}
+          />
+          <Text> 16+</Text>
+        </View>
+
+
+        <Text>{reasonToToggle}</Text>
+
+
+      <ScrollView style={{paddingTop: 50 }}>
+        <View style={{flexDirection:'row'}}>
+          <View style={{flexDirection:'column'}}>
+            <Switch
+             onValueChange={hasDonePhysicalExamination => this.setState({hasDonePhysicalExamination})}
+             value={this.state.hasDonePhysicalExamination}
+           />
+         </View>
+
+         <View style={{flexDirection:'column'}}>
+           <Text>{physicalExaminationString}</Text>
+         </View>
+       </View>
+
+
+        <View style={{flexDirection:'row'}}>
+          <View style={{flexDirection:'column'}}>
+            <Switch
+             onValueChange={hasDoneDilated => this.setState({hasDoneDilated})}
+             value={this.state.hasDoneDilated}
+           />
+         </View>
+
+         <View style={{flexDirection:'column'}}>
+           <Text>{dilatedEyeRetinal}</Text>
+         </View>
+       </View>
+
+       <View style={{flexDirection:'row'}}>
+         <View style={{flexDirection:'column'}}>
+           <Switch
+            onValueChange={hasDoneFractionated => this.setState({hasDoneFractionated})}
+            value={this.state.hasDoneFractionated}
+          />
+        </View>
+
+        <View style={{flexDirection:'column'}}>
+          <Text>{fractionatedString}</Text>
+        </View>
+      </View>
+
+      </ScrollView>
+
+
+      </View>
+     )
+   }
+
+//####################### Starts 16+ #########################//
+
+else if(this.state.isOver16){
+  return(
+
+    <View>
+      <Text>Please select your age range. Switching ages will reset your notification preferences</Text>
+
+
+       <View style={{flexDirection:'row', justifyContent: 'space-between'}}>
+         <Switch
+           onValueChange={isLessThan5 =>
+             this.setState({
+                 isLessThan5,
+                 isBetween5And15:false,
+                 isOver16:false,
+                 hasDoneEye: false,
+                 hasDoneAudio: false,
+                 hasDonePediatrician: false,
+                 hasDonePhysicalExamination: false,
+                 hasDoneDilated: false,
+                 hasDoneFractionated: false,
+                 hasDoneMRI16: false
+               })}
+           value={this.state.isLessThan5}
+         />
+
+         <Text>1-4</Text>
+       {/* </View> */}
+
+       {/* <View style={{flexDirection:'row'}}> */}
+         <Switch
+          onValueChange={isBetween5And15 =>
+             this.setState({
+               isBetween5And15,
+               isLessThan5:false,
+               isOver16:false,
+               hasDoneEye: false,
+               hasDoneAudio: false,
+               hasDonePediatrician: false,
+               hasDonePhysicalExamination: false,
+               hasDoneDilated: false,
+               hasDoneFractionated: false,
+               hasDoneMRI16: false
+             })}
+          value={this.state.isBetween5And15}
+        />
+        <Text>5-15</Text>
+      {/* </View> */}
+      {/* <View style={{flexDirection:'row'}}> */}
+        <Switch
+         onValueChange={isOver16 =>
+           this.setState({
+             isOver16,
+             isBetween5And15:false,
+             isLessThan5:false,
+             hasDoneEye: false,
+             hasDoneAudio: false,
+             hasDonePediatrician: false,
+             hasDonePhysicalExamination: false,
+             hasDoneDilated: false,
+             hasDoneFractionated: false,
+             hasDoneMRI16: false
+           })}
+         value={this.state.isOver16}
+       />
+       <Text> 16+</Text>
+     </View>
+
+
+     <Text>{reasonToToggle}</Text>
+
+
+   <ScrollView style={{paddingTop: 50 }}>
+     <View style={{flexDirection:'row'}}>
+       <View style={{flexDirection:'column'}}>
+         <Switch
+          onValueChange={hasDonePhysicalExamination => this.setState({hasDonePhysicalExamination})}
+          value={this.state.hasDonePhysicalExamination}
+        />
+      </View>
+
+      <View style={{flexDirection:'column'}}>
+        <Text>{physicalExaminationString}</Text>
+      </View>
+    </View>
+
+
+     <View style={{flexDirection:'row'}}>
+       <View style={{flexDirection:'column'}}>
+         <Switch
+          onValueChange={hasDoneDilated => this.setState({hasDoneDilated})}
+          value={this.state.hasDoneDilated}
+        />
+      </View>
+
+      <View style={{flexDirection:'column'}}>
+        <Text>{dilatedEyeRetinal}</Text>
+      </View>
+    </View>
+
+    <View style={{flexDirection:'row'}}>
+      <View style={{flexDirection:'column'}}>
+        <Switch
+         onValueChange={hasDoneFractionated => this.setState({hasDoneFractionated})}
+         value={this.state.hasDoneFractionated}
+       />
+     </View>
+
+     <View style={{flexDirection:'column'}}>
+       <Text>{fractionatedString}</Text>
+     </View>
+   </View>
+
+   <View style={{flexDirection:'row'}}>
+     <View style={{flexDirection:'column'}}>
+       <Switch
+        onValueChange={hasDoneMRI16 => this.setState({hasDoneMRI16})}
+        value={this.state.hasDoneMRI16}
+      />
+    </View>
+
+    <View style={{flexDirection:'column'}}>
+      <Text>{MRI16String}</Text>
+    </View>
+  </View>
+
+   </ScrollView>
+
+
+   </View>
+
+  );
+}
 
      else{
        return(
