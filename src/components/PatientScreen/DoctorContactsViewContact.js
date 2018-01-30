@@ -137,70 +137,133 @@ class DoctorContactsViewContact extends Component{
       })
     }
 
-  componentWillReceiveProps() {
+async componentWillReceiveProps() {
     //Decide whether to ask for permission on app open for notifications
     console.log('In componentWillReceiveProps with currentRouteKey: ', this.state.currentRouteKey)
     console.log('In componentWillReceiveProps with props: ', this.props.contactRecordID)
       this.setState({momentInUTC: moment.now()});
-      this.setState({currentEventId: this.props.contactRecordID['record']},
-        async function(){
-          var Contacts = require('react-native-contacts')
-          const contact  = this.state.currentEventId
-          await Contacts.getContact(this.state.currentEventId, err => {
-            if(contact){
-              console.log('In componentWillReceiveProps with contact ', contact)
-              console.log(contact);
-              let addedContact = contact
+    if(this.props.contactRecordID !== undefined){
 
-            }
-            else{
-              console.log("ERROR CODE: ", err);
-              console.log("ERROR MESSAGE: ", err);
-            }
-
-          })
-            // .then(async (contact) => {
-            //     // Replace this code
-            //     console.log('In componentWillReceiveProps with contact ', contact)
-            //     console.log(contact);
-            //     let addedContact = contact
-            //
-            //
-            //
-            //     })
-            // .catch((error) => {
-            //     console.log("ERROR CODE: ", error.code);
-            //     console.log("ERROR MESSAGE: ", error.message);
-            // })
-
-        }
-      )
-      console.log('Showing currentEvent Id state in Calendar view ', this.state.contactRecordID)
-      // this.addToCalendar();
-      // this.getPrevCalendarEvents();
-      console.log('In file Calendar View Event')
-      if (this.state.contactRecordID){
-        console.log('In if statement with this.state.contactRecordID: ', this.state.contactRecordID)
         var Contacts = require('react-native-contacts')
-        Contacts.getContact(this.state.currentEventId)
-          .then(event => {
-            console.log('In calendar view event with, promise from react-native-calendar event: ', event);
-            console.log(event['recordID'])
-            this.setState({currentEventPromise: event})
-            console.log(this.state.currentEventPromise)
+        let fetchContact = this.props.contactRecordID['recordID']
+        let currentContact
+        let err
+        let test = '410FE041-5C4E-48DA-B4DE-04C15EA3DBAC'
+        console.log('this.props.contactRecordID[recordID]: ',  this.props.contactRecordID['recordID'] )
+        console.log('type of this.props.contactRecordID[recordID]: ', typeof this.props.contactRecordID['recordID'])
 
-          })
-          .catch(error => {
-           console.log('Contacts.getContact');
-           console.log(error)
-          });
-      }
+        Contacts.getContact('410FE041-5C4E-48DA-B4DE-04C15EA3DBAC', (newContact) => {
+          let someRecord = err
+          this.setState({currentEventPromise: newContact})
+          if(err){
+            console.log('err: ', err)
+          }
+          else{
+            console.log('Made it through without error')
+          }
+          return err
+      })
+
+
+
+        // console.log('NewContact: ', newContact)
+        // {
+        //   //update the first record
+        //   let someRecord = test
+        //   console.log('Somerecord for getAll test: ', someRecord)
+        // })
+
+        //
+        // Contacts.getAll( (err, contacts) => {
+        //     //update the first record
+        //     let someRecord = contacts[0]
+        //     console.log('Contacts: ', someRecord)
+        //   })
+
+      //   Contacts.getContact( test, err => {
+      //     let someRecord = err
+      //
+      //     console.log('In componentWillReceiveProps with fetchContact ', fetchContact)
+      //     console.log('test: ', someRecord)
+      //
+      //   }
+      // )
+        // .then((fetched)=>{
+        //   console.log('Just fetched: ', fetched)
+        // })
+       //   .then((grabbedContact, err) =>{
+       //     if(grabbedContact){
+       //       console.log('In componentWillReceiveProps with grabbedContact ', grabbedContact)
+       //       console.log(grabbedContact);
+       //       currentContact = grabbedContact
+       //       this.setState({currentEventPromise: currentContact})
+       //
+       //     }
+       //     // else{
+       //     //   console.log("ERROR CODE: ", err);
+       //     //   console.log("ERROR MESSAGE: ", err);
+       //     // }
+       //   }
+       // )
+
+
+
+
+
+
+
+
+
+
+
+
+          // .then(async (contact) => {
+          //     // Replace this code
+          //     console.log('In componentWillReceiveProps with contact ', contact)
+          //     console.log(contact);
+          //     let addedContact = contact
+          //
+          //
+          //
+          //     })
+          // .catch((error) => {
+          //     console.log("ERROR CODE: ", error.code);
+          //     console.log("ERROR MESSAGE: ", error.message);
+          // })
+
+
+
+
+      //this.setState({currentEventId: this.props.contactRecordID['record']},
+
+
+      // console.log('Showing currentEvent Id state in Calendar view ', this.state.contactRecordID)
+      // // this.addToCalendar();
+      // // this.getPrevCalendarEvents();
+      // console.log('In file Calendar View Event')
+      // if (this.state.contactRecordID){
+      //   console.log('In if statement with this.state.contactRecordID: ', this.state.contactRecordID)
+      //   var Contacts = require('react-native-contacts')
+      //   Contacts.getContact(this.state.currentEventId)
+      //     .then(event => {
+      //       console.log('In calendar view event with, promise from react-native-calendar event: ', event);
+      //       console.log(event['recordID'])
+      //       this.setState({currentEventPromise: event})
+      //       console.log(this.state.currentEventPromise)
+      //
+      //     })
+      //     .catch(error => {
+      //      console.log('Contacts.getContact');
+      //      console.log(error)
+      //     });
+      // }
 
 
 
   //
   //
   }
+}
   render(){
     return(
 
@@ -209,6 +272,7 @@ class DoctorContactsViewContact extends Component{
       // </Text>
       //Will include iOS only properties for the moment, and decide on deprecation after conferring
       //with PTS
+
       <ScrollView contentContainerStyle={styles.container}>
 
         <View style={styles.container} >
