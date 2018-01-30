@@ -331,56 +331,77 @@ DoctorContacts: {
         title="Info"
         style={{ flex: 1 }}
         onPress={ async function(){
-          let addedContact
-          ContactsWrapper.getContact()
-            .then((contact) => {
-                // Replace this code
-                console.log(contact);
-                addedContact = contact
-                navigation.navigate('DoctorContactsViewContact', {
-                  contactRecordID: contact.recordID
-                })
-                console.log('In patientHome should have navigated to DoctorContactsViewContact')
-
-                })
-            .catch((error) => {
-                console.log("ERROR CODE: ", error.code);
-                console.log("ERROR MESSAGE: ", error.message);
-            })
-
-            console.log('In DoctorContacts trying to get old recordID'  );
-            var accessAppStorage1 = new AppStorage();
-
-            let prevRecordIds = await accessAppStorage1.GetItem('totalRecordIds')
-              .then(async function(){
-                if (prevRecordIds){
-                  console.log('In if of totalRecordIds getItem')
-                  prevRecordIds.push(addedContact.recordID)
-                  console.log(prevRecordIds)
-                }
-                else{
-                  console.log('In else of totalRecordIds getItem')
-                  prevRecordIds = [contact.recordID]
-                  console.log(prevRecordIds)
-                }
-                return(prevRecordIds)
-              }
-
-              )
-              .then((prevRec) => {
-                accessAppStorage1.SetItem('totalRecordIds', prevRec)
-              }
-              )
-              .then(console.log('Set Item with key: totalRecordIds and value: ', prevRec ))
-              .then(console.log('Checking if setting totalRecordIds with new recordId worksed',
-                    await accessAppStorage1.GetItem('totalRecordIds')))
-
-            console.log('In patientHome should have navigated to DoctorContactsViewContact and set keys')
-                }
+          console.log('Pressed Add, about to got to DoctorContactsAdd')
+          navigation.navigate('DoctorContactsAdd')
+          // let addedContact
+          //
+          //
+          //   console.log('In DoctorContacts trying to get old recordID'  );
+          //   var accessAppStorage1 = new AppStorage();
+          //
+          //   let prevRecordIds = await accessAppStorage1.GetItem('totalRecordIds')
+          //     .then(function(){
+          //       if (!prevRecordIds){
+          //         console.log('In if of totalRecordIds getItem')
+          //         console.log('Null prevRecordIds', prevRecordIds)
+          //         prevRecordIds = []
+          //         console.log('New prevRecordIds', prevRecordIds)
+          //       }
+          //       // else{
+          //       //   console.log('In else of totalRecordIds getItem')
+          //       //   prevRecordIds = [addedContact.recordID]
+          //       //   console.log(prevRecordIds)
+          //       // }
+          //       return(prevRecordIds)
+          //     }
+          //
+          //     )
+          //     .then(async function(){
+          //       await ContactsWrapper.getContact()
+          //         .then(async (contact) => {
+          //             // Replace this code
+          //             console.log(contact);
+          //             addedContact = contact
+          //             await navigation.navigate('DoctorContactsAdd')
+          //             console.log('In patientHome should have navigated to DoctorContactsAdd')
+          //
+          //             })
+          //         .catch((error) => {
+          //             console.log("ERROR CODE: ", error.code);
+          //             console.log("ERROR MESSAGE: ", error.message);
+          //         })
+          //
+          //     }
+          //
+          //     )
+          //
+          //     // .then(
+          //     //     console.log('In then after ContactsWrapper was called with addedContact: ', addedContact ),
+          //     //     console.log('In then after ContactsWrapper was called with addedContact.recordID: ', addedContact.recordID ),
+          //     //     console.log('Previous prevRecordIds: ', prevRecordIds),
+          //     //     console.log('About to push contact in to pprevRecordIds'),
+          //     //     prevRecordIds.push(addedContact.recordID),
+          //     //     console.log(prevRecordIds),
+          //     //     console.log('After pushing addedContact.recordID into prevRecordIds: ', prevRecordIds),
+          //     //
+          //     // )
+          //     // .then(
+          //     //   console.log('About to Set Item with key: totalRecordIds and value: ', prevRecordIds ),
+          //     //   accessAppStorage1.SetItem('totalRecordIds', prevRecordIds),
+          //     //   console.log('Set Item with key: totalRecordIds and value: ', prevRecordIds )
+          //     //
+          //     // )
+          //     // .then(
+          //     //       console.log('Checking if setting totalRecordIds with new recordId worksed'),
+          //     //       await accessAppStorage1.GetItem('totalRecordIds')
+          //     //     )
+          //
+          //   console.log('In patientHome should have navigated to DoctorContactsViewContact and set keys')
+          //       }
 
             //console.log('TouchableOpacity was pressed with id: ', props.dataFromCalendar.id)
 
-
+          }
         }
 
         // onPress={() => {
@@ -433,7 +454,12 @@ DoctorContactsViewContact: {
 
       }),
     },
+DoctorContactsAdd:{
+  screen: DoctorContactsAdd,
+  path: '/',
 
+  headerTitle: 'DoctorContactsAdd',
+},
 DoctorInfo: {
   screen: DoctorInfo,
   path: '/',

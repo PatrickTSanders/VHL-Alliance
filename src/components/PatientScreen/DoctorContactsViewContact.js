@@ -4,10 +4,10 @@ import * as AddCalendarEvent from 'react-native-add-calendar-event';
 import moment from 'moment';
 import RNCalendarEvents from 'react-native-calendar-events';
 
-class CalendarViewEvent extends Component{
+class DoctorContactsViewContact extends Component{
   constructor(props){
     super(props);
-    this.gettingContact = this.gettingContact.bind(this)
+    //this.gettingContact = this.gettingContact.bind(this)
 
     const utcDateToString = (momentInUTC: moment): string => {
       let s = moment.utc(momentInUTC).format('YYYY-MM-DDTHH:mm:ss.SSS[Z]');
@@ -18,114 +18,189 @@ class CalendarViewEvent extends Component{
 
     this.state = {
       currentEventPromise: {
-        id: '',
-        calendarId: '',
-        title: '',
-        startDate: '',
-        endDate: '',
-        allDay: '',
-        recurrence: '',
-        recurrenceRule: '',
-        occurrenceDate: '',
-        isDetached: '',
-        url: '',
-        location: '',
-        notes: '',
-        description: '',
-        alarms: '',
-        calendar: ''
+        recordID: '',
+        givenName: '',
+        familyName: '',
+        thumbnailPath: '',
+        hasThumbnail: '',
+        company: '',
+        phoneNumbers: '',
+        postalAddresses: '',
       },
       //currentRouteKey: props.navigation.state.key
 
     }
   }
-  componentDidMount(){
-    // var Contacts = require('react-native-contacts')
-    // Contacts.getContact('D014D8BE-C89D-4816-93FA-A6021CC9F0AE:ABPerson', (err, contact) => {
-    //   if(err === 'denied'){
-    //       console.log('In componentDidMount DoctorContactsViewContact with err: ', err)
-    //     } else {
-    //     // Contains only contacts matching "filter"
-    //     console.log('In componentDidMount DoctorContactsViewContact with contact: ', contact)
-    //   }
-    // })
-    //
-    // Contacts.getContactsMatchingString('177C371E-701D-42F8-A03B-C61CA31627F6', (err, contacts))
-    // .then( () => {
-    // if(err === 'denied'){
-    //   console.log('In componentDidMount DoctorContactsViewContact with err: ', err)
-    // } else {
-    //   // Contains only contacts matching "filter"
-    //   console.log('In componentDidMount DoctorContactsViewContact with contact: ', contact)
-    // }
-    // })
-
-  }
-  // componentWillMount(){
-  //   //this.setState({currentRouteKey: this.props.navigation.state.key})
-  //   console.log('In componentWillMount with currentRouteKey: ', this.state.currentRouteKey)
-  //   RNCalendarEvents.authorizationStatus()
-  //   .then(status => {
-  //     // if the status was previous accepted, set the authorized status to state
-  //     this.setState({ cal_auth: status })
-  //     if(status === 'undetermined') {
-  //       // if we made it this far, we need to ask the user for access
-  //       RNCalendarEvents.authorizeEventStore()
-  //       .then((out) => {
-  //         if(out == 'authorized') {
-  //           // set the new status to the auth state
-  //           this.setState({ cal_auth: out })
-  //         }
-  //       })
-  //     }
-  //   })
-  //   .catch(error => console.warn('Auth Error: ', error));
-  // }
+  // componentDidMount(){
+  //   // var Contacts = require('react-native-contacts')
+  //   // Contacts.getContact('D014D8BE-C89D-4816-93FA-A6021CC9F0AE:ABPerson', (err, contact) => {
+  //   //   if(err === 'denied'){
+  //   //       console.log('In componentDidMount DoctorContactsViewContact with err: ', err)
+  //   //     } else {
+  //   //     // Contains only contacts matching "filter"
+  //   //     console.log('In componentDidMount DoctorContactsViewContact with contact: ', contact)
+  //   //   }
+  //   // })
+  //   //
+  //   // Contacts.getContactsMatchingString('177C371E-701D-42F8-A03B-C61CA31627F6', (err, contacts))
+  //   // .then( () => {
+  //   // if(err === 'denied'){
+  //   //   console.log('In componentDidMount DoctorContactsViewContact with err: ', err)
+  //   // } else {
+  //   //   // Contains only contacts matching "filter"
+  //   //   console.log('In componentDidMount DoctorContactsViewContact with contact: ', contact)
+  //   // }
+  //   // })
   //
-  gettingContact(){
+  // }
+  // // componentWillMount(){
+  // //   //this.setState({currentRouteKey: this.props.navigation.state.key})
+  // //   console.log('In componentWillMount with currentRouteKey: ', this.state.currentRouteKey)
+  // //   RNCalendarEvents.authorizationStatus()
+  // //   .then(status => {
+  // //     // if the status was previous accepted, set the authorized status to state
+  // //     this.setState({ cal_auth: status })
+  // //     if(status === 'undetermined') {
+  // //       // if we made it this far, we need to ask the user for access
+  // //       RNCalendarEvents.authorizeEventStore()
+  // //       .then((out) => {
+  // //         if(out == 'authorized') {
+  // //           // set the new status to the auth state
+  // //           this.setState({ cal_auth: out })
+  // //         }
+  // //       })
+  // //     }
+  // //   })
+  // //   .catch(error => console.warn('Auth Error: ', error));
+  // // }
+  // //
+  // gettingContact(){
+  //   var Contacts = require('react-native-contacts')
+  //   Contacts.getContact(this.state.contactRecordID, (err, contact) => {
+  //   if(err === 'denied'){
+  //       console.log('In componentDidMount DoctorContactsViewContact with err: ', err)
+  //     } else {
+  //     // Contains only contacts matching "filter"
+  //     console.log('In componentDidMount DoctorContactsViewContact with contact: ', contact)
+  //     console.log()
+  //     this.setState({currentEventPromise: contact}, function(){
+  //       console.log('In gettingContact checking currentEventPromise[\phoneNumbers][0]', this.state.currentEventPromise['phoneNumbers'][0]['number'])
+  //     })
+  //   }
+  // })
+  // }
+  // componentDidMount() {
+  //   //Decide whether to ask for permission on app open for notifications
+  //   //console.log('In componentWillReceiveProps with currentRouteKey: ', this.state.currentRouteKey)
+  //
+  //   console.log('In componentWillReceiveProps of DoctorContactViewContact with this.state.contactRecordID: ', this.state.courtRecordID)
+  //   console.log('In componentWillReceiveProps of DoctorContactViewContact with this.props.contactRecordID: ', this.props.contactRecordID)
+  //   this.setState({contactRecordID: this.props.contactRecordID}, function(){
+  //     this.gettingContact();
+  //   }
+  //
+  //   );
+  //
+  //
+  //   // if (this.props.navigation.state.params.contactRecordID){
+  //   //   Contacts.getContact(this.props.navigation.state.params.contactRecordID, (err, contact) => {
+  //   //     if(err === 'denied'){
+  //   //         console.log('In componentDidMount DoctorContactsViewContact with err: ', err)
+  //   //       } else {
+  //   //       // Contains only contacts matching "filter"
+  //   //       console.log('In componentDidMount DoctorContactsViewContact with contact: ', contact)
+  //   //       console.log()
+  //   //     }
+  //   //   });
+  //   // }
+  // }
+  componentWillMount(){
+    //this.setState({currentRouteKey: this.props.navigation.state.key})
+    console.log('In componentWillMount with currentRouteKey: ', this.state.currentRouteKey)
     var Contacts = require('react-native-contacts')
-    Contacts.getContact(this.state.contactRecordID, (err, contact) => {
-    if(err === 'denied'){
-        console.log('In componentDidMount DoctorContactsViewContact with err: ', err)
-      } else {
-      // Contains only contacts matching "filter"
-      console.log('In componentDidMount DoctorContactsViewContact with contact: ', contact)
-      console.log()
-      this.setState({currentEventPromise: contact}, function(){
-        console.log('In gettingContact checking currentEventPromise[\phoneNumbers][0]', this.state.currentEventPromise['phoneNumbers'][0]['number'])
+
+    Contacts.checkPermission( (err, permission) => {
+       // Contacts.PERMISSION_AUTHORIZED || Contacts.PERMISSION_UNDEFINED || Contacts.PERMISSION_DENIED
+       if(permission === 'undefined'){
+         Contacts.requestPermission( (err, permission) => {
+          console.log('In Contacts.checkPermission with err: ', err)
+          console.log('In Contacts.checkPermission with err:', permission)
+
+         })
+       }
+       if(permission === 'authorized'){
+         console.log('In Contacts.checkPermission with permission === authorized: ', permission)
+       }
+       if(permission === 'denied'){
+         console.log('In Contacts.checkPermission with permission === denied: ', permission)
+       }
       })
     }
-  })
-  }
-  componentDidMount() {
+
+  componentWillReceiveProps() {
     //Decide whether to ask for permission on app open for notifications
-    //console.log('In componentWillReceiveProps with currentRouteKey: ', this.state.currentRouteKey)
+    console.log('In componentWillReceiveProps with currentRouteKey: ', this.state.currentRouteKey)
+    console.log('In componentWillReceiveProps with props: ', this.props.contactRecordID)
+      this.setState({momentInUTC: moment.now()});
+      this.setState({currentEventId: this.props.contactRecordID['record']},
+        async function(){
+          var Contacts = require('react-native-contacts')
+          const contact  = this.state.currentEventId
+          await Contacts.getContact(this.state.currentEventId, err => {
+            if(contact){
+              console.log('In componentWillReceiveProps with contact ', contact)
+              console.log(contact);
+              let addedContact = contact
 
-    console.log('In componentWillReceiveProps of DoctorContactViewContact with this.state.contactRecordID: ', this.state.courtRecordID)
-    console.log('In componentWillReceiveProps of DoctorContactViewContact with this.props.navigation.state.params.contactRecordID: ', this.props.navigation.state.params.contactRecordID)
-    this.setState({contactRecordID: this.props.navigation.state.params.contactRecordID}, function(){
-      this.gettingContact();
-    }
+            }
+            else{
+              console.log("ERROR CODE: ", err);
+              console.log("ERROR MESSAGE: ", err);
+            }
 
-    );
+          })
+            // .then(async (contact) => {
+            //     // Replace this code
+            //     console.log('In componentWillReceiveProps with contact ', contact)
+            //     console.log(contact);
+            //     let addedContact = contact
+            //
+            //
+            //
+            //     })
+            // .catch((error) => {
+            //     console.log("ERROR CODE: ", error.code);
+            //     console.log("ERROR MESSAGE: ", error.message);
+            // })
+
+        }
+      )
+      console.log('Showing currentEvent Id state in Calendar view ', this.state.contactRecordID)
+      // this.addToCalendar();
+      // this.getPrevCalendarEvents();
+      console.log('In file Calendar View Event')
+      if (this.state.contactRecordID){
+        console.log('In if statement with this.state.contactRecordID: ', this.state.contactRecordID)
+        var Contacts = require('react-native-contacts')
+        Contacts.getContact(this.state.currentEventId)
+          .then(event => {
+            console.log('In calendar view event with, promise from react-native-calendar event: ', event);
+            console.log(event['recordID'])
+            this.setState({currentEventPromise: event})
+            console.log(this.state.currentEventPromise)
+
+          })
+          .catch(error => {
+           console.log('Contacts.getContact');
+           console.log(error)
+          });
+      }
 
 
-    // if (this.props.navigation.state.params.contactRecordID){
-    //   Contacts.getContact(this.props.navigation.state.params.contactRecordID, (err, contact) => {
-    //     if(err === 'denied'){
-    //         console.log('In componentDidMount DoctorContactsViewContact with err: ', err)
-    //       } else {
-    //       // Contains only contacts matching "filter"
-    //       console.log('In componentDidMount DoctorContactsViewContact with contact: ', contact)
-    //       console.log()
-    //     }
-    //   });
-    // }
+
+  //
+  //
   }
-
-  //
-  //
-  //   }
   render(){
     return(
 
@@ -305,4 +380,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CalendarViewEvent;
+export default DoctorContactsViewContact;
