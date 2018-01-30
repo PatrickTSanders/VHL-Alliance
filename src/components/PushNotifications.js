@@ -18,6 +18,8 @@ import {
   }
   from 'react-native-elements';
 
+  const Realm = require('realm');
+
 import PushNotification from 'react-native-push-notification';
 import NotificationPreference from './NotificationPreference.js'
 
@@ -61,6 +63,7 @@ export default class PushNotificationsController extends Component {
         hasDoneDilated: false,
         hasDoneFractionated: false,
         hasDoneMRI16: false,
+        realm:null,
     };
   }
 
@@ -86,6 +89,54 @@ export default class PushNotificationsController extends Component {
   componentWillUnmount() {
     AppState.removeEventListener('change', this.handleAppStateChange);
     console.log('im leaving ', this.state.hasDoneAudio);
+
+
+    Realm.open({
+    schema: [
+              {name: 'Notification',
+              primaryKey: 'id',
+               properties:
+                  {
+                    id: 'int',
+                    isLessThan5: 'bool',
+                    isBetween5And15: 'bool',
+                    isOver16: 'bool',
+                    hasDoneEye: 'bool',
+                    hasDoneAudio: 'bool',
+                    hasDonePediatrician: 'bool',
+                    hasDonePhysicalExamination: 'bool',
+                    hasDoneDilated: 'bool',
+                    hasDoneFractionated: 'bool',
+                    hasDoneMRI16: 'bool',
+                  }
+              }
+            ]
+  }).then(realm => {
+
+      realm.write(() => {
+        realm.create('Notification',
+                        {
+                          id:1,
+                          isLessThan5: this.state.isLessThan5,
+                          isBetween5And15: this.state.isBetween5And15,
+                          isOver16: this.state.isOver16,
+                          hasDoneEye: this.state.hasDoneEye,
+                          hasDoneAudio: this.state.hasDoneAudio,
+                          hasDonePediatrician: this.state.hasDonePediatrician,
+                          hasDonePhysicalExamination: this.state.hasDonePhysicalExamination,
+                          hasDoneDilated: this.state.hasDoneDilated,
+                          hasDoneFractionated: this.state.hasDoneFractionated,
+                          hasDoneMRI16: this.state.hasDoneMRI16,
+
+                        },
+                      true);
+      });
+
+      console.log(realm.objects('Notification').length);
+  });
+
+  //
+
   }
 
   componentDidMount(){
@@ -150,6 +201,8 @@ export default class PushNotificationsController extends Component {
 
 
     render() {
+
+      
 
     if(this.state.isLessThan5){
 
