@@ -42,7 +42,7 @@ export default class ViewCalendar extends Component {
     this.state = {
       dataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2}),
       cal_auth: '',
-      
+
       //totalCalendarEvents: [{}]
     };
   }
@@ -196,7 +196,7 @@ async getEventsProperty() {
             style={styles.container}
             dataSource={this.state.dataSource}
             enableEmptySections={true}
-            renderRow={(data) => <Row dataFromCalendar={data} />}
+            renderRow={(data) => <Row dataFromCalendar={data} navigation={this.props.navigation} />}
             renderSeparator={(sectionId, rowId) => <View key={rowId} style={styles.separator} />}
           />
 

@@ -29,14 +29,16 @@ class ListOfSaved extends Component {
     console.log("componentWillMount");
     Realm.open({
       schema: [
-                {name: 'Recordings', properties:
-                                        {
-                                          filePath: 'string',
-                                          title: 'string',
-                                          lengthOfRecording: 'int',
-                                          notes: 'string',
-                                          date: 'string',
-                                        }
+                {name: 'Recordings',
+                primaryKey: 'filePath',
+                properties:
+                    {
+                      filePath: 'string',
+                      title: 'string',
+                      lengthOfRecording: 'int',
+                      notes: 'string',
+                      date: 'string',
+                    }
                 }
               ]
     }).then(realm => {
@@ -44,6 +46,7 @@ class ListOfSaved extends Component {
         this.setState({ realm });
     });
   }
+
   /*renderSeparator = () => {
     return (
       <View
@@ -81,6 +84,7 @@ class ListOfSaved extends Component {
 
     if(info === 1){
       let myRecord = this.state.realm.objects('Recordings');
+      //let myRecord = _myRecord.sort('date');
       var values = [];
       for(i=0; i < myRecord.length; i++) {
         values.push({filePath: myRecord[i].filePath, title: myRecord[i].title,

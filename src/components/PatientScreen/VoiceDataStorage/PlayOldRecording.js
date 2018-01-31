@@ -33,20 +33,21 @@ class PlayOldRecording extends Component {
       stoppedRecording: false,
       finished: false,
       file: AudioUtils.DocumentDirectoryPath,
-      hasPermission: true,
-      myRecording: null
+      hasPermission: false,
+      myRecording: null,
+      text: ''
     };
 
 
 
     componentDidMount() {
-    /*  this._checkPermission().then((hasPermission) => {
+     this._checkPermission().then((hasPermission) => {
         this.setState({ hasPermission });
-        if (!hasPermission) return; */
+        if (!hasPermission) return;
 
         console.log(this.props.navigation);
 
-        //this.setState({hasPermission});
+        this.setState({hasPermission});
 
         AudioRecorder.onProgress = (data) => {
           this.setState({currentTime: Math.floor(data.currentTime)});
@@ -59,10 +60,44 @@ class PlayOldRecording extends Component {
             console.log(this.state.myRecording);
           }
         };
-      //});
+      });
     }
 
-    /*_checkPermission() {
+    componentWillUnmount(){
+      console.log(this.state.text);
+
+      Realm.open({
+      schema: [
+                {name: 'Recordings',
+                  primaryKey: 'filePath',
+                  properties:
+                            {
+                              filePath: 'string',
+                              title: 'string',
+                              lengthOfRecording: 'int',
+                              notes: 'string',
+                              date: 'string',
+                            }
+                }
+              ]
+    }).then(realm => {
+
+        realm.write(() => {
+          realm.create('Recordings',
+                          {
+                            filePath: this.props.navigation.state.params.filePath,
+                            title: this.props.navigation.state.params.title,
+                            notes: this.state.text,
+                          },
+                        true);
+        });
+
+        //this.setState({ realm });
+
+    });
+    }
+
+    _checkPermission() {
       if (Platform.OS !== 'android') {
         return Promise.resolve(true);
       }
@@ -75,7 +110,7 @@ class PlayOldRecording extends Component {
           console.log('Permission result:', result);
           return (result === true || result === PermissionsAndroid.RESULTS.GRANTED);
         });
-    }*/
+    }
 
     _renderButton(title, onPress, active) {
       var style = (active) ? styles.activeButtonText : styles.buttonText;
@@ -116,17 +151,6 @@ class PlayOldRecording extends Component {
       }
 
       this.setState({stoppedRecording: true, recording: false});
-
-      // try {
-      //   const filePath = await AudioRecorder.stopRecording();
-      //
-      //   if (Platform.OS === 'android') {
-      //     this._finishRecording(true, filePath);
-      //   }
-      //   return filePath;
-      // } catch (error) {
-      //   console.error(error);
-      // }
     }
 
     async _play() {
@@ -138,9 +162,7 @@ class PlayOldRecording extends Component {
       // See https://github.com/zmxv/react-native-sound/issues/89.
       setTimeout(() => {
         var sound = new Sound(this.state.file + '/' + this.props.navigation.state.params.filePath, '', (error) => { //here we go
-        //var sound = new Sound(this.state.file + "/1516581824433.aac", '', (error) => { //1516481535461
-        //var sound = new Sound("/Users/Patrick/Library/Developer/CoreSimulator/Devices/FBF25F34-452F-4779-BC9D-40AC561B6624/data/Containers/Data/Application/87738C1D-226F-430C-9498-229F8A5BEC68/Documents/1516581824433.aac", '', (error) => {
-          if (error) {
+        if (error) {
             console.log('failed to load the sound', error);
           }
         });
@@ -173,11 +195,6 @@ class PlayOldRecording extends Component {
         </View>
 
 
-        {/* }{this._renderButton("PLAY", () => {this._play()} )}
-        {this._renderButton("PAUSE", () => {this._pause()} )}
-        {this._renderButton("Back 10", () => {this.state.setCurrentTime(this.state.getCurrentTime() -1)} )}*/}
-
-
 
       <View style={{flex:1, flexDirection: 'column'}}>
 
@@ -186,7 +203,7 @@ class PlayOldRecording extends Component {
          placeholder="Click to type"
          editable = {true}
          onChangeText={(text) => this.setState({text})}
-         value = {this.props.navigation.state.params.notes}
+         defaultValue = {this.props.navigation.state.params.notes}
          multiline = {true}
        />
      </View>

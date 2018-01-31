@@ -10,7 +10,8 @@ import {
   ListView,
   Button as rnButton,
   TouchableHighlight,
-  KeyboardAvoidingView
+  KeyboardAvoidingView,
+  Image
 } from 'react-native';
 import {
   Header,
@@ -75,51 +76,12 @@ render() {
       return false;
     }
     return (
-    <EmergencyCardHandling beforeAppOpenERCardList={this.state.beforeAppOpenERCardList} />
-);
-}
-}
 
-// const MedicationList2 = ({ value }) => (
-//   /*
-//     <View style={styles.container}>
-//       <Text style={styles.welcome}>
-//         Hello
-//         {value}
-//       </Text>
-//       <Button
-//         title='setKey'
-//         onPress={
-//           async function() {
-//             try {
-//             console.log('setKey was pressed');
-//             await AsyncStorage.setItem('test', 'I hope this works');
-//           } catch (error) {
-//             console.log(error)
-//           }
-//           }
-//         }
-//       />
-//
-//       <Button
-//         title='getKey'
-//         onPress={
-//           async function() {
-//           try {
-//             const keyed = await AsyncStorage.getItem('test');
-//             console.log(keyed);
-//             this.props.value(keyed)
-//         } catch(error){
-//           console.log(error)
-//         }
-//       }
-//     }
-//     />
-//     </View>
-//     */
-//     <MedicationListHandling />
-//
-// );
+      <EmergencyCardHandling beforeAppOpenERCardList={this.state.beforeAppOpenERCardList} />
+
+
+  );}
+}
 
 const styles = StyleSheet.create({
 

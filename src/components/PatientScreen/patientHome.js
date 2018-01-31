@@ -26,9 +26,16 @@ import PlayOldRecording from './VoiceDataStorage/PlayOldRecording'
 
 import ViewCalendar from './Calendar.js'
 import CalendarAdd from './CalendarAdd.js'
+import CalendarViewEvent from './CalendarViewEvent.js';
 import moment from 'moment';
 import * as AddCalendarEvent from 'react-native-add-calendar-event';
 import { AppStorage } from '../StorageWrapper';
+
+import DoctorContacts from './DoctorContacts.js'
+import DoctorContactsAdd from './DoctorContactsAdd.js'
+import DoctorContactsViewContact from './DoctorContactsViewContact.js'
+import ContactsWrapper from 'react-native-contacts-wrapper';
+
 
 // const resetAction = NavigationActions.reset({
 //   index: 1,
@@ -158,7 +165,8 @@ const PatientHome = ( {navigation} ) => (
             title='Doctor Info'
             containerViewStyle={styles.button}
             iconRight={{ type: 'font-awesome' }}
-            onPress={() => navigation.navigate('DoctorInfo')}
+            // Change back navigation to 'DoctorInfo' if needed
+            onPress={() => navigation.navigate('DoctorContacts')}
 
           />
           <Button
@@ -247,6 +255,13 @@ CalendarAdd: {
 
     }),
 },
+CalendarViewEvent:{
+  screen: CalendarViewEvent,
+  navigationOptions: ({ navigation}) => ({
+    path:'/',
+    headerTitle: 'CalendarViewEvent',
+  })
+},
 MedicationList: {
   screen: MedicationList,
   path: '/',
@@ -303,6 +318,121 @@ VoiceRecordings: {
 
     }),
   },
+
+DoctorContacts: {
+    screen: DoctorContacts,
+    path: '/',
+
+    headerTitle: 'Doctor Contact',
+    //headerRight: <rnButton title="Info" />,
+    navigationOptions: ({ navigation }) => ({
+      title: 'Doctor Contact',
+      headerRight: <TouchableOpacity
+        title="Info"
+        style={{ flex: 1 }}
+        onPress={ async function(){
+          let addedContact
+          ContactsWrapper.getContact()
+            .then((contact) => {
+                // Replace this code
+                console.log(contact);
+                addedContact = contact
+                navigation.navigate('DoctorContactsViewContact', {
+                  contactRecordID: contact.recordID
+                })
+                console.log('In patientHome should have navigated to DoctorContactsViewContact')
+
+                })
+            .catch((error) => {
+                console.log("ERROR CODE: ", error.code);
+                console.log("ERROR MESSAGE: ", error.message);
+            })
+
+            console.log('In DoctorContacts trying to get old recordID'  );
+            var accessAppStorage1 = new AppStorage();
+
+            let prevRecordIds = await accessAppStorage1.GetItem('totalRecordIds')
+              .then(async function(){
+                if (prevRecordIds){
+                  console.log('In if of totalRecordIds getItem')
+                  prevRecordIds.push(addedContact.recordID)
+                  console.log(prevRecordIds)
+                }
+                else{
+                  console.log('In else of totalRecordIds getItem')
+                  prevRecordIds = [contact.recordID]
+                  console.log(prevRecordIds)
+                }
+                return(prevRecordIds)
+              }
+
+              )
+              .then((prevRec) => {
+                accessAppStorage1.SetItem('totalRecordIds', prevRec)
+              }
+              )
+              .then(console.log('Set Item with key: totalRecordIds and value: ', prevRec ))
+              .then(console.log('Checking if setting totalRecordIds with new recordId worksed',
+                    await accessAppStorage1.GetItem('totalRecordIds')))
+
+            console.log('In patientHome should have navigated to DoctorContactsViewContact and set keys')
+                }
+
+            //console.log('TouchableOpacity was pressed with id: ', props.dataFromCalendar.id)
+
+
+        }
+
+        // onPress={() => {
+        //   console.log('DoctorContacts Add button pressed');
+        //
+        //   ContactsWrapper.getContact()
+        //   .then((contact) => {
+        //       // Replace this code
+        //       console.log(contact);
+        //       const getContact = contact
+        //   })
+        //   .catch((error) => {
+        //       console.log("ERROR CODE: ", error.code);
+        //       console.log("ERROR MESSAGE: ", error.message);
+        //   })
+        //   .then(
+        //     navigation.navigate('DoctorContactsView', {
+        //       contactArray: contact
+        //     })
+        //   );
+        // }}
+
+        >
+        <Text style={{ flex: 1, fontSize: 20, justifyContent: 'center', color: 'blue' }}>
+          Add
+        </Text>
+      </TouchableOpacity>,
+      // headerRight: <TouchableOpacity title="Info" style={{ flex: 1 }} >
+      //   <Text style={{ flex: 1, fontSize: 20, justifyContent: 'center', color: 'blue' }}>
+      //     Info
+      //   </Text>
+      // </TouchableOpacity>
+
+      }),
+    },
+DoctorContactsViewContact: {
+    screen: DoctorContactsViewContact,
+    path: '/',
+
+    headerTitle: 'DoctorContactsView',
+    //headerRight: <rnButton title="Info" />,
+    navigationOptions: ({ navigation }) => ({
+      title: 'Doctor Contact View',
+
+      // headerRight: <TouchableOpacity title="Info" style={{ flex: 1 }} >
+      //   <Text style={{ flex: 1, fontSize: 20, justifyContent: 'center', color: 'blue' }}>
+      //     Info
+      //   </Text>
+      // </TouchableOpacity>
+
+      }),
+    },
 
 DoctorInfo: {
   screen: DoctorInfo,
