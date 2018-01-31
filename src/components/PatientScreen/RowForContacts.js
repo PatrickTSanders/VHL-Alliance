@@ -30,16 +30,17 @@ const styles = StyleSheet.create({
 });
 //const {navigate} = this.props.navigation;
 
-const Row = (props) => (
+const RowForContacts = (props) => (
 
 
   <View style={styles.container}>
     <TouchableOpacity
       style={styles.button}
       onPress={function(){
+          console.log(props)
           //console.log('TouchableOpacity was pressed with id: ', props.dataFromCalendar.id)
-          navigate('DoctorContactView', {
-                          currentContact: props.dataFromCalendar.id,
+          navigate('DoctorContactsAdd', {
+                          currentContact: props.dataFromContacts.recordID,
 
                         })
           // props.navigation('PlayRecording', {
@@ -52,7 +53,7 @@ const Row = (props) => (
     >
 
       <Text style={styles.text}>
-        {`${props.dataFromCalendar.title}`}
+        {`${props.dataFromContacts}`}
       </Text>
     </TouchableOpacity>
   </View>
@@ -112,4 +113,4 @@ const Row = (props) => (
 
 
 
-export default Row;
+export default RowForContacts;
