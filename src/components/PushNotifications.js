@@ -171,9 +171,25 @@ export default class PushNotificationsController extends Component {
                   }
               }
             ]
-  }).then(realm => { this.setState({realm}); });
+  }).then(realm => { this.setState({realm}, function() {this.setMyStuff()}); });
 
+  }
 
+  setMyStuff(){
+    console.log(" in set my Stuff");
+    let myRecord = this.state.realm.objects('Notification').filtered('id = 1');
+    this.setState({
+      isLessThan5: myRecord.isLessThan5,
+      isBetween5And15:  myRecord.isBetween5And15,
+      isOver16:  myRecord.isOver16,
+      hasDoneEye:  myRecord.hasDoneEye,
+      hasDoneAudio:  myRecord.hasDoneEye,
+      hasDonePediatrician:  myRecord.hasDonePediatrician,
+      hasDonePhysicalExamination:  myRecord.hasDonePhysicalExamination,
+      hasDoneDilated:  myRecord.hasDoneDilated,
+      hasDoneFractionated:  myRecord.hasDoneFractionated,
+      hasDoneMRI16:  myRecord.hasDoneMRI16,
+    });
   }
 
   handleAppStateChange(appState) {
@@ -229,18 +245,18 @@ export default class PushNotificationsController extends Component {
 
       if(this.state.realm){
         let myRecord = this.state.realm.objects('Notification').filtered('id = 1');
-        this.setState({
-          isLessThan5: myRecord.isLessThan5,
-          isBetween5And15:  myRecord.isBetween5And15,
-          isOver16:  myRecord.isOver16,
-          hasDoneEye:  myRecord.hasDoneEye,
-          hasDoneAudio:  myRecord.hasDoneEye,
-          hasDonePediatrician:  myRecord.hasDonePediatrician,
-          hasDonePhysicalExamination:  myRecord.hasDonePhysicalExamination,
-          hasDoneDilated:  myRecord.hasDoneDilated,
-          hasDoneFractionated:  myRecord.hasDoneFractionated,
-          hasDoneMRI16:  myRecord.hasDoneMRI16,
-        })
+        // this.setState({
+        //   isLessThan5: myRecord.isLessThan5,
+        //   isBetween5And15:  myRecord.isBetween5And15,
+        //   isOver16:  myRecord.isOver16,
+        //   hasDoneEye:  myRecord.hasDoneEye,
+        //   hasDoneAudio:  myRecord.hasDoneEye,
+        //   hasDonePediatrician:  myRecord.hasDonePediatrician,
+        //   hasDonePhysicalExamination:  myRecord.hasDonePhysicalExamination,
+        //   hasDoneDilated:  myRecord.hasDoneDilated,
+        //   hasDoneFractionated:  myRecord.hasDoneFractionated,
+        //   hasDoneMRI16:  myRecord.hasDoneMRI16,
+        // })
       }
 
 
