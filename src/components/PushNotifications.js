@@ -150,6 +150,31 @@ export default class PushNotificationsController extends Component {
     })
   }
 
+  componentWillMount(){
+    Realm.open({
+    schema: [
+              {name: 'Notification',
+              primaryKey: 'id',
+               properties:
+                  {
+                    id: 'int',
+                    isLessThan5: 'bool',
+                    isBetween5And15: 'bool',
+                    isOver16: 'bool',
+                    hasDoneEye: 'bool',
+                    hasDoneAudio: 'bool',
+                    hasDonePediatrician: 'bool',
+                    hasDonePhysicalExamination: 'bool',
+                    hasDoneDilated: 'bool',
+                    hasDoneFractionated: 'bool',
+                    hasDoneMRI16: 'bool',
+                  }
+              }
+            ]
+  }).then(realm => { this.setState({realm}); });
+
+
+  }
 
   handleAppStateChange(appState) {
     if(appState === 'background') {
@@ -202,7 +227,23 @@ export default class PushNotificationsController extends Component {
 
     render() {
 
-      
+      if(this.state.realm){
+        let myRecord = this.state.realm.objects('Notification').filtered('id = 1');
+        this.setState({
+          isLessThan5: myRecord.isLessThan5,
+          isBetween5And15:  myRecord.isBetween5And15,
+          isOver16:  myRecord.isOver16,
+          hasDoneEye:  myRecord.hasDoneEye,
+          hasDoneAudio:  myRecord.hasDoneEye,
+          hasDonePediatrician:  myRecord.hasDonePediatrician,
+          hasDonePhysicalExamination:  myRecord.hasDonePhysicalExamination,
+          hasDoneDilated:  myRecord.hasDoneDilated,
+          hasDoneFractionated:  myRecord.hasDoneFractionated,
+          hasDoneMRI16:  myRecord.hasDoneMRI16,
+        })
+      }
+
+
 
     if(this.state.isLessThan5){
 
