@@ -132,7 +132,7 @@ export default class PushNotificationsController extends Component {
                       true);
       });
 
-      console.log(realm.objects('Notification').length);
+      console.log(realm.objects('Notification').length, "length");
   });
 
   //
@@ -245,6 +245,7 @@ export default class PushNotificationsController extends Component {
 
       if(this.state.realm){
         let myRecord = this.state.realm.objects('Notification').filtered('id = 1');
+        //console.log(myRecord.isLessThan5);
         // this.setState({
         //   isLessThan5: myRecord.isLessThan5,
         //   isBetween5And15:  myRecord.isBetween5And15,
@@ -334,7 +335,7 @@ export default class PushNotificationsController extends Component {
 
       <ScrollView style={{paddingTop: 50 }}>
         <View style={{flex:10, flexDirection:'row'}}>
-          <View style={{flex:1, flexDirection:'column'}}>
+          <View style={{flex:2, flexDirection:'column'}}>
             <Switch
              onValueChange={hasDoneEye => this.setState({hasDoneEye})}
              value={this.state.hasDoneEye}
@@ -348,7 +349,7 @@ export default class PushNotificationsController extends Component {
 
 
         <View style={{flex:10, flexDirection:'row'}}>
-          <View style={{flex: 1, flexDirection:'column'}}>
+          <View style={{flex: 2, flexDirection:'column'}}>
             <Switch
              onValueChange={hasDonePediatrician => this.setState({hasDonePediatrician})}
              value={this.state.hasDonePediatrician}
@@ -443,7 +444,7 @@ export default class PushNotificationsController extends Component {
 
       <ScrollView style={{paddingTop: 50 }}>
         <View style={{flex:10, flexDirection:'row'}}>
-          <View style={{flex: 1, flexDirection:'column'}}>
+          <View style={{flex: 2, flexDirection:'column'}}>
             <Switch
              onValueChange={hasDonePhysicalExamination => this.setState({hasDonePhysicalExamination})}
              value={this.state.hasDonePhysicalExamination}
@@ -457,7 +458,7 @@ export default class PushNotificationsController extends Component {
 
 
         <View style={{flex:10, flexDirection:'row'}}>
-          <View style={{flex: 1, flexDirection:'column'}}>
+          <View style={{flex: 2, flexDirection:'column'}}>
             <Switch
              onValueChange={hasDoneDilated => this.setState({hasDoneDilated})}
              value={this.state.hasDoneDilated}
@@ -470,7 +471,7 @@ export default class PushNotificationsController extends Component {
        </View>
 
        <View style={{flex:10, flexDirection:'row'}}>
-         <View style={{flex: 1,flexDirection:'column'}}>
+         <View style={{flex: 2,flexDirection:'column'}}>
            <Switch
             onValueChange={hasDoneFractionated => this.setState({hasDoneFractionated})}
             value={this.state.hasDoneFractionated}
@@ -564,7 +565,7 @@ else if(this.state.isOver16){
 
    <ScrollView style={{paddingTop: 50 }}>
      <View style={{flex:10, flexDirection:'row'}}>
-       <View style={{flex:1, flexDirection:'column'}}>
+       <View style={{flex:2, flexDirection:'column'}}>
          <Switch
           onValueChange={hasDonePhysicalExamination => this.setState({hasDonePhysicalExamination})}
           value={this.state.hasDonePhysicalExamination}
@@ -577,8 +578,8 @@ else if(this.state.isOver16){
     </View>
 
 
-     <View style={{flex:10, flexDirection:'row'}}>
-       <View style={{flex:1, flexDirection:'column'}}>
+     {/* <View style={{flex:10, flexDirection:'row'}}>
+       <View style={{flex:2, flexDirection:'column'}}>
          <Switch
           onValueChange={hasDoneDilated => this.setState({hasDoneDilated})}
           value={this.state.hasDoneDilated}
@@ -588,10 +589,10 @@ else if(this.state.isOver16){
       <View style={{flex:9, flexDirection:'column'}}>
         <Text>{dilatedEyeRetinal}</Text>
       </View>
-    </View>
+    </View> */}
 
     <View style={{flex:10, flexDirection:'row'}}>
-      <View style={{flex:1, flexDirection:'column'}}>
+      <View style={{flex:2, flexDirection:'column'}}>
         <Switch
          onValueChange={hasDoneFractionated => this.setState({hasDoneFractionated})}
          value={this.state.hasDoneFractionated}
@@ -604,7 +605,7 @@ else if(this.state.isOver16){
    </View>
 
    <View style={{flex:10, flexDirection:'row'}}>
-     <View style={{flex: 1, flexDirection:'column'}}>
+     <View style={{flex: 2, flexDirection:'column'}}>
        <Switch
         onValueChange={hasDoneMRI16 => this.setState({hasDoneMRI16})}
         value={this.state.hasDoneMRI16}
