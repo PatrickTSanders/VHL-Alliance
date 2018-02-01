@@ -333,29 +333,29 @@ export default class PushNotificationsController extends Component {
 
 
       <ScrollView style={{paddingTop: 50 }}>
-        <View style={{flexDirection:'row'}}>
-          <View style={{flexDirection:'column'}}>
+        <View style={{flex:10, flexDirection:'row'}}>
+          <View style={{flex:1, flexDirection:'column'}}>
             <Switch
              onValueChange={hasDoneEye => this.setState({hasDoneEye})}
              value={this.state.hasDoneEye}
            />
          </View>
 
-         <View style={{flexDirection:'column'}}>
+         <View style={{flex:9, flexDirection:'column'}}>
            <Text>{eyeRetinalString}</Text>
          </View>
        </View>
 
 
-        <View style={{flexDirection:'row'}}>
-          <View style={{flexDirection:'column'}}>
+        <View style={{flex:10, flexDirection:'row'}}>
+          <View style={{flex: 1, flexDirection:'column'}}>
             <Switch
              onValueChange={hasDonePediatrician => this.setState({hasDonePediatrician})}
              value={this.state.hasDonePediatrician}
            />
          </View>
 
-         <View style={{flexDirection:'column'}}>
+         <View style={{flex:9, flexDirection:'column'}}>
            <Text>{pediatrician}</Text>
          </View>
        </View>
@@ -442,42 +442,42 @@ export default class PushNotificationsController extends Component {
 
 
       <ScrollView style={{paddingTop: 50 }}>
-        <View style={{flexDirection:'row'}}>
-          <View style={{flexDirection:'column'}}>
+        <View style={{flex:10, flexDirection:'row'}}>
+          <View style={{flex: 1, flexDirection:'column'}}>
             <Switch
              onValueChange={hasDonePhysicalExamination => this.setState({hasDonePhysicalExamination})}
              value={this.state.hasDonePhysicalExamination}
            />
          </View>
 
-         <View style={{flexDirection:'column'}}>
+         <View style={{flex:9, flexDirection:'column'}}>
            <Text>{physicalExaminationString}</Text>
          </View>
        </View>
 
 
-        <View style={{flexDirection:'row'}}>
-          <View style={{flexDirection:'column'}}>
+        <View style={{flex:10, flexDirection:'row'}}>
+          <View style={{flex: 1, flexDirection:'column'}}>
             <Switch
              onValueChange={hasDoneDilated => this.setState({hasDoneDilated})}
              value={this.state.hasDoneDilated}
            />
          </View>
 
-         <View style={{flexDirection:'column'}}>
+         <View style={{flex: 9,flexDirection:'column'}}>
            <Text>{dilatedEyeRetinal}</Text>
          </View>
        </View>
 
-       <View style={{flexDirection:'row'}}>
-         <View style={{flexDirection:'column'}}>
+       <View style={{flex:10, flexDirection:'row'}}>
+         <View style={{flex: 1,flexDirection:'column'}}>
            <Switch
             onValueChange={hasDoneFractionated => this.setState({hasDoneFractionated})}
             value={this.state.hasDoneFractionated}
           />
         </View>
 
-        <View style={{flexDirection:'column'}}>
+        <View style={{flex:9, flexDirection:'column'}}>
           <Text>{fractionatedString}</Text>
         </View>
       </View>
@@ -563,55 +563,55 @@ else if(this.state.isOver16){
 
 
    <ScrollView style={{paddingTop: 50 }}>
-     <View style={{flexDirection:'row'}}>
-       <View style={{flexDirection:'column'}}>
+     <View style={{flex:10, flexDirection:'row'}}>
+       <View style={{flex:1, flexDirection:'column'}}>
          <Switch
           onValueChange={hasDonePhysicalExamination => this.setState({hasDonePhysicalExamination})}
           value={this.state.hasDonePhysicalExamination}
         />
       </View>
 
-      <View style={{flexDirection:'column'}}>
+      <View style={{flex:9, flexDirection:'column'}}>
         <Text>{physicalExaminationString}</Text>
       </View>
     </View>
 
 
-     <View style={{flexDirection:'row'}}>
-       <View style={{flexDirection:'column'}}>
+     <View style={{flex:10, flexDirection:'row'}}>
+       <View style={{flex:1, flexDirection:'column'}}>
          <Switch
           onValueChange={hasDoneDilated => this.setState({hasDoneDilated})}
           value={this.state.hasDoneDilated}
         />
       </View>
 
-      <View style={{flexDirection:'column'}}>
+      <View style={{flex:9, flexDirection:'column'}}>
         <Text>{dilatedEyeRetinal}</Text>
       </View>
     </View>
 
-    <View style={{flexDirection:'row'}}>
-      <View style={{flexDirection:'column'}}>
+    <View style={{flex:10, flexDirection:'row'}}>
+      <View style={{flex:1, flexDirection:'column'}}>
         <Switch
          onValueChange={hasDoneFractionated => this.setState({hasDoneFractionated})}
          value={this.state.hasDoneFractionated}
        />
      </View>
 
-     <View style={{flexDirection:'column'}}>
+     <View style={{flex:9, flexDirection:'column'}}>
        <Text>{fractionatedString}</Text>
      </View>
    </View>
 
-   <View style={{flexDirection:'row'}}>
-     <View style={{flexDirection:'column'}}>
+   <View style={{flex:10, flexDirection:'row'}}>
+     <View style={{flex: 1, flexDirection:'column'}}>
        <Switch
         onValueChange={hasDoneMRI16 => this.setState({hasDoneMRI16})}
         value={this.state.hasDoneMRI16}
       />
     </View>
 
-    <View style={{flexDirection:'column'}}>
+    <View style={{flex:9, flexDirection:'column'}}>
       <Text>{MRI16String}</Text>
     </View>
   </View>
