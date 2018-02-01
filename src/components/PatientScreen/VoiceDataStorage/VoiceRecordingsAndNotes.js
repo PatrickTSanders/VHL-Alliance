@@ -8,7 +8,8 @@ import {
   WebView,
   AsyncStorage,
   TouchableHighlight,
-  PermissionsAndroid
+  PermissionsAndroid,
+  Dimensions
 } from 'react-native';
 
 import {
@@ -41,7 +42,7 @@ class VoiceRecordingsAndNotes extends Component {
       realm: null,
       myRecording:null,
       text: '',
-      title: '',
+      title: 'My Recording',
     };
 
     prepareRecordingPath(audioPath){
@@ -270,13 +271,15 @@ class VoiceRecordingsAndNotes extends Component {
       <View style={{flex: 1, flexDirection: 'column'}}>
         <View style={styles.container}>
 
+
           <View style = {{flexDirection: 'row'}}>
-            <TextInput
-              placeholder = "Please enter a title"
+            <TextInput style = {{backgroundColor: '#F5FCFF', width: Dimensions.get('window').width}}
+              placeholder = "Click to enter title"
               onChangeText = {(title) => this.setState({title})}
             />
 
           </View>
+
 
           <View style={styles.controls}>
 
@@ -288,6 +291,7 @@ class VoiceRecordingsAndNotes extends Component {
             <Text style={styles.timeElapsed}>{this.state.currentTime}s</Text>
           </View>
         </View>
+
 
 
 

@@ -5,7 +5,8 @@ import {
   Text,
   View,
   Linking,
-  WebView
+  WebView,
+  Dimensions
 } from 'react-native';
 import {
   Header,
@@ -33,41 +34,45 @@ const ConnectHome = /*({ navigation })*/() => (
   //<View style={{ flex: 1 }}>
 
     <View style={{ flex: 1}} >
-      <View style={{ flex: 2, flexDirection: 'row', justifyContent: 'space-between' }}>
-        <Icon
-          name='facebook-box'
-          size={150}
-          color = {facebookColor}
-          //containerViewStyle={styles.button}
-          //onPress={() => navigation.navigate('Facebook')}
-          onPress = { () => this.openAppOrURL('https://www.facebook.com/groups/VHLawareness/', 'Facebook', 284882218, '', '')}
-        />
-        <Icon
-          name="twitter"
-          size={150}
-          color = {twitterColor}
-          onPress = { () => this.openAppOrURL('https://twitter.com/VHLAlliance', 'Twitter', 333903271, '', '')}
-        />
-      </View>
 
-      <View style={{ flex: 2, flexDirection: 'row', justifyContent: 'space-between' }}>
-        <Icon
-          name="blogger"
-          size={150}
-          color = {blogColor}
-          onPress = { () => this.openAppOrURL('https://www.vhl.org/blog', '', 1, '', '')}
-        />
-        <Icon
-          name='instagram'
-          size={150}
-          onPress = { () => this.openAppOrURL('https://www.instagram.com/vhl_alliance/', 'Instagram', 389801255, '', '')}
-        />
-      </View>
+      <Text style={{textAlign:'center',paddingTop:30}}> Connect with us at </Text>
 
 
-    <View style={{ flex: 1, flexDirection: 'row' }}>
+        <View style={{ flex: 6, flexDirection: 'row', justifyContent:'space-between', alignItems:'center'}}>
+          <Icon
+            name='facebook-box'
+            size={75}
+            color = {facebookColor}
+            //containerViewStyle={styles.button}
+            //onPress={() => navigation.navigate('Facebook')}
+            onPress = { () => this.openAppOrURL('https://www.facebook.com/groups/VHLawareness/', 'Facebook', 284882218, '', '')}
+          />
+          <Icon
+            name="twitter"
+            size={75}
+            color = {twitterColor}
+            onPress = { () => this.openAppOrURL('https://twitter.com/VHLAlliance', 'Twitter', 333903271, '', '')}
+          />
+        {/* </View>
 
-      <View style={{flex:3, flexDirection: 'column'}}>
+        <View style={{ flex: 2, flexDirection: 'row', justifyContent: 'space-between' }}> */}
+          <Icon
+            name="blogger"
+            size={75}
+            color = {blogColor}
+            onPress = { () => this.openAppOrURL('https://www.vhl.org/blog', '', 1, '', '')}
+          />
+          <Icon
+            name='instagram'
+            size={75}
+            onPress = { () => this.openAppOrURL('https://www.instagram.com/vhl_alliance/', 'Instagram', 389801255, '', '')}
+          />
+        </View>
+
+
+    <View style={{flex:2, flexDirection: 'row'}}>
+
+      <View style={{flex:3, flexDirection: 'column', justifyContent:'center'}}>
         <Icon
           name = 'phone'
           size = {75}
@@ -80,7 +85,7 @@ const ConnectHome = /*({ navigation })*/() => (
 
     </View>
 
-    <View style={{ flex: 1, flexDirection: 'row' }}>
+    <View style={{flex:2,flexDirection: 'row' }}>
 
       <View style={{flex:3, flexDirection: 'column'}}>
         <Icon
