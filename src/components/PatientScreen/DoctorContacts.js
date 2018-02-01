@@ -131,7 +131,7 @@ async gettingContact(contactInfo){
 }
 
 
-async getEventById(contactRecordID){
+getEventById(contactRecordID){
   // let updatedContact ='test'
       var Contacts = require('react-native-contacts')
       //let fetchContact = this.props.contactRecordID['recordID']
@@ -146,8 +146,8 @@ async getEventById(contactRecordID){
 
 
       //NEED TO SOMEHOW GET THIS TO RETURN THE newContact SO THAT IT CAN BE USED IN THE await Promise.all FUNCTION
-      let updatedContact = await this.gettingContact(contactRecordID)
-      await Contacts.getContact(contactRecordID, (newContact) => {
+      let updatedContact = this.gettingContact(contactRecordID)
+      Contacts.getContact(contactRecordID, (newContact) => {
         console.log('In DoctorContacts.js Contacts.getContact, promise from react-native-contacts: ', newContact);
         console.log(newContact)
         //gettingContact = newContact['recordID']
@@ -158,7 +158,7 @@ async getEventById(contactRecordID){
           // });
 
           console.log('Current newContact[recordID]: ', newContact['recordID'])
-          gettingContact = newContact['recordID']
+          currentContact = newContact['recordID']
     })
 
 
@@ -173,11 +173,11 @@ async getEventById(contactRecordID){
       //   .then((takeContact) => {
       //     updatedContact = takeContact
       //   })
-      // })
+      // })d
 
 
 
-    return gettingContact
+    return currentContact
 
 
 }
