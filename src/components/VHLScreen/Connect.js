@@ -45,7 +45,7 @@ const ConnectHome = /*({ navigation })*/() => (
             color = {facebookColor}
             //containerViewStyle={styles.button}
             //onPress={() => navigation.navigate('Facebook')}
-            onPress = { () => this.openAppOrURL('https://www.facebook.com/groups/VHLawareness/', 'Facebook', 284882218, '', '')}
+            onPress = { () => this.openAppOrURL('https://www.facebook.com/groups/VHLawareness/', 'Facebook', 284882215, '', '')}
           />
           <Icon
             name="twitter"
@@ -65,7 +65,7 @@ const ConnectHome = /*({ navigation })*/() => (
           <Icon
             name='instagram'
             size={75}
-            onPress = { () => this.openAppOrURL('https://www.instagram.com/vhl_alliance/', 'Instagram', 389801255, '', '')}
+            onPress = { () => this.openAppOrURL('https://www.instagram.com/vhl_alliance/', 'Instagram', 389801252, '', '')}
           />
         </View>
 

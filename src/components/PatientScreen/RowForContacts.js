@@ -39,10 +39,10 @@ const RowForContacts = (props) => (
       onPress={function(){
           console.log(props)
           //console.log('TouchableOpacity was pressed with id: ', props.dataFromCalendar.id)
-          navigate('DoctorContactsAdd', {
-                          currentContact: props.dataFromContacts.recordID,
-
-                        })
+          // navigate('DoctorContactsAdd', {
+          //                 currentContact: props.dataFromContacts.recordID,
+          //
+          //               })
           // props.navigation('PlayRecording', {
           //
           //           })

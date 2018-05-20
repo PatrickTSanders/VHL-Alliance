@@ -49,6 +49,8 @@
 		70A0D5C73FB84083BF999773 /* libRNSound.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 62B5EC247AE0435A8C53775A /* libRNSound.a */; };
 		800E55AC201D796100D39596 /* libRCTContactsWrapper.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 800E55A5201D77F700D39596 /* libRCTContactsWrapper.a */; };
 		8023E35C1FEAEF7300326B01 /* VHLHandbook.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 8023E35B1FEAEF7300326B01 /* VHLHandbook.pdf */; };
+		8082BCE42026D5510088A53A /* Contacts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 800E55A8201D794E00D39596 /* Contacts.framework */; };
+		8082BD132026D55E0088A53A /* ContactsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 800E55AA201D795800D39596 /* ContactsUI.framework */; };
 		80ACB4BC2011318100917604 /* libRCTOneSignal.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 80ACB4BB2011315B00917604 /* libRCTOneSignal.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		8E9B47B5A0D4433D8D0CE186 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C29DFE38C07549D19355D63E /* Foundation.ttf */; };
@@ -488,6 +490,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8082BD132026D55E0088A53A /* ContactsUI.framework in Frameworks */,
+				8082BCE42026D5510088A53A /* Contacts.framework in Frameworks */,
 				CD3866191FE7630500C75D76 /* libRCTPushNotification.a in Frameworks */,
 				ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */,
 				5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */,

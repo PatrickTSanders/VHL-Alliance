@@ -23,7 +23,9 @@ import {
 import PushNotification from 'react-native-push-notification';
 import NotificationPreference from './NotificationPreference.js'
 
-const reasonToToggle = 'Please toggle if you have already scheduled an appointment. You will receive notifications based on if you have toggled the entry; we will notify you based on the recommendation of the surveillance guidelines. For more information, check out the Surveillance tab on the VHL side';
+//const reasonToToggle = 'Please toggle if you have already scheduled an appointment. You will receive notifications based on if you have toggled the entry; we will notify you based on the recommendation of the surveillance guidelines. For more information, check out the Surveillance tab on the VHL side';
+const reasonToToggle = 'Please toggle if you have already scheduled an appointment. For more information, check out the Surveillance tab on the VHL side';
+
 
 const eyeRetinalString = 'Eye/retinal examination with indirect ophthalmoscope by an ophthalmologist skilled in diagnosis and management of retinal disease, especially for children known to carry the VHL mutation.';
 const pediatrician = 'Pediatrician to look for signs of neurological disturbance, nystagmus, strabismus, white pupil, and abnormalities in blood pressure, vision, or hearing.';
@@ -266,7 +268,7 @@ export default class PushNotificationsController extends Component {
 
      return (
        <View>
-         <Text>Please select your age range. Switching ages will reset your notification preferences</Text>
+         <Text>Please select your age range.</Text>
 
 
           <View style={{flexDirection:'row', justifyContent: 'space-between'}}>
@@ -375,7 +377,7 @@ export default class PushNotificationsController extends Component {
    else if(this.state.isBetween5And15){
      return(
        <View>
-         <Text>Please select your age range. Switching ages will reset your notification preferences</Text>
+         <Text>Please select your age range.</Text>
 
 
           <View style={{flexDirection:'row', justifyContent: 'space-between'}}>
@@ -496,7 +498,7 @@ else if(this.state.isOver16){
   return(
 
     <View>
-      <Text>Please select your age range. Switching ages will reset your notification preferences</Text>
+      <Text>Please select your age range.</Text>
 
 
        <View style={{flexDirection:'row', justifyContent: 'space-between'}}>
@@ -628,7 +630,7 @@ else if(this.state.isOver16){
      else{
        return(
          <View>
-           <Text>Please select your age range. Switching ages will reset your notification preferences</Text>
+           <Text>Please select your age range. </Text>
 
 
             <View style={{flexDirection:'row', justifyContent: 'space-between'}}>

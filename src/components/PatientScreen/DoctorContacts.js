@@ -131,11 +131,11 @@ async gettingContact(contactInfo){
 }
 
 
-getEventById(contactRecordID){
+async getEventById(contactRecordID){
   // let updatedContact ='test'
       var Contacts = require('react-native-contacts')
       //let fetchContact = this.props.contactRecordID['recordID']
-      let currentContact
+
       let err
       let test = '410FE041-5C4E-48DA-B4DE-04C15EA3DBAC'
 
@@ -146,20 +146,70 @@ getEventById(contactRecordID){
 
 
       //NEED TO SOMEHOW GET THIS TO RETURN THE newContact SO THAT IT CAN BE USED IN THE await Promise.all FUNCTION
-      let updatedContact = this.gettingContact(contactRecordID)
-      Contacts.getContact(contactRecordID, (newContact) => {
-        console.log('In DoctorContacts.js Contacts.getContact, promise from react-native-contacts: ', newContact);
-        console.log(newContact)
-        //gettingContact = newContact['recordID']
-        //console.log('gettingContact value: ', gettingContact)
 
-          //   this.setState({currentContact: newContact}, function() {
-          //   console.log('Current state of currentContact: ', this.state.currentContact);
-          // });
 
-          console.log('Current newContact[recordID]: ', newContact['recordID'])
-          currentContact = newContact['recordID']
-    })
+
+
+      //let updatedContact = this.gettingContact(contactRecordID)
+
+
+      //let updatedContact
+    //   await Contacts.getContact(contactRecordID, (newContact) => {
+    //     console.log('In DoctorContacts.js Contacts.getContact, promise from react-native-contacts: ', newContact);
+    //     console.log(newContact);
+    //     //gettingContact = newContact['recordID']
+    //     //console.log('gettingContact value: ', gettingContact)
+    //
+    //       //   this.setState({currentContact: newContact}, function() {
+    //       //   console.log('Current state of currentContact: ', this.state.currentContact);
+    //       // });
+    //
+    //       console.log('Current newContact[recordID]: ', newContact['recordID']);
+    //       currentContact = newContact['recordID'];
+    //
+    //       //return currentContact;
+    //       var promise = new Promise( function( resolve, reject) {
+    //
+    //       });
+    //
+    //       return promise;
+    //
+    // })
+
+
+      const update = await Contacts.getContact2(contactRecordID)
+      .then(returnedContact => {
+        console.log('**** returnedConact ****', returnedContact)
+        return returnedContact
+        // console.log('**** returnedConact ****', returnedContact)
+      }
+
+      )
+
+
+
+        //this.setState({events});
+      // } catch (e) {
+      //   console.error('**** getContact2 error****', e);
+      // }
+
+      // .then(returnedContact => {
+      //   console.log('**** returnedContact ****', returnedContact);
+      //   updatedContact = returnedContact;
+      //   console.log('**** updatedContact ****', updatedContact);
+      // })
+    // .then((returnedConact) =>{
+    //   return returnedConact
+    // })
+    // .then( (result) => {
+    //     console.log(' **** THEN ****');
+    //     console.log( JSON.stringify( result ));
+    //     const updatedContact = result;
+    // }
+    // )
+
+
+
 
 
 
@@ -177,7 +227,7 @@ getEventById(contactRecordID){
 
 
 
-    return currentContact
+    return update
 
 
 }

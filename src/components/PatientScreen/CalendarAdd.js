@@ -107,7 +107,7 @@ goSomewhere(screen){
    };
         //Use this to set update for event already created
         const eventConfig = {
-          title: 'Lunch',
+          //title: 'Lunch',
           startDate: utcDateToString(this.state.momentInUTC),
           endDate: utcDateToString(moment.utc(this.state.momentInUTC).add(1, 'hours')),
         };

@@ -152,7 +152,7 @@ async componentWillReceiveProps() {
         console.log('this.props.contactRecordID[recordID]: ',  this.props.contactRecordID['recordID'] )
         console.log('type of this.props.contactRecordID[recordID]: ', typeof this.props.contactRecordID['recordID'])
 
-        Contacts.getContact('410FE041-5C4E-48DA-B4DE-04C15EA3DBAC', (newContact) => {
+        Contacts.getContact(this.props.contactRecordID['recordID'], (newContact) => {
           let someRecord = err
           this.setState({currentEventPromise: newContact})
           if(err){
@@ -162,7 +162,8 @@ async componentWillReceiveProps() {
             console.log('Made it through without error')
           }
           return err
-      })
+      }
+    )
 
 
 

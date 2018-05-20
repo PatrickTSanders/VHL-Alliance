@@ -170,7 +170,7 @@ const PatientHome = ( {navigation} ) => (
 
           />
           <Button
-            title='Notification Hub' containerViewStyle={styles.button}
+            title='Guidelines' containerViewStyle={styles.button}
             onPress={() => navigation.navigate('PushNotifications')}
 
           />
@@ -481,9 +481,9 @@ DoctorInfo: {
   PushNotifications: {
     screen: PushNotifications,
     path: '/',
-    headerTitle: 'Medication List',
+    headerTitle: 'Guidelines',
     navigationOptions: ({ navigation }) => ({
-      title: 'Notification Hub',
+      title: 'Guidelines',
     }),
   },
 
